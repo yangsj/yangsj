@@ -1,0 +1,1 @@
+adt -package -target ipa-test-interpreter -provisioning-profile Wukong_IPAD.mobileprovision -storetype pkcs12 -keystore wukongIpad_dev.p12 -storepass wukong178 MobileXiYou.ipa MobileXiYou-app.xml MobileXiYou.swf Default-LandscapeRight.png icons/image36x36.png icons/image48x48.png icons/image72x72.png

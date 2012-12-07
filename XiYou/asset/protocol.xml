@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data version="1.0">
+	
+	<gateway><![CDATA[http://192.168.0.242:80/el_game/ep_server.php?jt_uid=]]></gateway>
+	
+	<protocols>
+				<!--  key   : 一个md5字符串 -->
+				<!--   id   : 用于区别或获取该节点 -->
+				<!-- remote : 调用远程服务器上的一个方法名 -->
+				
+				<protocol key="5825e61b77a9b7b964b03a4ceb188660" id="login" remote="EPGame.go" />
+				
+	</protocols>
+	
+
+</data>
