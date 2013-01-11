@@ -1,3 +1,4 @@
 
 *.actionScriptProperties
 *.project
+.settings
