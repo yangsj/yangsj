@@ -1,0 +1,101 @@
+1、http://download.sybase.com/eval/pb-12.5-eval/DV68538-65-1250-01.zip(PowerBuilder Evaluation Download Page)
+
+2、http://www.offlohi.com/main.html#Recent/Tencent
+
+3、http://www.w3school.com.cn/js/pro_js_implement.asp（ECMAScript学习）
+
+4、http://ty-icetea.pectea.com.cn/event/city.aspx?cityid=2（flash navi city）
+
+5、http://blog.csdn.net/zlxluofeng/article/category/678673
+
+6、http://jamesli.cn/blog/?p=1445
+
+7、http://flexformatter.googlecode.com/svn/trunk/FlexFormatter/FlexPrettyPrintCommandUpdateSite（fb代码格式）
+
+8、http://gamerboom.com/archives/42974
+   http://gamerboom.com/archives/43105
+   http://gamerboom.com/archives/43481
+   http://gamerboom.com/archives/49915
+   http://gamerboom.com/archives/50083（如何用flash制作iOS应用）
+
+9、http://blog.csdn.net/liminxin272/article/details/7021127（黎岷鑫blog）
+
+10、http://www.adobe.com/cn/devnet/author_bios/flashyiyi.html
+
+11、http://help.adobe.com/zh_CN/FlashPlatform/reference/actionscript/3/（as3在线API）
+
+12、http://bbs.wefdc.com/thread-1445-1-1.html
+
+13、http://www.riawind.com/tools.html（开发工具下载）
+
+14、attrib +s +a +h +r e:\bak\tools(需要隐藏的文件夹或文件目录地址) [取消] attrib -s -a -h -r e:\bak\tools
+
+15、http://pixas.googlecode.com/svn/trunk（代码库pixas）
+
+16、http://bbs.9ria.com/thread-135763-1-1.html（away3D帖子）
+
+17、http://bbs.9ria.com/thread-132410-1-1.html（away3D帖子）
+
+18、http://mail.qq.com/cgi-bin/ftnExs_download?k=273239665039ceca494f5d6c1164061850510903550207564e0a5a5e5149000f550114040553061a53050a575506510150000950376b345e0e5b550d68025856105a17145616340a&t=exs_ftn_download&code=c29f7d47
+
+19、http://as3corelib.googlecode.com/svn/trunk（as3corelib：Adobe官方出品的ActionScript 3 函数库）
+
+20、API CHM：as3corelib.CHM(http://dmh2002.com/upload/as3corelib.CHM)
+
+http://wenku.baidu.com/view/960f3d1bc281e53a5802ff60.html
+
+http://gskinner.com/blog
+
+http://ghostcat.googlecode.com/svn/trunk
+
+http://www.adobe.com/cn/devnet/flashplayer/articles/alternativa3d-getting-started.html
+
+http://help.adobe.com/zh_CN/as3/mobile/index.html
+
+http://wenku.baidu.com/view/20027d07de80d4d8d15a4f5d.html
+
+http://bbs.9ria.com/thread-127183-1-1.html(starling
+
+http://www.adobe.com/cn/devnet/flashplayer/articles/creating-whack-with-starling.html
+
+http://www.whacksite.com/srcview/index.html(starling实例
+
+http://fdt.powerflasher.com/buy-download/(FDT开发工具
+
+https://github.com/PrimaryFeather/Starling-Framework(svn address 
+
+http://www.starlinglib.com/wiki/Tutorials(starling 教程
+
+http://www.gamelook.com.cn/category/%E2%98%85%E6%89%8B%E6%9C%BA%E6%B8%B8%E6%88%8F/%E6%89%8B%E6%9C%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91
+
+http://wenku.baidu.com/view/244af327bcd126fff7050bcf.html(air 应用开发
+
+http://wenku.baidu.com/view/ef508b3331126edb6f1a105f.html(pureMVC最佳实践
+
+http://help.adobe.com/zh_CN/air/build/WSfffb011ac560372f2fea1812938a6e463-8000.html(AIR 应用程序描述符元素
+
+http://help.adobe.com/en_US/as3/mobile/flashplatform_optimizing_content.pdf(移动平台性能优化
+
+http://www.starlinglib.com/wiki/News:Starling_100Questions(starling 新手100问
+
+
+http://help.adobe.com/zh_CN/AIR/1.1/devappsflex/WS5b3ccc516d4fbf351e63e3d118676a5d46-8000.html(使用 Flex 开发 Adobe AIR 应用程序
+
+http://www.cnblogs.com/csharponworking/archive/2011/11/29/2267480.html(移动设备开发
+
+http://mobile.51cto.com/others-302486.htm(构建更加完善的Adobe AIR应用程序之十大秘诀
+
+http://www.unitedmindset.com/jonbcampos/2010/09/08/optimization-techniques-for-air-for-android-apps/(Optimization Techniques for Air for Android apps
+
+http://www.swfwire.com/inspector(开源swf文件反编译abc码
+
+http://www.adobe.com/cn/devnet/swf.html(swf文件格式规范
+
+https://prerelease.adobe.com/callout/?callid=59A4F95D908A4D2FB9F302729FD0D87F(ActionScript开发调试工具下载安装地址
+
+http://code.google.com/p/tortoisegit/downloads/list(tortoiseGit工具下载安装地址
+
+*****************************************(第三方手势事件库)
+https://github.com/fljot/Gestouch
+https://github.com/fljot/GestouchExamples
+*****************************************
