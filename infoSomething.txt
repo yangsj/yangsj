@@ -99,3 +99,4 @@ http://code.google.com/p/tortoisegit/downloads/list(tortoiseGit工具下载安装地址
 https://github.com/fljot/Gestouch
 https://github.com/fljot/GestouchExamples
 *****************************************
+http://www.minimalcomps.com/oldsite/(组件案例）
