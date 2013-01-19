@@ -100,3 +100,7 @@ https://github.com/fljot/Gestouch
 https://github.com/fljot/GestouchExamples
 *****************************************
 http://www.minimalcomps.com/oldsite/(组件案例）
+
+// 外网工作svn地址*********************
+http://219.232.252.199:8089/svn/
+***********************************************************
