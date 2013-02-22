@@ -78,7 +78,6 @@ http://help.adobe.com/en_US/as3/mobile/flashplatform_optimizing_content.pdf(移动
 
 http://www.starlinglib.com/wiki/News:Starling_100Questions(starling 新手100问
 
-
 http://help.adobe.com/zh_CN/AIR/1.1/devappsflex/WS5b3ccc516d4fbf351e63e3d118676a5d46-8000.html(使用 Flex 开发 Adobe AIR 应用程序
 
 http://www.cnblogs.com/csharponworking/archive/2011/11/29/2267480.html(移动设备开发
