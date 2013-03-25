@@ -78,7 +78,6 @@ http://help.adobe.com/en_US/as3/mobile/flashplatform_optimizing_content.pdf(移动
 
 http://www.starlinglib.com/wiki/News:Starling_100Questions(starling 新手100问
 
-
 http://help.adobe.com/zh_CN/AIR/1.1/devappsflex/WS5b3ccc516d4fbf351e63e3d118676a5d46-8000.html(使用 Flex 开发 Adobe AIR 应用程序
 
 http://www.cnblogs.com/csharponworking/archive/2011/11/29/2267480.html(移动设备开发
@@ -99,3 +98,12 @@ http://code.google.com/p/tortoisegit/downloads/list(tortoiseGit工具下载安装地址
 https://github.com/fljot/Gestouch
 https://github.com/fljot/GestouchExamples
 *****************************************
+http://www.minimalcomps.com/oldsite/(组件案例）
+
+// 外网工作svn地址*********************
+http://219.232.252.199:8089/svn/
+***********************************************************
+https://github.com/DragonBones/ (动画编辑工具);
+***********************************************************
+http://www.libspark.org/browser?rev=4338（as3资源，库等）
+***********************************************************
