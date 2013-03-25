@@ -1,1 +1,0 @@
-adt -package -target apk-captive-runtime -storetype pkcs12 -keystore jiantang.p12 -storepass jiantang MobileXiYou.apk MobileXiYou-app.xml MobileXiYou.swf Default-LandscapeRight.png icons/image36x36.png icons/image48x48.png icons/image72x72.png
