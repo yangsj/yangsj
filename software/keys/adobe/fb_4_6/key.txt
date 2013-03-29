@@ -1,0 +1,24 @@
+Flash builder 4.6 序列号：
+
+
+1424-4938-3077-5736-3940-5640
+1424-4827-8874-7387-0243-7331
+
+
+测试可用，记得修改host文件
+
+
+127.0.0.1 activate.adobe.com 
+127.0.0.1 practivate.adobe.com 
+127.0.0.1 ereg.adobe.com 
+127.0.0.1 activate.wip3.adobe.com 
+127.0.0.1 wip3.adobe.com 
+127.0.0.1 3dns-3.adobe.com 
+127.0.0.1 3dns-2.adobe.com 
+127.0.0.1 adobe-dns.adobe.com 
+127.0.0.1 adobe-dns-2.adobe.com 
+127.0.0.1 adobe-dns-3.adobe.com 
+127.0.0.1 ereg.wip3.adobe.com 
+127.0.0.1 activate-sea.adobe.com 
+127.0.0.1 wwis-dubc1-vip60.adobe.com 
+127.0.0.1 activate-sjc0.adobe.com
