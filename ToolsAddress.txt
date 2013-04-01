@@ -1,9 +1,9 @@
 
-1、http://markdownpad.com/ （文档编辑工具）
+1、http://help.adobe.com/zh_CN/FlashPlatform/reference/actionscript/3/（as3在线API）
 
-2、http://flexformatter.googlecode.com/svn/trunk/FlexFormatter/FlexPrettyPrintCommandUpdateSite（fb代码格式整理工具）
+2、http://help.adobe.com/zh_CN/flash/cs/extend/index.html(Flash CS 拓展Jsfl在线)
 
-3、http://help.adobe.com/zh_CN/FlashPlatform/reference/actionscript/3/（as3在线API）
+3、http://markdownpad.com/ （文档编辑工具）
 
 4、http://www.riawind.com/tools.html（开发工具下载）
 
@@ -14,3 +14,9 @@
 7、http://code.google.com/p/tortoisegit/downloads/list(tortoiseGit工具下载安装地址）
 
 8、https://github.com/DragonBones/ (动画编辑工具)
+
+9、http://flexformatter.googlecode.com/svn/trunk/FlexFormatter/FlexPrettyPrintCommandUpdateSite（fb代码格式整理工具）
+
+10、http://www.adobe.com/support/flashplayer/downloads.html (player 调试开发包下载)
+
+11、http://www.adobe.com/devnet/air/air-sdk-download.html(air 调试开发包下载)
