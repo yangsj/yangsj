@@ -16,3 +16,7 @@
 8、https://github.com/DragonBones/ (动画编辑工具)
 
 9、http://flexformatter.googlecode.com/svn/trunk/FlexFormatter/FlexPrettyPrintCommandUpdateSite（fb代码格式整理工具）
+
+10、http://www.adobe.com/support/flashplayer/downloads.html (player 调试开发包下载)
+
+11、http://www.adobe.com/devnet/air/air-sdk-download.html(air 调试开发包下载)
