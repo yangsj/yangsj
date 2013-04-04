@@ -20,3 +20,7 @@
 10、http://www.adobe.com/support/flashplayer/downloads.html (player 调试开发包下载)
 
 11、http://www.adobe.com/devnet/air/air-sdk-download.html(air 调试开发包下载)
+
+12、http://tortoisesvn.net/downloads.html（svn下载地址）
+
+13、http://code.google.com/p/tortoisegit/（git下载地址）
