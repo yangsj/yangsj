@@ -20,3 +20,5 @@
 10、http://www.adobe.com/support/flashplayer/downloads.html (player 调试开发包下载)
 
 11、http://www.adobe.com/devnet/air/air-sdk-download.html(air 调试开发包下载)
+
+12、http://helpx.adobe.com/air/kb/archived-air-sdk-version.html（AIR 下载）
