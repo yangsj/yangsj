@@ -24,3 +24,11 @@
 12、http://tortoisesvn.net/downloads.html（svn下载地址）
 
 13、http://code.google.com/p/tortoisegit/（git下载地址）
+
+14、https://github.com/fljot/Gestouch.git（Gestouch代码库）
+
+15、https://github.com/fljot/GestouchExamples.git（Gestouch代码库使用例子）
+
+16、https://github.com/fljot/Gestouch.git（Gestouch代码库Scroll）
+
+17、https://github.com/thanksmister/as3scrollinglist.git（ScrollPanel库）
