@@ -4,7 +4,8 @@
 	&#13;
 	/**&#13;
 	* ……&#13;
-	* @author yangsj&#13;
+	* @author 	yangsj &#13;
+	* 			${date}&#13;
 	*/&#13;
 	${class_declaration}&#13;
 	{&#13;
