@@ -22,6 +22,8 @@ package test.scroll
 		{
 			var con:Sprite = new Sprite();
 			addChild( con );
+			con.x = 50;
+			con.y = 50;
 			for ( var i:int = 0; i < 100; i++ )
 			{
 				var sprite:Sprite = createItemTest( "NO." + i );
@@ -29,7 +31,7 @@ package test.scroll
 				sprite.y = 105 * int( i / 4 );
 				con.addChild( sprite );
 			}
-			var scrollPanel:TouchScrollPanel = new TouchScrollPanel( con, new Rectangle( 0, 0, 105 * 4, 105 * 4 ), null, true, true );
+			var scrollPanel:TouchScrollPanel = new TouchScrollPanel( con, new Rectangle( 0, 0, 105 * 4, 105 * 4 ));
 			scrollPanel.refresh();
 		}
 

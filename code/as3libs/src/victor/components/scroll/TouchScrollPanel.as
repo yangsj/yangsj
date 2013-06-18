@@ -38,16 +38,18 @@ package victor.components.scroll
 		private var _scrollRatio:Number = 30; // how many pixels constitutes a touch
 
 		//------- local vars --------
-		
+
 		private var _isTouching:Boolean = false;
 		private var _parent:DisplayObjectContainer; // scrollList父容器
-		private var _stage:Stage;//引用舞台对象
+		private var _stage:Stage; //引用舞台对象
 		private var _isVertical:Boolean = true; //是否是垂直方向
 		private var _barSkin:DisplayObject; // 指定scrollBar资源皮肤，若是使用默认的则可以不指定该值，将isBarSkin指定为true
 		private var _isBarSkin:Boolean = false; // 若是barSkin不指定时，是否用默认scrollBar皮肤
 		private var _shape:Shape; //使对象没有间隙
-		private var _parentOriginalScrollRect:Rectangle; //指定对象的父容器原来的可视区域
 		private var _isDispose:Boolean = false;
+		private var _tempContainer:Sprite;
+		private var _startPosx:Number = 0; //起始位置x
+		private var _startPosy:Number = 0; //起始位置y
 
 		private const DISPOSE_ERROR:String = "已经调用了dispose不能再使用，若要重新使用需要重新创建！";
 
@@ -61,15 +63,15 @@ package victor.components.scroll
 		 * @param isVertical 是否垂直滚动，否则为水平滚动
 		 * @param isBarSkin 若是barSkin不指定时，是否用默认scrollBar皮肤
 		 */
-		public function TouchScrollPanel( scrollList:Sprite, showRect:Rectangle = null, barSkin:DisplayObject = null, isVertical:Boolean = true, isBarSkin:Boolean = false )
+		public function TouchScrollPanel( scrollList:Sprite, showRect:Rectangle = null, barSkin:DisplayObject = null, isVertical:Boolean = true, isBarSkin:Boolean = true )
 		{
-			this.scrollList = scrollList;
-
 			_listWidth = showRect.width;
 			_listHeight = showRect.height;
 			_isVertical = isVertical;
 			_barSkin = barSkin;
 			_isBarSkin = barSkin ? true : isBarSkin;
+
+			this.scrollList = scrollList;
 		}
 
 //*************** public functions ***********************
@@ -83,22 +85,28 @@ package victor.components.scroll
 			removeEvent();
 			stopTimer();
 
-			_isDispose = true;
 
 			// 移除
 			removeSafeFromParent( _shape );
 
+			// 移除临时容器
+			removeSafeFromParent( _tempContainer );
+
 			// 当创建默认滚动条时移除显示列表
 			if ( _barSkin == null )
 				removeSafeFromParent( _scrollBar );
+			// 还原容器原来的位置
+			if ( _parent && _scrollList && _tempContainer )
+			{
+				_scrollList.x = _startPosx;
+				_scrollList.y = _startPosy;
+				_parent.addChild( _scrollList );
+			}
 
-			// 还原对象的父容器原来的可视区域
-			if ( _parent )
-				_parent.scrollRect = _parentOriginalScrollRect;
-
-			_parentOriginalScrollRect = null;
 			_listRefreshTimer = null;
+			_tempContainer = null;
 			_scrollList = null;
+			_isDispose = true;
 			_barSkin = null;
 			_parent = null;
 			_stage = null;
@@ -122,6 +130,12 @@ package victor.components.scroll
 					removeEvent();
 					startTimer();
 					addEvent();
+					if ( _tempContainer )
+					{
+						if ( _tempContainer.parent == null )
+							_parent.addChild( _tempContainer );
+						_tempContainer.addChild( _scrollList );
+					}
 				}
 			}
 		}
@@ -267,14 +281,17 @@ package victor.components.scroll
 		}
 
 //******************* private functions ***********************
-		
+
 		private function initLocalVars():void
 		{
 			_stage = _scrollList.stage ? _scrollList.stage : _stage;
 			_parent = _scrollList.parent;
-			_parent.scrollRect = new Rectangle( 0, 0, _listWidth, _listHeight );
 			_scrollAreaLength = _isVertical ? _listHeight : _listWidth;
 			_scrollListLength = _isVertical ? _scrollList.height + 10 : _scrollList.width + 10; // - listHeight;
+			if ( _tempContainer )
+				_tempContainer.scrollRect = new Rectangle( 0, 0, _listWidth, _listHeight );
+			else
+				_parent.scrollRect = new Rectangle( 0, 0, _listWidth, _listHeight );
 		}
 
 		/**
@@ -365,17 +382,19 @@ package victor.components.scroll
 						graphics.endFill();
 					}
 					_scrollBar[ _isVertical ? "x" : "y" ] = ( _scrollAreaLength - _scrollBar[ _isVertical ? "width" : "height" ]);
-					_scrollBar.alpha = 0;
-					_parent.addChild( _scrollBar );
 				}
 			}
 			else
 			{
 				_scrollBar = _barSkin;
-				_scrollBar.alpha = 0;
 				_scrollBar[ _isVertical ? "height" : "width" ] = areaWH;
-
-				if ( _scrollBar.parent == null )
+			}
+			_scrollBar.alpha = 0;
+			if ( _scrollBar.parent == null )
+			{
+				if ( _tempContainer )
+					_tempContainer.addChild( _scrollBar );
+				else
 					_parent.addChild( _scrollBar );
 			}
 		}
@@ -418,14 +437,21 @@ package victor.components.scroll
 			}
 			else
 			{
-				if ( _scrollList != value )
-					removeInitEvent();
-
-				if ( value )
+				if ( value && _scrollList != value )
 				{
+					removeInitEvent();
+					_startPosx = value.x;
+					_startPosy = value.y;
 					_scrollList = value;
-					_parentOriginalScrollRect = value.scrollRect;
-
+					if ( _startPosx != 0 && _startPosy != 0 )
+					{
+						_tempContainer ||= new Sprite();
+						_tempContainer.x = _startPosx;
+						_tempContainer.y = _startPosy;
+						_scrollList.x = 0;
+						_scrollList.y = 0;
+						removeSafeFromParent( _tempContainer );
+					}
 					addInitEvent();
 				}
 			}

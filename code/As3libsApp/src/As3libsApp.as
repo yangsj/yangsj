@@ -28,10 +28,10 @@ package
 //			addChild(new TestDragView());
 			
 			// scroll
-//			addChild(new TestScrollPanel());
+			addChild(new TestScrollPanel());
 			
 			// page
-			addChild(new TestPageView());
+//			addChild(new TestPageView());
 			
 		}
 	}
