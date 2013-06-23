@@ -39,6 +39,12 @@ package victor.core
 		function set mark(value:int):void;
 		
 		/**
+		 * 上一个节点（用于查询）
+		 */
+		function get parentNode():IItem;
+		function set parentNode(value:IItem):void;
+		
+		/**
 		 * 宽度
 		 */
 		function get itemWidth():Number;

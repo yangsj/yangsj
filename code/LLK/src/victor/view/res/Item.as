@@ -1,7 +1,7 @@
 package victor.view.res
 {
 	import com.greensock.TweenMax;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -10,7 +10,7 @@ package victor.view.res
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-
+	
 	import victor.core.IItem;
 
 
@@ -29,6 +29,7 @@ package victor.view.res
 		private var _mark:int;
 		private var _isReal:Boolean;
 		private var _selected:Boolean;
+		private var _parentNode:IItem;
 
 		private static var COLORS:Vector.<uint>;
 
@@ -45,6 +46,7 @@ package victor.view.res
 				}
 			}
 			mouseChildren = false;
+			buttonMode = true;
 		}
 
 		public function dispose():void
@@ -54,6 +56,7 @@ package victor.view.res
 		public function initialize():void
 		{
 			_isReal = true;
+			_parentNode = null;
 
 			this.removeChildren();
 			this.graphics.clear();
@@ -89,6 +92,7 @@ package victor.view.res
 					target.parent.removeChild( target );
 				}
 			}, [ this ]);
+			_parentNode = null;
 			_selected = false;
 			_isReal = false;
 			_cols = 0;
@@ -159,6 +163,16 @@ package victor.view.res
 		public function set mark( value:int ):void
 		{
 			_mark = value;
+		}
+
+		public function get parentNode():IItem
+		{
+			return _parentNode;
+		}
+
+		public function set parentNode(value:IItem):void
+		{
+			_parentNode = value;
 		}
 
 

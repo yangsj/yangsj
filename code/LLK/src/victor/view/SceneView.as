@@ -1,12 +1,12 @@
 package victor.view
 {
 	import com.greensock.TweenMax;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-
+	
 	import victor.core.IItem;
 	import victor.view.res.Item;
 
@@ -174,6 +174,18 @@ package victor.view
 						
 					}
 				}
+				
+				var isLeft:Boolean = s_rows - e_rows >= 0;
+				var isRight:Boolean = !isLeft;
+				var isUP:Boolean = s_cols - e_cols >= 0;
+				var isDown:Boolean = !isUP;
+				var isCols:Boolean = s_cols - e_cols == 0;// 同列
+				var isRows:Boolean = s_rows - e_rows == 0;// 同行
+				
+				//向上
+//				if 
+				
+				
 			}
 		}
 
