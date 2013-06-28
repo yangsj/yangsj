@@ -1,17 +1,17 @@
 package victor.view.res
 {
 	import com.greensock.TweenMax;
-	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
+
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.filters.GlowFilter;
 	import flash.geom.Point;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	
+
+	import victor.GameStage;
 	import victor.core.IItem;
+	import victor.core.Image;
+	import victor.view.URL;
 
 
 	/**
@@ -21,30 +21,32 @@ package victor.view.res
 	 */
 	public class Item extends Sprite implements IItem
 	{
-		private const _itemWidth:Number = 50;
-		private const _itemHeight:Number = 50;
+		private const _itemWidth:Number = 50 * GameStage.minScale;
+		private const _itemHeight:Number = 50 * GameStage.minScale;
 
 		private var _cols:int;
 		private var _rows:int;
 		private var _mark:int;
 		private var _isReal:Boolean;
 		private var _selected:Boolean;
-		private var _parentNode:IItem;
+		private var _globalPoint:Point;
 
-		private static var COLORS:Vector.<uint>;
+		private var _image:Image;
+
+//		private static var COLORS:Vector.<uint>;
 
 		public function Item()
 		{
-			if ( COLORS == null )
-			{
-				var length:int = 20;
-				var single:uint = uint( 255 * 255 * 255 / 21 );
-				COLORS = new Vector.<uint>( length );
-				for ( var i:int = 1; i <= length; i++ )
-				{
-					COLORS[ i - 1 ] = single * i;
-				}
-			}
+//			if ( COLORS == null )
+//			{
+//				var length:int = 20;
+//				var single:uint = uint( 255 * 255 * 255 / 21 );
+//				COLORS = new Vector.<uint>( length );
+//				for ( var i:int = 1; i <= length; i++ )
+//				{
+//					COLORS[ i - 1 ] = single * i;
+//				}
+//			}
 			mouseChildren = false;
 			buttonMode = true;
 		}
@@ -56,31 +58,42 @@ package victor.view.res
 		public function initialize():void
 		{
 			_isReal = true;
-			_parentNode = null;
 
 			this.removeChildren();
-			this.graphics.clear();
-			this.graphics.lineStyle( 1 );
-			this.graphics.beginFill( COLORS[ mark ]);
-			this.graphics.drawRect( 0, 0, itemWidth, itemHeight );
-			this.graphics.endFill();
-
-			var txt:TextField = new TextField();
-			txt.defaultTextFormat = new TextFormat( null, 25 );
-			txt.text = mark + "";
-			var bitdata:BitmapData = new BitmapData( txt.textWidth + 5, txt.textHeight + 2, true, 0 );
-			bitdata.draw( txt );
-			var bitmap:Bitmap = new Bitmap( bitdata, "auto", true );
-			bitmap.x = ( width - bitmap.width ) >> 1;
-			bitmap.y = ( height - bitmap.height ) >> 1;
-			addChild( bitmap );
+//			this.graphics.clear();
+//			this.graphics.lineStyle( 1 );
+//			this.graphics.beginFill( COLORS[ mark ]);
+//			this.graphics.drawRect( 0, 0, itemWidth, itemHeight );
+//			this.graphics.endFill();
+//
+//			var txt:TextField = new TextField();
+//			txt.defaultTextFormat = new TextFormat( null, 25 );
+//			txt.text = mark + "";
+//			var bitdata:BitmapData = new BitmapData( txt.textWidth + 5, txt.textHeight + 2, true, 0 );
+//			bitdata.draw( txt );
+//			var bitmap:Bitmap = new Bitmap( bitdata, "auto", true );
+//			bitmap.x = ( width - bitmap.width ) >> 1;
+//			bitmap.y = ( height - bitmap.height ) >> 1;
+//			addChild( bitmap );
 
 			this.x = cols * ( itemWidth + 5 );
 			this.y = rows * ( itemHeight + 5 );
+
+			if ( stage )
+				addedToStageHandler( null );
+			else
+				addEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
+
+			// 设置资源
+			_image = new Image( URL.getHeadUrl( mark ));
+			_image.setSize( itemWidth, itemHeight );
+			addChild( _image );
 		}
 
-		public function image( img:String ):void
+		protected function addedToStageHandler( event:Event ):void
 		{
+			removeEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
+			_globalPoint = this.localToGlobal( new Point(( itemWidth >> 1 ), ( itemHeight >> 1 )));
 		}
 
 		public function removeFromParent():void
@@ -92,15 +105,15 @@ package victor.view.res
 					target.parent.removeChild( target );
 				}
 			}, [ this ]);
-			_parentNode = null;
-			_selected = false;
-			_isReal = false;
-			_cols = 0;
-			_rows = 0;
+			selected = false;
+			isReal = false;
+			cols = 0;
+			rows = 0;
 		}
 
 		public function get globalPoint():Point
 		{
+			return _globalPoint;
 			return localToGlobal( new Point( width >> 1, height >> 1 ));
 		}
 
@@ -163,16 +176,6 @@ package victor.view.res
 		public function set mark( value:int ):void
 		{
 			_mark = value;
-		}
-
-		public function get parentNode():IItem
-		{
-			return _parentNode;
-		}
-
-		public function set parentNode(value:IItem):void
-		{
-			_parentNode = value;
 		}
 
 

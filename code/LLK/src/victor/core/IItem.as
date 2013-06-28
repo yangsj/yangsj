@@ -10,11 +10,6 @@ package victor.core
 	 */
 	public interface IItem extends IElement
 	{
-		/**
-		 * 设置图片
-		 * @param img 指定的图片
-		 */
-		function image(img:String):void;
 		
 		/**
 		 * 初始化
@@ -39,10 +34,10 @@ package victor.core
 		function set mark(value:int):void;
 		
 		/**
-		 * 上一个节点（用于查询）
+		 * 可见性
 		 */
-		function get parentNode():IItem;
-		function set parentNode(value:IItem):void;
+		function get visible():Boolean;
+		function set visible(value:Boolean):void;
 		
 		/**
 		 * 宽度

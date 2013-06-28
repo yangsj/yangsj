@@ -34,3 +34,6 @@
 17°¢https://github.com/thanksmister/as3scrollinglist.git£®ScrollPanelø‚£©
 
 18°¢http://wiki.9ria.com/
+
+19°¢http://www.microsoft.com/downloads/info.aspx?na=41&SrcFamilyId=83C3A1EC-ED72-4A79-8961-25635DB0192B&SrcDisplayLang=zh-cn&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fe%2f7%2f7%2fe777851c-c1a4-4979-86b3-6886953b32e9%2fVS2008ProEdition90DayTrialCHSX1435983.iso£®VS2008 œ¬‘ÿµÿ÷∑£©
+

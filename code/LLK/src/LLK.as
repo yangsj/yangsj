@@ -5,7 +5,8 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	
-	import victor.view.SceneView;
+	import victor.GameStage;
+	import victor.view.FirstView;
 	
 	
 	/**
@@ -27,10 +28,10 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			var view:SceneView = new SceneView();
-			addChild(view);
-			view.startAndReset();
+			GameStage.initStage(stage);
 			
+			var firstView:FirstView = new FirstView();
+			addChild(firstView);
 		}
 	}
 }
