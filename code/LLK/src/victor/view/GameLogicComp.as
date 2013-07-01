@@ -1,12 +1,16 @@
 package victor.view
 {
+	import com.greensock.TimelineMax;
+	import com.greensock.TweenAlign;
 	import com.greensock.TweenMax;
-
+	import com.greensock.easing.Back;
+	import com.greensock.events.TweenEvent;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-
+	
 	import victor.GameStage;
 	import victor.core.IItem;
 	import victor.view.res.Item;
@@ -97,6 +101,10 @@ package victor.view
 			randomMarkList();
 			for ( var i:int = 0; i < rows; i++ )
 			{
+				var groupAry:Array = [];
+				var tweenGroup:TimelineMax = new TimelineMax();
+				tweenGroup.addEventListener(TweenEvent.COMPLETE, complete);
+				tweenGroup.stop();
 				for ( var j:int = 0; j < cols; j++ )
 				{
 					var item:IItem = listAry[ i ][ j ];
@@ -105,13 +113,25 @@ package victor.view
 					item.mark = markAry[ i * cols + j ];
 					item.initialize();
 					_listContainer.addChild( item as DisplayObject );
+					
+					var endx:Number = item.x;
+					var endy:Number = item.y;
+					groupAry.push(TweenMax.from(item, 0.5, {x:endx, y:endy - 1000, ease:Back.easeOut}));
 				}
+				tweenGroup.appendMultiple(groupAry, 1, TweenAlign.START, 0.1);
+				tweenGroup.play();
 			}
-
-//			GameStage.adjustXYForTarget( _listContainer );
-
 			_listContainer.mouseEnabled = false;
 			_listContainer.addEventListener( MouseEvent.CLICK, clickHandler );
+			
+			function complete(event:TweenEvent):void
+			{
+				var target:TimelineMax = event.target as TimelineMax;
+				if (target)
+				{
+					target.removeEventListener(TweenEvent.COMPLETE, complete);
+				}
+			}
 
 		}
 

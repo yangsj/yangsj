@@ -39,6 +39,7 @@ package victor.view
 			gameLogicComp.initialize();
 			timeClockComp.initialize();
 			readyGo();
+			gameLogicComp.startAndReset();
 		}
 
 		/**
@@ -54,7 +55,6 @@ package victor.view
 			function complete():void
 			{
 				mc.parent.removeChild( mc );
-				gameLogicComp.startAndReset();
 				timeClockComp.startTimer();
 			}
 			if ( bgImage && bgImage.parent )

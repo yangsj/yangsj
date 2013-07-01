@@ -4,9 +4,10 @@ package victor.components
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-
+	import flash.text.TextFormat;
+	
 	import ui.components.UIButtonSkin;
-
+	
 	import victor.utils.safetyCall;
 
 
@@ -23,16 +24,28 @@ package victor.components
 
 		private var _stage:Stage;
 
-		public function Button( label:String, clickHandler:Function = null )
+		public function Button( label:String, clickHandler:Function = null, fontSize:int = 50 )
 		{
 			skin = new UIButtonSkin();
 			addChild( skin );
+			
+			var tfm:TextFormat = skin.txtName.defaultTextFormat;
+			tfm.size = fontSize;
+			
+			skin.txtName.defaultTextFormat = tfm;
 
 			skin.txtName.text = label;
-			skin.stop();
+			skin.mcSkin.stop();
 
 			mouseChildren = false;
 			buttonMode = true;
+			
+			skin.txtName.width = skin.txtName.textWidth + 15;
+			skin.txtName.height = skin.txtName.textHeight + 5;
+			skin.txtName.x = -skin.txtName.width >> 1;
+			skin.txtName.y = -skin.txtName.height >> 1;
+			skin.mcSkin.width = skin.txtName.textWidth + 30;
+			skin.mcSkin.height = skin.txtName.textHeight + 30;
 
 			clickCallBack = clickHandler;
 
@@ -73,7 +86,7 @@ package victor.components
 		protected function mouseHandler( event:MouseEvent ):void
 		{
 			var isUp:Boolean = event.type == MouseEvent.MOUSE_UP;
-			skin.gotoAndStop( isUp ? 1 : 2 );
+			skin.mcSkin.gotoAndStop( isUp ? 1 : 2 );
 			if ( isUp )
 			{
 				if (event.target == this)
