@@ -11,7 +11,7 @@ package victor.view.res
 	import victor.GameStage;
 	import victor.core.IItem;
 	import victor.core.Image;
-	import victor.view.URL;
+	import victor.URL;
 
 
 	/**
@@ -55,29 +55,19 @@ package victor.view.res
 		{
 		}
 
+		public function refresh():void
+		{
+			this.x = cols * ( itemWidth + 5 );
+			this.y = rows * ( itemHeight + 5 );
+			_globalPoint = this.localToGlobal( new Point(( itemWidth >> 1 ), ( itemHeight >> 1 )));
+		}
+
 		public function initialize():void
 		{
 			_isReal = true;
+			visible = true;
 
 			this.removeChildren();
-//			this.graphics.clear();
-//			this.graphics.lineStyle( 1 );
-//			this.graphics.beginFill( COLORS[ mark ]);
-//			this.graphics.drawRect( 0, 0, itemWidth, itemHeight );
-//			this.graphics.endFill();
-//
-//			var txt:TextField = new TextField();
-//			txt.defaultTextFormat = new TextFormat( null, 25 );
-//			txt.text = mark + "";
-//			var bitdata:BitmapData = new BitmapData( txt.textWidth + 5, txt.textHeight + 2, true, 0 );
-//			bitdata.draw( txt );
-//			var bitmap:Bitmap = new Bitmap( bitdata, "auto", true );
-//			bitmap.x = ( width - bitmap.width ) >> 1;
-//			bitmap.y = ( height - bitmap.height ) >> 1;
-//			addChild( bitmap );
-
-			this.x = cols * ( itemWidth + 5 );
-			this.y = rows * ( itemHeight + 5 );
 
 			if ( stage )
 				addedToStageHandler( null );
@@ -93,17 +83,14 @@ package victor.view.res
 		protected function addedToStageHandler( event:Event ):void
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
-			_globalPoint = this.localToGlobal( new Point(( itemWidth >> 1 ), ( itemHeight >> 1 )));
+			refresh();
 		}
 
 		public function removeFromParent():void
 		{
 			TweenMax.delayedCall( 0.5, function abc( target:DisplayObject ):void
 			{
-				if ( target.parent )
-				{
-					target.parent.removeChild( target );
-				}
+				target.visible = false;
 			}, [ this ]);
 			selected = false;
 			isReal = false;

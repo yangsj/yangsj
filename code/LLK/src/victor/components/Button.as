@@ -5,9 +5,9 @@ package victor.components
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
-	
+
 	import ui.components.UIButtonSkin;
-	
+
 	import victor.utils.safetyCall;
 
 
@@ -28,10 +28,10 @@ package victor.components
 		{
 			skin = new UIButtonSkin();
 			addChild( skin );
-			
+
 			var tfm:TextFormat = skin.txtName.defaultTextFormat;
 			tfm.size = fontSize;
-			
+
 			skin.txtName.defaultTextFormat = tfm;
 
 			skin.txtName.text = label;
@@ -39,7 +39,7 @@ package victor.components
 
 			mouseChildren = false;
 			buttonMode = true;
-			
+
 			skin.txtName.width = skin.txtName.textWidth + 15;
 			skin.txtName.height = skin.txtName.textHeight + 5;
 			skin.txtName.x = -skin.txtName.width >> 1;
@@ -89,9 +89,14 @@ package victor.components
 			skin.mcSkin.gotoAndStop( isUp ? 1 : 2 );
 			if ( isUp )
 			{
-				if (event.target == this)
+				if ( event.target == this )
 					safetyCall( clickCallBack );
 			}
+		}
+
+		override public function set mouseChildren( enable:Boolean ):void
+		{
+			super.mouseChildren = false;
 		}
 
 	}

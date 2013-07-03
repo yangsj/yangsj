@@ -17,6 +17,11 @@ package victor.core
 		function initialize():void;
 		
 		/**
+		 * 刷新
+		 */
+		function refresh():void;
+		
+		/**
 		 * 移除显示列表
 		 */
 		function removeFromParent():void;

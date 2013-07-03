@@ -1,4 +1,4 @@
-package victor.view
+package victor
 {
 	
 	/**

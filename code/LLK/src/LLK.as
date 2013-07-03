@@ -6,7 +6,7 @@ package
 	import flash.events.Event;
 	
 	import victor.GameStage;
-	import victor.view.FirstView;
+	import victor.view.scenes.main.FirstView;
 	
 	
 	/**

@@ -1,18 +1,22 @@
-package victor.view
+package victor.view.scenes.game.logic
 {
 	import com.greensock.TimelineMax;
 	import com.greensock.TweenAlign;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	
+
 	import victor.GameStage;
+	import victor.components.Button;
 	import victor.core.IItem;
+	import victor.data.LevelVo;
+	import victor.utils.ArrayUtil;
+	import victor.view.events.GameEvent;
 	import victor.view.res.Item;
 
 
@@ -40,9 +44,15 @@ package victor.view
 
 		private var startItem:IItem;
 		private var endItem:IItem;
+		private var dispelNumber:int = 0;
+
+		private var isOver:Boolean = false;
+
+		public var btnRefresh:Button;
 
 		public function GameLogicComp()
 		{
+			mouseEnabled = false;
 			intiData();
 		}
 
@@ -51,11 +61,6 @@ package victor.view
 			var leng:int = cols * rows;
 			var i:int = 0;
 			var j:int = 0;
-			markList = new Vector.<int>();
-			for ( i = 1; i < 20; i++ )
-			{
-				markList.push( i );
-			}
 
 			listAry = new Vector.<Vector.<IItem>>( rows );
 			for ( i = 0; i < rows; i++ )
@@ -67,43 +72,63 @@ package victor.view
 				}
 				listAry[ i ] = vec1;
 			}
-			markAry = new Vector.<int>( leng );
-			for ( i = 0; i < leng; i += 2 )
-			{
-				markAry[ i ] = markAry[ i + 1 ] = markList[ int( Math.random() * markList.length )];
-			}
 
 			_listContainer = new Sprite();
 			_lineContainer = new Sprite();
 			addChild( _listContainer );
 			addChild( _lineContainer );
 			_listContainer.x = 50;
-			_listContainer.y = 80;
+			_listContainer.y = 160;
 			GameStage.adjustXY( _listContainer );
+
+			btnRefresh = new Button( " 刷 新 ", btnRefreshHandler );
+			GameStage.adjustScaleXY( btnRefresh );
+			btnRefresh.x = GameStage.stageWidth >> 1;
+			btnRefresh.y = GameStage.stageHeight - btnRefresh.height - 10;
+			addChild( btnRefresh );
+			btnRefresh.mouseEnabled = false;
 		}
 
-		private function randomMarkList():void
+		private function initMarkData( limit:int ):void
 		{
-			markAry.sort( abc );
-			function abc( a:int, b:int ):Number
+			var i:int;
+			var leng:int = cols * rows;
+			markList ||= new <int>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ];
+			ArrayUtil.randomSort( markList );
+			var ary:Vector.<int> = markList.slice( 0, limit );
+			markAry = new Vector.<int>( leng );
+			for ( i = 0; i < leng; i += 2 )
 			{
-				return int( Math.random() * 3 ) - 1;
+				markAry[ i ] = markAry[ i + 1 ] = ary[ int( Math.random() * limit )];
 			}
+		}
+
+		private function btnRefreshHandler():void
+		{
+			refresh();
 		}
 
 		public function initialize():void
 		{
+			btnRefresh.mouseEnabled = false;
+			mouseChildren = true;
 			_listContainer.removeChildren();
 		}
 
-		public function startAndReset():void
+		public function startAndReset( levelVo:LevelVo ):void
 		{
-			randomMarkList();
+			isOver = false;
+			btnRefresh.mouseEnabled = false;
+			dispelNumber = 0;
+
+			initMarkData( levelVo.picNum );
+			ArrayUtil.randomSort( markAry );
+
 			for ( var i:int = 0; i < rows; i++ )
 			{
 				var groupAry:Array = [];
 				var tweenGroup:TimelineMax = new TimelineMax();
-				tweenGroup.addEventListener(TweenEvent.COMPLETE, complete);
+				tweenGroup.addEventListener( TweenEvent.COMPLETE, complete );
 				tweenGroup.stop();
 				for ( var j:int = 0; j < cols; j++ )
 				{
@@ -113,26 +138,47 @@ package victor.view
 					item.mark = markAry[ i * cols + j ];
 					item.initialize();
 					_listContainer.addChild( item as DisplayObject );
-					
+
 					var endx:Number = item.x;
 					var endy:Number = item.y;
-					groupAry.push(TweenMax.from(item, 0.5, {x:endx, y:endy - 1000, ease:Back.easeOut}));
+					groupAry.push( TweenMax.from( item, 0.5, { x: endx, y: endy - 1000, ease: Back.easeOut }));
 				}
-				tweenGroup.appendMultiple(groupAry, 1, TweenAlign.START, 0.1);
+				tweenGroup.appendMultiple( groupAry, 1, TweenAlign.START, 0.1 );
 				tweenGroup.play();
 			}
 			_listContainer.mouseEnabled = false;
 			_listContainer.addEventListener( MouseEvent.CLICK, clickHandler );
-			
-			function complete(event:TweenEvent):void
+
+			function complete( event:TweenEvent ):void
 			{
 				var target:TimelineMax = event.target as TimelineMax;
-				if (target)
+				if ( target )
 				{
-					target.removeEventListener(TweenEvent.COMPLETE, complete);
+					target.removeEventListener( TweenEvent.COMPLETE, complete );
+				}
+
+				if ( btnRefresh )
+					btnRefresh.mouseEnabled = true;
+			}
+		}
+
+		private function refresh():void
+		{
+			listAry.sort( abc );
+			function abc( a:*, b:* ):Number
+			{
+				return int( Math.random() * 3 ) - 1;
+			}
+			for ( var i:int = 0; i < rows; i++ )
+			{
+				for ( var j:int = 0; j < cols; j++ )
+				{
+					var item:IItem = listAry[ i ][ j ];
+					item.cols = j;
+					item.rows = i;
+					item.refresh();
 				}
 			}
-
 		}
 
 		protected function clickHandler( event:MouseEvent ):void
@@ -234,6 +280,17 @@ package victor.view
 				}
 				drawLine( temoVec2 );
 				startItem = null;
+
+				dispatchEvent( new GameEvent( GameEvent.ADD_TIME, 2 ));
+
+				dispelNumber++;
+
+				if ( dispelNumber == rows * cols * 0.5 )
+				{
+					isOver = true;
+					dispatchEvent( new GameEvent( GameEvent.DISPEL_SUCCESS ));
+				}
+				dispatchEvent( new GameEvent( GameEvent.ADD_SCORE, 100 ));
 			}
 			else
 			{
