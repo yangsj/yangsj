@@ -63,7 +63,7 @@ package victor.core
 				}
 				catch ( e:Error )
 				{
-//					YLogger.error( "warning:被销毁的位图资源重新加载！" );
+					trace( "warning:被销毁的位图资源重新加载！" );
 				}
 				addedToParant();
 			}
@@ -126,7 +126,7 @@ package victor.core
 			}
 			catch ( e:Error )
 			{
-//				YLogger.error( "Image中setBitmapdata函数创建位图资源失败！" );
+				trace( "Image中setBitmapdata函数创建位图资源失败！" );
 			}
 			setBitmapSize();
 		}
@@ -165,7 +165,7 @@ package victor.core
 			}
 			catch ( e:Error )
 			{
-//				YLogger.error( "Image加载startLoading函数加载器报错！" );
+				trace( "Image加载startLoading函数加载器报错！" );
 			}
 		}
 
@@ -188,7 +188,7 @@ package victor.core
 				}
 				catch ( e:Error )
 				{
-//					YLogger.error( "Image资源加载完成创建位图资源出错！" );
+					trace( "Image资源加载完成创建位图资源出错！" );
 				}
 			}
 			_loadResult = true;
@@ -214,11 +214,11 @@ package victor.core
 			}
 			catch ( e:Error )
 			{
-//				YLogger.error( "Image加载资源Error函数创建默认位图错误！" );
+				trace( "Image加载资源Error函数创建默认位图错误！" );
 			}
-
+			
+			trace( "加载：[" + _url + "]失败!" );
 			_loadResult = false;
-//			YLogger.error( "加载：[" + _url + "]失败!" );
 			addedToParant();
 		}
 

@@ -3,12 +3,12 @@ package victor.view.scenes.game
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-
+	
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
 	import ui.components.UIReadyGoAnimation;
 	import ui.components.UITimeupAnimation;
-
+	
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.Image;
@@ -47,15 +47,22 @@ package victor.view.scenes.game
 
 		public function initialize():void
 		{
-			gameLogicComp.initialize();
-			timeClockComp.initialize();
+			timeClockComp.resetScore();
+
 			readyGo();
 
 			gameLogicComp.addEventListener( GameEvent.ADD_TIME, addTimeHandler );
 			gameLogicComp.addEventListener( GameEvent.DISPEL_SUCCESS, dispelSuccessHandler );
 			gameLogicComp.addEventListener( GameEvent.ADD_SCORE, addScoreHandler );
+			
+			timeClockComp.addEventListener( GameEvent.CTRL_TIME, ctrlTimeHandler);
 		}
-
+		
+		protected function ctrlTimeHandler(event:GameEvent):void
+		{
+			gameLogicComp.mouseChildren = (Boolean(event.data));
+		}
+		
 		protected function addScoreHandler( event:GameEvent ):void
 		{
 			timeClockComp.addScore( int( event.data ));
@@ -107,8 +114,10 @@ package victor.view.scenes.game
 				curLevel = 1;
 			}
 			var levelVo:LevelVo = LevelConfig.getCurLevelVo( curLevel );
+			timeClockComp.setLevelVo( levelVo );
+			gameLogicComp.initialize();
+			timeClockComp.initialize();
 			gameLogicComp.startAndReset( levelVo );
-			timeClockComp.baseTimeSec = levelVo.limitTime;
 
 			var mc:MovieClip = new UIReadyGoAnimation();
 			mc.x = GameStage.stageWidth >> 1;

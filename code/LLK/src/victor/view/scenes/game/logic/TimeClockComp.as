@@ -3,7 +3,9 @@ package victor.view.scenes.game.logic
 	import com.greensock.TweenMax;
 	
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
@@ -13,8 +15,10 @@ package victor.view.scenes.game.logic
 	import ui.components.UITimeView;
 	
 	import victor.GameStage;
+	import victor.data.LevelVo;
 	import victor.utils.NumberUtil;
 	import victor.utils.safetyCall;
+	import victor.view.events.GameEvent;
 
 
 	/**
@@ -31,6 +35,7 @@ package victor.view.scenes.game.logic
 		private var txtTime:TextField;
 		private var txtScore:TextField;
 		private var mcScoreWord:Sprite;
+		private var btnMc:MovieClip;
 
 		private var timer:Timer;
 		private var uiSkin:UITimeView;
@@ -38,9 +43,12 @@ package victor.view.scenes.game.logic
 
 		private var _completeCallBackFunction:Function;
 
-		public var baseTimeSec:int = 60;
+		private var baseTimeSec:int = 60;
 		private var endResultScore:Array;
 		private var startResultScore:Array;
+
+		private var lvSprite:Sprite;
+		private var isPlay:Boolean = false;
 
 		public function TimeClockComp()
 		{
@@ -49,19 +57,31 @@ package victor.view.scenes.game.logic
 
 			bgImg = uiSkin.bgImg;
 			barImg = uiSkin.barImg;
+			btnMc = uiSkin.btnMc;
 			mcTimeWord = uiSkin.mcTimeWord;
 			mcScoreWord = uiSkin.mcScroeWord;
 			txtTime = uiSkin.mcTimeValue.txtTimeValue;
 			txtScore = uiSkin.mcScoreValue.txtScoreValue;
 
 			GameStage.adjustXYScaleXYForTarget( uiSkin );
+			
+			ctrlTime();
+
+			btnMc.addEventListener( MouseEvent.CLICK, btnMcClickHandler );
+			btnMc.buttonMode = true;
+			btnMc.mouseChildren = false;
 
 			barWidth = barImg.width;
 
-			x = 50;
+			x = 30;
 			y = 15;
 
 			GameStage.adjustXY( this );
+		}
+
+		protected function btnMcClickHandler( event:MouseEvent ):void
+		{
+			ctrlTime();
 		}
 
 		public function dispose():void
@@ -81,12 +101,16 @@ package victor.view.scenes.game.logic
 			_completeCallBackFunction = null;
 		}
 
+		public function resetScore():void
+		{
+			txtScore.text = "0";
+			endResultScore = [ 0 ];
+		}
+
 		public function initialize():void
 		{
 			barImg.width = 1;
 			txtTime.text = baseTimeSec + "";
-			txtScore.text = "0";
-			endResultScore = [ 0 ];
 		}
 
 		public function stopTimer():void
@@ -95,10 +119,14 @@ package victor.view.scenes.game.logic
 			{
 				timer.stop();
 			}
+			isPlay = false;
+			ctrlTime();
 		}
 
 		public function startTimer():void
 		{
+			isPlay = true;
+			ctrlTime();
 			timer ||= new Timer( 1000 );
 			timer.addEventListener( TimerEvent.TIMER, timerHandler );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, completeHandler );
@@ -115,6 +143,19 @@ package victor.view.scenes.game.logic
 			}
 		}
 
+		public function setLevelVo( levelVo:LevelVo ):void
+		{
+			baseTimeSec = levelVo.limitTime;
+			if ( lvSprite && lvSprite.parent )
+				lvSprite.parent.removeChild( lvSprite );
+			lvSprite = NumberUtil.createNumSprite( "L" + levelVo.level );
+			lvSprite.width = lvSprite.width * mcScoreWord.height / lvSprite.height;
+			lvSprite.height = mcScoreWord.height;
+			lvSprite.x = mcScoreWord.x - lvSprite.width - 40;
+			lvSprite.y = mcScoreWord.y;
+			mcScoreWord.parent.addChild( lvSprite );
+		}
+
 		public function addScore( score:int ):void
 		{
 			startResultScore = [ endResultScore[ 0 ]];
@@ -122,9 +163,35 @@ package victor.view.scenes.game.logic
 			setTweenMcScoreEffect( score );
 		}
 
+		private function ctrlTime():void
+		{
+			if ( isPlay )
+			{
+				btnMc.gotoAndStop( "play" );
+				dispatchEvent( new GameEvent( GameEvent.CTRL_TIME, 1 ));
+			}
+			else
+			{
+				btnMc.gotoAndStop( "stop" );
+				dispatchEvent( new GameEvent( GameEvent.CTRL_TIME, 0 ));
+			}
+			if ( timer )
+			{
+				if ( isPlay )
+				{
+					timer.start();
+				}
+				else
+				{
+					timer.stop();
+				}
+			}
+			isPlay = !isPlay;
+		}
+
 		private function setTweenMcScoreEffect( score:int ):void
 		{
-			var num:Sprite = NumberUtil.createNumSprite(score);
+			var num:Sprite = NumberUtil.createNumSprite( score );
 			var mc:Sprite = new UIAddScore100();
 			num.width = num.width * mc.height / num.height;
 			num.height = mc.height;
@@ -133,7 +200,7 @@ package victor.view.scenes.game.logic
 			mc.x = startPoint.x;
 			mc.y = startPoint.y;
 			mc.removeChildren();
-			mc.addChild(num);
+			mc.addChild( num );
 			GameStage.stage.addChild( mc );
 			TweenMax.to( mc, 1, { x: endPoint.x, y: endPoint.y, scaleX: 0.1, scaleY: 0.1, onComplete: addScoreTween, onCompleteParams: [ mc ]});
 		}

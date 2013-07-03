@@ -41,7 +41,6 @@ package victor.utils
 			{
 				var bitdata:BitmapData = _dict[ "key" + numString.substr( i, 1 )] as BitmapData;
 				var bitmap:Bitmap = new Bitmap( bitdata, "auto", true );
-				tx = tx == 0 ? tx += bitmap.width >> 1 : tx;
 				bitmap.x = tx;
 				tx += bitmap.width;
 				sprite.addChild( bitmap );

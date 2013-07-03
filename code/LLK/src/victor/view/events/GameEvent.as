@@ -34,6 +34,11 @@ package victor.view.events
 		 * 增加得分
 		 */
 		public static const ADD_SCORE:String = "add_score";
+		
+		/**
+		 * 时间控制
+		 */
+		public static const CTRL_TIME:String = "ctrl_time";
 
 
 	}
