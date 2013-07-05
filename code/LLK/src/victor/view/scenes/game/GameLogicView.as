@@ -14,7 +14,9 @@ package victor.view.scenes.game
 	import victor.core.Image;
 	import victor.data.LevelConfig;
 	import victor.data.LevelVo;
+	import victor.utils.DisplayUtil;
 	import victor.utils.MovieClipUtil;
+	import victor.view.EffectPlayCenter;
 	import victor.view.events.GameEvent;
 	import victor.view.scenes.game.logic.GameLogicComp;
 	import victor.view.scenes.game.logic.TimeClockComp;
@@ -36,6 +38,10 @@ package victor.view.scenes.game
 
 		public function GameLogicView()
 		{
+			this.graphics.beginFill(0);
+			this.graphics.drawRect(0,0,GameStage.stageWidth, GameStage.stageHeight);
+			this.graphics.endFill();
+			
 			gameLogicComp = new GameLogicComp();
 			addChild( gameLogicComp );
 			gameLogicComp.mouseEnabled = false;
@@ -54,15 +60,15 @@ package victor.view.scenes.game
 			gameLogicComp.addEventListener( GameEvent.ADD_TIME, addTimeHandler );
 			gameLogicComp.addEventListener( GameEvent.DISPEL_SUCCESS, dispelSuccessHandler );
 			gameLogicComp.addEventListener( GameEvent.ADD_SCORE, addScoreHandler );
-			
-			timeClockComp.addEventListener( GameEvent.CTRL_TIME, ctrlTimeHandler);
+
+			timeClockComp.addEventListener( GameEvent.CTRL_TIME, ctrlTimeHandler );
 		}
-		
-		protected function ctrlTimeHandler(event:GameEvent):void
+
+		protected function ctrlTimeHandler( event:GameEvent ):void
 		{
-			gameLogicComp.mouseChildren = (Boolean(event.data));
+			gameLogicComp.mouseChildren = ( Boolean( event.data ));
 		}
-		
+
 		protected function addScoreHandler( event:GameEvent ):void
 		{
 			timeClockComp.addScore( int( event.data ));
@@ -119,22 +125,15 @@ package victor.view.scenes.game
 			timeClockComp.initialize();
 			gameLogicComp.startAndReset( levelVo );
 
-			var mc:MovieClip = new UIReadyGoAnimation();
-			mc.x = GameStage.stageWidth >> 1;
-			mc.y = GameStage.stageHeight >> 1;
-			addChild( mc );
-			GameStage.adjustScaleXY( mc );
-			MovieClipUtil.playMovieClip( mc, complete );
-			function complete():void
-			{
-				if ( mc && mc.parent )
-					mc.parent.removeChild( mc );
-				timeClockComp.startTimer();
-			}
-			if ( bgImage && bgImage.parent )
-				bgImage.parent.removeChild( bgImage );
+			EffectPlayCenter.instance.playReadyGo( timeClockComp.startTimer );
 
-			bgImage ||= new Image( URL.getBgUrl( 0 ), onCompleteLoaded );
+			if ( bgImage )
+			{
+				DisplayUtil.removedFromParent( bgImage );
+				bgImage.dispose();
+			}
+
+			bgImage = new Image( URL.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
 			addChildAt( bgImage, 0 );
 		}
 
@@ -149,18 +148,7 @@ package victor.view.scenes.game
 		private function timeCompleteFun():void
 		{
 			gameLogicComp.mouseChildren = false;
-			var mc:MovieClip = new UITimeupAnimation();
-			mc.x = GameStage.stageWidth >> 1;
-			mc.y = GameStage.stageHeight >> 1;
-			addChild( mc );
-			GameStage.adjustScaleXY( mc );
-			MovieClipUtil.playMovieClip( mc, complete );
-			function complete():void
-			{
-				if ( mc && mc.parent )
-					mc.parent.removeChild( mc );
-				exit();
-			}
+			EffectPlayCenter.instance.playTimeup( exit );
 		}
 
 		private function exit():void

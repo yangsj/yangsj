@@ -1,4 +1,4 @@
-package victor.core
+package victor.core.interfaces
 {
 	import flash.geom.Point;
 	

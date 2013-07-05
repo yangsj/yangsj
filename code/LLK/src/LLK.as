@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	
 	import victor.GameStage;
+	import victor.view.EffectPlayCenter;
 	import victor.view.scenes.main.FirstView;
 	
 	
@@ -32,6 +33,8 @@ package
 			
 			var firstView:FirstView = new FirstView();
 			addChild(firstView);
+			
+			addChild(EffectPlayCenter.instance);
 		}
 	}
 }

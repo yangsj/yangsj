@@ -26,7 +26,11 @@ package victor.view.scenes.main
 
 		public function FirstView()
 		{
-			bgImg = new Image( URL.getBgUrl( 1 ), onCompleteLoaded );
+			this.graphics.beginFill(0);
+			this.graphics.drawRect(0,0,GameStage.stageWidth, GameStage.stageHeight);
+			this.graphics.endFill();
+			
+			bgImg = new Image( URL.getBgUrl( "a" ), onCompleteLoaded );
 			addChild( bgImg );
 
 			btnEnterGame = new Button( "开始游戏", btnEnterGameHandler );

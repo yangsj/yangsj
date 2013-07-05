@@ -2,16 +2,20 @@ package victor.view.res
 {
 	import com.greensock.TweenMax;
 
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 
 	import victor.GameStage;
-	import victor.core.IItem;
-	import victor.core.Image;
 	import victor.URL;
+	import victor.core.interfaces.IItem;
+	import victor.core.Image;
+	import victor.utils.BitmapUtil;
+	import victor.utils.DisplayUtil;
 
 
 	/**
@@ -32,6 +36,8 @@ package victor.view.res
 		private var _globalPoint:Point;
 
 		private var _image:Image;
+		private var _border:Shape;
+		private var _selectEffect:Shape;
 
 //		private static var COLORS:Vector.<uint>;
 
@@ -60,6 +66,8 @@ package victor.view.res
 			this.x = cols * ( itemWidth + 5 );
 			this.y = rows * ( itemHeight + 5 );
 			_globalPoint = this.localToGlobal( new Point(( itemWidth >> 1 ), ( itemHeight >> 1 )));
+
+			mouseEnabled = true;
 		}
 
 		public function initialize():void
@@ -75,9 +83,29 @@ package victor.view.res
 				addEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
 
 			// 设置资源
+			if ( _image )
+				_image.dispose();
 			_image = new Image( URL.getHeadUrl( mark ));
 			_image.setSize( itemWidth, itemHeight );
 			addChild( _image );
+
+			if ( _border == null )
+			{
+				_border ||= new Shape();
+				_border.graphics.lineStyle( 1, 0, 0.8 );
+				_border.graphics.drawRect( 0, 0, itemWidth, itemHeight );
+				_border.graphics.endFill();
+			}
+			addChild( _border );
+			if ( _selectEffect == null )
+			{
+				_selectEffect = new Shape();
+				_selectEffect.graphics.lineStyle( 3, 0x00FF00, 0.8 );
+				_selectEffect.graphics.drawRect( 0, 0, itemWidth, itemHeight );
+				_selectEffect.graphics.endFill();
+			}
+			addChild( _selectEffect );
+			selected = false;
 		}
 
 		protected function addedToStageHandler( event:Event ):void
@@ -88,11 +116,12 @@ package victor.view.res
 
 		public function removeFromParent():void
 		{
+			mouseEnabled = false;
 			TweenMax.delayedCall( 0.5, function abc( target:DisplayObject ):void
 			{
 				target.visible = false;
+				selected = false;
 			}, [ this ]);
-			selected = false;
 			isReal = false;
 			cols = 0;
 			rows = 0;
@@ -122,7 +151,8 @@ package victor.view.res
 		public function set selected( value:Boolean ):void
 		{
 			_selected = value;
-			filters = value ? [ new GlowFilter()] : [];
+//			filters = value ? [ new GlowFilter()] : [];
+			_selectEffect.visible = value;
 		}
 
 		public function get cols():int

@@ -17,7 +17,7 @@ package victor
 		 * @param index 编号
 		 * @return 
 		 */
-		public static function getHeadUrl(index:int):String
+		public static function getHeadUrl(index:*):String
 		{
 			return "assets/head/" + index + ".jpg";
 		}
@@ -27,7 +27,7 @@ package victor
 		 * @param index
 		 * @return 
 		 */
-		public static function getBgUrl(index:int):String
+		public static function getBgUrl(index:*):String
 		{
 			return "assets/bg/" + index + ".jpg";
 		}

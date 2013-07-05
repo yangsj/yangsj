@@ -24,7 +24,10 @@ package victor.data
 		 * 时间限制
 		 */
 		public var limitTime:int = 60;
-		
+		/**
+		 * 当前等级每次消除所得的分数
+		 */
+		public var score:int = 100;
 		
 	}
 }

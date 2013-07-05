@@ -14,7 +14,7 @@ package victor.utils
 		{
 		}
 
-		public static function playMovieClip( mc:MovieClip, completeCall:Function = null ):void
+		public static function playMovieClip( mc:MovieClip, completeCall:Function = null, completeCallParams:* = null ):void
 		{
 			if ( mc )
 			{
@@ -27,7 +27,7 @@ package victor.utils
 				{
 					mc.stop();
 					mc.removeEventListener( Event.ENTER_FRAME, frameCompleteHandler );
-					safetyCall( completeCall );
+					safetyCall( completeCall, completeCallParams );
 				}
 			}
 		}

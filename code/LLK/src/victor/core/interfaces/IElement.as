@@ -1,6 +1,5 @@
-package victor.core
+package victor.core.interfaces
 {
-	import victor.core.interfaces.IDisposable;
 	
 	
 	/**
