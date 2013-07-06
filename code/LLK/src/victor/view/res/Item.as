@@ -2,20 +2,16 @@ package victor.view.res
 {
 	import com.greensock.TweenMax;
 
-	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.interfaces.IItem;
 	import victor.core.Image;
-	import victor.utils.BitmapUtil;
-	import victor.utils.DisplayUtil;
 
 
 	/**
@@ -25,8 +21,8 @@ package victor.view.res
 	 */
 	public class Item extends Sprite implements IItem
 	{
-		private const _itemWidth:Number = 50 * GameStage.minScale;
-		private const _itemHeight:Number = 50 * GameStage.minScale;
+		private const _itemWidth:Number = 80 * GameStage.minScale;
+		private const _itemHeight:Number = 80 * GameStage.minScale;
 
 		private var _cols:int;
 		private var _rows:int;
@@ -39,20 +35,8 @@ package victor.view.res
 		private var _border:Shape;
 		private var _selectEffect:Shape;
 
-//		private static var COLORS:Vector.<uint>;
-
 		public function Item()
 		{
-//			if ( COLORS == null )
-//			{
-//				var length:int = 20;
-//				var single:uint = uint( 255 * 255 * 255 / 21 );
-//				COLORS = new Vector.<uint>( length );
-//				for ( var i:int = 1; i <= length; i++ )
-//				{
-//					COLORS[ i - 1 ] = single * i;
-//				}
-//			}
 			mouseChildren = false;
 			buttonMode = true;
 		}
@@ -92,7 +76,7 @@ package victor.view.res
 			if ( _border == null )
 			{
 				_border ||= new Shape();
-				_border.graphics.lineStyle( 1, 0, 0.8 );
+				_border.graphics.lineStyle( 5, 0, 0.8 );
 				_border.graphics.drawRect( 0, 0, itemWidth, itemHeight );
 				_border.graphics.endFill();
 			}
@@ -100,7 +84,7 @@ package victor.view.res
 			if ( _selectEffect == null )
 			{
 				_selectEffect = new Shape();
-				_selectEffect.graphics.lineStyle( 3, 0x00FF00, 0.8 );
+				_selectEffect.graphics.lineStyle( 5, 0x00FF00, 0.8 );
 				_selectEffect.graphics.drawRect( 0, 0, itemWidth, itemHeight );
 				_selectEffect.graphics.endFill();
 			}

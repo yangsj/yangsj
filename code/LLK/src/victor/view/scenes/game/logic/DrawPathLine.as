@@ -36,7 +36,7 @@ package victor.view.scenes.game.logic
 				var point:Point = points.shift();
 				this.points = points;
 				this.graphics.clear();
-				this.graphics.lineStyle( 3, 0xff0000 );
+				this.graphics.lineStyle( 5, 0xff0000 );
 				this.graphics.moveTo( point.x, point.y );
 				pathPos = new Array( point.x, point.y );
 				draw();

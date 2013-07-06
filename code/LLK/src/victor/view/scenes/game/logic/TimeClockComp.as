@@ -1,7 +1,7 @@
 package victor.view.scenes.game.logic
 {
 	import com.greensock.TweenMax;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -10,12 +10,13 @@ package victor.view.scenes.game.logic
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.utils.Timer;
-	
+
 	import ui.components.UIAddScore100;
 	import ui.components.UITimeView;
-	
+
 	import victor.GameStage;
 	import victor.data.LevelVo;
+	import victor.utils.DisplayUtil;
 	import victor.utils.NumberUtil;
 	import victor.utils.safetyCall;
 	import victor.view.events.GameEvent;
@@ -50,6 +51,9 @@ package victor.view.scenes.game.logic
 		private var lvSprite:Sprite;
 		private var isPlay:Boolean = false;
 
+		private var numTimeSprite:Sprite;
+		private var numScoreSprite:Sprite;
+
 		public function TimeClockComp()
 		{
 			uiSkin = new UITimeView();
@@ -64,7 +68,7 @@ package victor.view.scenes.game.logic
 			txtScore = uiSkin.mcScoreValue.txtScoreValue;
 
 			GameStage.adjustXYScaleXYForTarget( uiSkin );
-			
+
 			ctrlTime();
 
 			btnMc.addEventListener( MouseEvent.CLICK, btnMcClickHandler );
@@ -77,6 +81,9 @@ package victor.view.scenes.game.logic
 			y = 15;
 
 			GameStage.adjustXY( this );
+
+			txtScore.visible = false;
+			txtTime.visible = false;
 		}
 
 		protected function btnMcClickHandler( event:MouseEvent ):void
@@ -103,14 +110,16 @@ package victor.view.scenes.game.logic
 
 		public function resetScore():void
 		{
-			txtScore.text = "0";
+//			txtScore.text = "0";
+			createNumScoreSprite( 0 );
 			endResultScore = [ 0 ];
 		}
 
 		public function initialize():void
 		{
 			barImg.width = 1;
-			txtTime.text = baseTimeSec + "";
+//			txtTime.text = baseTimeSec + "";
+			createNumTimeSprite( baseTimeSec );
 		}
 
 		public function stopTimer():void
@@ -215,12 +224,12 @@ package victor.view.scenes.game.logic
 
 		private function onUpdateScore():void
 		{
-			txtScore.text = int( startResultScore[ 0 ]) + "";
+			createNumScoreSprite( startResultScore[ 0 ]);
 		}
 
 		private function onCompleteScore():void
 		{
-			txtScore.text = int( endResultScore[ 0 ]) + "";
+			createNumScoreSprite( endResultScore[ 0 ]);
 		}
 
 		protected function completeHandler( event:TimerEvent ):void
@@ -237,7 +246,31 @@ package victor.view.scenes.game.logic
 			var leftCount:int = repeatCount - currentCount;
 			var per:Number = currentCount / repeatCount;
 			barImg.width = per * barWidth;
-			txtTime.text = leftCount + "";
+			createNumTimeSprite( leftCount );
+		}
+
+		private function createNumTimeSprite( num:int ):void
+		{
+//			txtTime.text = num + "";
+			DisplayUtil.removedFromParent( numTimeSprite );
+			numTimeSprite = NumberUtil.createNumSprite( num );
+			numTimeSprite.width = numTimeSprite.width * mcTimeWord.height / numTimeSprite.height;
+			numTimeSprite.height = mcTimeWord.height;
+			numTimeSprite.x = bgImg.x + ( bgImg.width - numTimeSprite.width ) >> 1;
+			numTimeSprite.y = mcTimeWord.y;
+			barImg.parent.addChild( numTimeSprite );
+		}
+
+		private function createNumScoreSprite( num:int ):void
+		{
+//			txtScore.text = num + "";			
+			DisplayUtil.removedFromParent( numScoreSprite );
+			numScoreSprite = NumberUtil.createNumSprite( num );
+			numScoreSprite.width = numScoreSprite.width * mcScoreWord.height / numScoreSprite.height;
+			numScoreSprite.height = mcScoreWord.height;
+			numScoreSprite.x = mcScoreWord.x + mcScoreWord.width + 20;
+			numScoreSprite.y = mcScoreWord.y;
+			barImg.parent.addChild( numScoreSprite );
 		}
 
 		private function get startPoint():Point

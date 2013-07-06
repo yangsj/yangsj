@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/3.7">
+<application xmlns="http://ns.adobe.com/air/application/3.8">
 
 <!-- Adobe AIR Application Descriptor File Template.
 
@@ -154,6 +154,12 @@
 		<image732x412></image732x412>
 		<image1024x1024></image1024x1024>
 	</icon> -->
+	
+	<icon>
+		<image36x36>assets/icons/image36x36.png</image36x36>
+		<image48x48>assets/icons/image48x48.png</image48x48>
+		<image72x72>assets/icons/image72x72.png</image72x72>
+	</icon>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
@@ -268,7 +274,7 @@
 			    <!--应同时切换 DISABLE_KEYGUARD 和 WAKE_LOCK 权限，才能访问 AIR
 		的 SystemIdleMode API-->
 			    <!--<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>-->
-			    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
+			    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 			    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
 			    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
 			    <!--应同时切换 ACCESS_NETWORK_STATE 和 ACCESS_WIFI_STATE 权限，才能使用 AIR

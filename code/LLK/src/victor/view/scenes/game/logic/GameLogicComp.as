@@ -17,9 +17,9 @@ package victor.view.scenes.game.logic
 	import victor.core.interfaces.IItem;
 	import victor.data.LevelVo;
 	import victor.utils.ArrayUtil;
+	import victor.view.EffectPlayCenter;
 	import victor.view.events.GameEvent;
 	import victor.view.res.Item;
-	import victor.view.EffectPlayCenter;
 
 
 	/**
@@ -29,8 +29,8 @@ package victor.view.scenes.game.logic
 	 */
 	public class GameLogicComp extends Sprite
 	{
-		private const cols:int = 10;
-		private const rows:int = 13;
+		private const cols:int = 6;
+		private const rows:int = 9;
 		private const COMB_TIME_UNIT:int = 2000;
 		private const COMB_REWAR_SCORE_UNIT:int = 5;
 
@@ -82,7 +82,7 @@ package victor.view.scenes.game.logic
 			_lineContainer = new Sprite();
 			addChild( _listContainer );
 			addChild( _lineContainer );
-			_listContainer.y = 160;
+			_listContainer.y = 130;
 			GameStage.adjustXY( _listContainer );
 			_listContainer.x = ( GameStage.stageWidth - (( listAry[ 0 ][ 0 ].itemWidth + 5 ) * cols )) >> 1;
 
@@ -425,7 +425,22 @@ package victor.view.scenes.game.logic
 		private function goLeftRightAtEdge( col:int ):void
 		{
 			vecThird = new Vector.<IItem>();
-			vecThird.push( createTempItem( col, s_rows ), createTempItem( col, e_rows )); //添加边界外的两个拐点
+			//添加边界外的节点
+			var i:int = 0;
+			if (s_rows > e_rows)
+			{
+				for (i = s_rows; i >= e_rows; i--)
+				{
+					vecThird.push(createTempItem( col, i ));
+				}
+			}
+			else
+			{
+				for (i = s_rows; i <= e_rows; i++)
+				{
+					vecThird.push(createTempItem( col, i ));
+				}
+			}
 			if ( col == -1 )
 			{
 				for ( var a:int = 0; a <= e_cols; a++ )
@@ -451,7 +466,22 @@ package victor.view.scenes.game.logic
 		private function goUpDownAtEdge( row:int ):void
 		{
 			vecThird = new Vector.<IItem>();
-			vecThird.push( createTempItem( s_cols, row ), createTempItem( e_cols, row )); //添加边界外的两个拐点
+			//添加边界外的节点
+			var i:int = 0;
+			if (s_cols > e_cols)
+			{
+				for (i = s_cols; i >= e_cols; i--)
+				{
+					vecThird.push(createTempItem( i, row ));
+				}
+			}
+			else
+			{
+				for (i = s_cols; i <= e_cols; i++)
+				{
+					vecThird.push(createTempItem( i, row ));
+				}
+			}
 			if ( row == -1 )
 			{
 				for ( var a:int = 0; a <= e_rows; a++ )

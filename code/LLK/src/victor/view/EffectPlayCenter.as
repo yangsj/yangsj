@@ -25,7 +25,8 @@ package victor.view
 	{
 		public function EffectPlayCenter()
 		{
-			super();
+			this.mouseEnabled = false;
+			this.mouseEnabled = false;
 		}
 
 		private static var _instance:EffectPlayCenter;
