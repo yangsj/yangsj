@@ -1,17 +1,17 @@
 package victor.view.res
 {
 	import com.greensock.TweenMax;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
-
+	
 	import victor.GameStage;
 	import victor.URL;
-	import victor.core.interfaces.IItem;
 	import victor.core.Image;
+	import victor.core.interfaces.IItem;
 
 
 	/**
@@ -98,10 +98,10 @@ package victor.view.res
 			refresh();
 		}
 
-		public function removeFromParent():void
+		public function removeFromParent(delay:Number = 0):void
 		{
 			mouseEnabled = false;
-			TweenMax.delayedCall( 0.5, function abc( target:DisplayObject ):void
+			TweenMax.delayedCall( delay, function abc( target:DisplayObject ):void
 			{
 				target.visible = false;
 				selected = false;

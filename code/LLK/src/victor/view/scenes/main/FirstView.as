@@ -1,11 +1,14 @@
 package victor.view.scenes.main
 {
+	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
-
+	import flash.events.Event;
+	
 	import victor.GameStage;
+	import victor.URL;
 	import victor.components.Button;
 	import victor.core.Image;
-	import victor.URL;
+	import victor.core.SoundManager;
 	import victor.view.scenes.game.GameLogicView;
 
 
@@ -51,8 +54,22 @@ package victor.view.scenes.main
 			GameStage.adjustXYScaleXY( btnEnterGame );
 			GameStage.adjustXYScaleXY( btnHistoryRank );
 			GameStage.adjustXYScaleXY( btnGameHelp );
+			
+			SoundManager.playBgMusic();
+			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);
+			NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
 		}
-
+		
+		protected function deactivateHandler(event:Event):void
+		{
+			SoundManager.stopBgMusic();
+		}
+		
+		protected function activateHandler(event:Event):void
+		{
+			SoundManager.playBgMusic();
+		}
+		
 		private function onCompleteLoaded( img:Image ):void
 		{
 //			GameStage.bgToStretch(img);
@@ -61,12 +78,12 @@ package victor.view.scenes.main
 
 		private function btnGameHelpHandler():void
 		{
-
+			SoundManager.playClick();
 		}
 
 		private function btnHistoryRankHandler():void
 		{
-
+			SoundManager.playClick();
 		}
 
 		private function btnEnterGameHandler():void
@@ -74,6 +91,8 @@ package victor.view.scenes.main
 			gameLogicView ||= new GameLogicView();
 			addChild( gameLogicView );
 			gameLogicView.initialize();
+			
+			SoundManager.playClick();
 		}
 	}
 }

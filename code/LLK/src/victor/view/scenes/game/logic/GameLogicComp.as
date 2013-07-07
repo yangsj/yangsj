@@ -14,6 +14,7 @@ package victor.view.scenes.game.logic
 	
 	import victor.GameStage;
 	import victor.components.Button;
+	import victor.core.SoundManager;
 	import victor.core.interfaces.IItem;
 	import victor.data.LevelVo;
 	import victor.utils.ArrayUtil;
@@ -115,6 +116,7 @@ package victor.view.scenes.game.logic
 		private function btnRefreshHandler():void
 		{
 			refresh();
+			SoundManager.playClick();
 		}
 
 		public function initialize():void
@@ -197,6 +199,7 @@ package victor.view.scenes.game.logic
 			var target:IItem = event.target as IItem;
 			if ( target )
 			{
+				SoundManager.playClick();
 				if ( startItem == null )
 				{
 					startItem = target;
@@ -265,16 +268,18 @@ package victor.view.scenes.game.logic
 
 			// get short path
 			if ( seekGroups.length > 0 )
-			{
+			{				
 				seekGroups.sort( sortVec );
 				var tempVec1:Vector.<IItem> = seekGroups.pop();
 				var tempVec2:Vector.<Point> = new Vector.<Point>();
+				var time:Number = 0.05 * (tempVec1.length + 1);
 				for each ( var item:IItem in tempVec1 )
 				{
 					tempVec2.push( item.globalPoint );
-					item.removeFromParent();
 				}
 				drawPathLine.setPoints( tempVec2 );
+				startItem.removeFromParent( time );
+				endItem.removeFromParent( time );
 				startItem = null;
 
 				dispatchEvent( new GameEvent( GameEvent.ADD_TIME, 1 ));
@@ -301,12 +306,14 @@ package victor.view.scenes.game.logic
 
 				if ( combNumber > 0 && combNumber % 3 == 0 )
 				{
-					TweenMax.delayedCall(0.5, EffectPlayCenter.instance.playGoodWords);
+					TweenMax.delayedCall( 0.5, EffectPlayCenter.instance.playGoodWords );
 				}
 
 				lastClickTime = getTimer();
 				trace( "连击：" + combNumber, "》》》》》增加分数：" + score );
 				dispatchEvent( new GameEvent( GameEvent.ADD_SCORE, score ));
+				
+				SoundManager.playRemoveItems();
 
 			}
 			else
@@ -427,18 +434,18 @@ package victor.view.scenes.game.logic
 			vecThird = new Vector.<IItem>();
 			//添加边界外的节点
 			var i:int = 0;
-			if (s_rows > e_rows)
+			if ( s_rows > e_rows )
 			{
-				for (i = s_rows; i >= e_rows; i--)
+				for ( i = s_rows; i >= e_rows; i-- )
 				{
-					vecThird.push(createTempItem( col, i ));
+					vecThird.push( createTempItem( col, i ));
 				}
 			}
 			else
 			{
-				for (i = s_rows; i <= e_rows; i++)
+				for ( i = s_rows; i <= e_rows; i++ )
 				{
-					vecThird.push(createTempItem( col, i ));
+					vecThird.push( createTempItem( col, i ));
 				}
 			}
 			if ( col == -1 )
@@ -468,18 +475,18 @@ package victor.view.scenes.game.logic
 			vecThird = new Vector.<IItem>();
 			//添加边界外的节点
 			var i:int = 0;
-			if (s_cols > e_cols)
+			if ( s_cols > e_cols )
 			{
-				for (i = s_cols; i >= e_cols; i--)
+				for ( i = s_cols; i >= e_cols; i-- )
 				{
-					vecThird.push(createTempItem( i, row ));
+					vecThird.push( createTempItem( i, row ));
 				}
 			}
 			else
 			{
-				for (i = s_cols; i <= e_cols; i++)
+				for ( i = s_cols; i <= e_cols; i++ )
 				{
-					vecThird.push(createTempItem( i, row ));
+					vecThird.push( createTempItem( i, row ));
 				}
 			}
 			if ( row == -1 )

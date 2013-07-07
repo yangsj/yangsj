@@ -1,7 +1,7 @@
 package victor.view.scenes.game.logic
 {
 	import com.greensock.TweenMax;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -10,11 +10,12 @@ package victor.view.scenes.game.logic
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.utils.Timer;
-
+	
 	import ui.components.UIAddScore100;
 	import ui.components.UITimeView;
-
+	
 	import victor.GameStage;
+	import victor.core.SoundManager;
 	import victor.data.LevelVo;
 	import victor.utils.DisplayUtil;
 	import victor.utils.NumberUtil;
@@ -89,6 +90,21 @@ package victor.view.scenes.game.logic
 		protected function btnMcClickHandler( event:MouseEvent ):void
 		{
 			ctrlTime();
+			if ( timer )
+			{
+				if ( timer.repeatCount - timer.currentCount <= 10 )
+				{
+					if ( isPlay )
+					{
+						SoundManager.resetLast10Second();
+					}
+					else
+					{
+						SoundManager.stopLast10Second();
+					}
+				}
+			}
+			SoundManager.playClick();
 		}
 
 		public function dispose():void
@@ -110,7 +126,6 @@ package victor.view.scenes.game.logic
 
 		public function resetScore():void
 		{
-//			txtScore.text = "0";
 			createNumScoreSprite( 0 );
 			endResultScore = [ 0 ];
 		}
@@ -118,7 +133,6 @@ package victor.view.scenes.game.logic
 		public function initialize():void
 		{
 			barImg.width = 1;
-//			txtTime.text = baseTimeSec + "";
 			createNumTimeSprite( baseTimeSec );
 		}
 
@@ -149,6 +163,18 @@ package victor.view.scenes.game.logic
 			if ( timer )
 			{
 				timer.repeatCount += sec;
+				if ( SoundManager.isPlayLast10Second )
+				{
+					var addSec:int = timer.repeatCount - baseTimeSec;
+					var currentCount:int = timer.currentCount - addSec;
+					var repeatCount:int = timer.repeatCount - addSec;
+					var leftCount:int = repeatCount - currentCount;
+					SoundManager.stopLast10Second();
+					if (leftCount <= 10)
+					{
+						SoundManager.playLast10Second(( 10 - leftCount ) / 10 );
+					}
+				}
 			}
 		}
 
@@ -247,6 +273,27 @@ package victor.view.scenes.game.logic
 			var per:Number = currentCount / repeatCount;
 			barImg.width = per * barWidth;
 			createNumTimeSprite( leftCount );
+			if ( leftCount <= 10 )
+			{
+				if ( leftCount == 0 )
+				{
+					SoundManager.playTimeEnd();
+				}
+				else
+				{
+					if ( SoundManager.isPlayLast10Second == false )
+					{
+						SoundManager.playLast10Second( 0 );
+					}
+				}
+			}
+			else
+			{
+				if ( SoundManager.isPlayLast10Second )
+				{
+					SoundManager.stopLast10Second();
+				}
+			}
 		}
 
 		private function createNumTimeSprite( num:int ):void

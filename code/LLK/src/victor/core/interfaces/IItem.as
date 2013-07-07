@@ -24,7 +24,7 @@ package victor.core.interfaces
 		/**
 		 * 移除显示列表
 		 */
-		function removeFromParent():void;
+		function removeFromParent(delay:Number = 0):void;
 		
 		/**
 		 * 是否选择
