@@ -30,7 +30,7 @@ package victor.data
 			if ( _levels == null )
 			{
 				var maxLv:int = maxLevel;
-				var maxTime:int = 60 + maxLv;
+				var maxTime:int = 60 + (maxLv / 5);
 				var numGap:int = int( maxLv / 15 );
 				var numSta:int = 15;
 				var numScroe:int = 100;
@@ -40,9 +40,9 @@ package victor.data
 					var boo:Boolean = i % numGap == 0;
 					var vo:LevelVo = new LevelVo();
 					vo.level = i;
-					vo.score = i % 5 == 0 ? numScroe += 5 : numScroe;
-					vo.picNum = boo ? numSta++ : numSta;
-					vo.limitTime = boo ? maxTime -= 15 : maxTime;
+					vo.score = i % 5 == 0 ? numScroe += 10 : numScroe;
+					vo.picNum = boo ? numSta += 2 : numSta;
+					vo.limitTime = boo ? maxTime -= 5 : maxTime;
 					_levels[ i - 1 ] = vo;
 				}
 			}
