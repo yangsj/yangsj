@@ -22,7 +22,7 @@ package core.main.view
 		{
 			fileReferenceList ||= new FileReferenceList();
 			fileReferenceList.addEventListener(Event.SELECT, selectedHandler);
-			fileReferenceList.browse([new FileFilter("Documents", "*.*")]);
+			fileReferenceList.browse([new FileFilter("Documents", "*.mp3")]);
 		}
 		
 		protected function selectedHandler(event:Event):void
