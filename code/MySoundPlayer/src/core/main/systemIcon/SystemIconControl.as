@@ -7,11 +7,11 @@ package core.main.systemIcon
 	import flash.display.NativeMenu;
 	import flash.display.NativeMenuItem;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.ScreenMouseEvent;
 	import flash.net.URLRequest;
 
 	import core.Global;
+	import core.Setting;
 
 	/**
 	 * ……
@@ -26,13 +26,7 @@ package core.main.systemIcon
 
 		public function SystemIconControl()
 		{
-			init();
-		}
-
-		private function init():void
-		{
 			createSystemIcon();
-			Global.stage.addEventListener( MouseEvent.MOUSE_DOWN, stageMouseHandler );
 		}
 
 		private function createSystemIcon():void
@@ -72,16 +66,35 @@ package core.main.systemIcon
 
 		private function createNativeMenuItem( menu:NativeMenu, mainName:String, subAry:Array = null ):NativeMenuItem
 		{
+			var item:NativeMenuItem;
 			if ( subAry )
 			{
 				var ary:Array = [];
-				var item:NativeMenuItem = menu.addSubmenu( new NativeMenu(), mainName );
+				item = menu.addSubmenu( new NativeMenu(), mainName );
 				for each ( var val:String in subAry )
-					ary.push( new NativeMenuItem( val ));
+				{
+					var it:NativeMenuItem = new NativeMenuItem( val );
+					it.checked = Setting.getValueBtType( val );
+					if ( it.checked )
+					{
+						if ( mainName == SystemIconMenuType.SETTING )
+						{
+							if ( val == SystemIconMenuType.SETTING_SUB_ALWAYS_IN_BACK || val == SystemIconMenuType.SETTING_SUB_ALWAYS_IN_FRONT )
+								settingSubItem = it;
+						}
+						else if ( mainName == SystemIconMenuType.PLAY_MODE )
+						{
+							playModeSubItem = it;
+						}
+					}
+					ary.push( it );
+				}
 				item.submenu.items = ary;
 				return item;
 			}
-			return new NativeMenuItem( mainName );
+			item = new NativeMenuItem( mainName );
+			item.checked = Setting.getValueBtType( mainName );
+			return item;
 		}
 
 		protected function menuClickSelectHandler( event:Event ):void
@@ -105,41 +118,71 @@ package core.main.systemIcon
 					playModeSubItem.checked = true;
 					if ( label == SystemIconMenuType.PLAY_MODE_SUB_LOOP )
 					{
+						Setting.playLoop = true;
+						Setting.playRandom = false;
+						Setting.playSingle = false;
 					}
 					else if ( label == SystemIconMenuType.PLAY_MODE_SUB_RANDOM )
 					{
+						Setting.playLoop = false;
+						Setting.playRandom = true;
+						Setting.playSingle = false;
 					}
 					else if ( label == SystemIconMenuType.PLAY_MODE_SUB_SINGLE )
 					{
+						Setting.playLoop = false;
+						Setting.playRandom = false;
+						Setting.playSingle = true;
 					}
 				}
 				else if ( SystemIconMenuType.SETTING_SUB.indexOf( label ) != -1 )
 				{
 					if ( settingSubItem )
 						settingSubItem.checked = false;
-					settingSubItem = item;
-					settingSubItem.checked = true;
+					var boo:Boolean = !item.checked;
 					if ( label == SystemIconMenuType.SETTING_SUB_AUTO_LOGIN )
 					{
-						Global.nativeWindow.active;
+						if ( NativeApplication.supportsStartAtLogin )
+						{
+							try
+							{
+								Setting.autoLogin = boo;
+								item.checked = boo;
+								NativeApplication.nativeApplication.startAtLogin = boo;
+								return;
+							}
+							catch ( e:* )
+							{
+							}
+						}
+						Setting.autoLogin = false;
+						item.checked = false;
 					}
 					else if ( label == SystemIconMenuType.SETTING_SUB_ALWAYS_IN_BACK )
 					{
+						item.checked = true;
+						settingSubItem = item;
 						Global.nativeWindow.alwaysInFront = false;
 						Global.nativeWindow.orderToBack();
+						Setting.alwaysInBack = true;
+						Setting.alwaysInFront = false;
 					}
 					else if ( label == SystemIconMenuType.SETTING_SUB_ALWAYS_IN_FRONT )
 					{
+						item.checked = true;
+						settingSubItem = item;
 						Global.nativeWindow.alwaysInFront = true;
 						Global.nativeWindow.orderToFront();
+						Setting.alwaysInBack = false;
+						Setting.alwaysInFront = true;
+					}
+					else if ( label == SystemIconMenuType.SETTING_SUB_AUTO_PLAY )
+					{
+						Setting.autoPlay = boo;
+						item.checked = boo;
 					}
 				}
 			}
-		}
-
-		protected function stageMouseHandler( event:MouseEvent ):void
-		{
-			Global.nativeWindow.startMove();
 		}
 
 		protected function systemIconLeftClickHandler( event:ScreenMouseEvent ):void

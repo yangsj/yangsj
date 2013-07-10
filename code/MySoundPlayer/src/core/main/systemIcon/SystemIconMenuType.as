@@ -20,9 +20,10 @@ package core.main.systemIcon
 
 		public static const SETTING:String = "设置";
 		public static const SETTING_SUB_AUTO_LOGIN:String = "开机启动";
+		public static const SETTING_SUB_AUTO_PLAY:String = "自动播放";
 		public static const SETTING_SUB_ALWAYS_IN_FRONT:String = "总在最前";
 		public static const SETTING_SUB_ALWAYS_IN_BACK:String = "总是最后";
-		public static const SETTING_SUB:Array = [ SETTING_SUB_AUTO_LOGIN, SETTING_SUB_ALWAYS_IN_FRONT, SETTING_SUB_ALWAYS_IN_BACK ];
+		public static const SETTING_SUB:Array = [ SETTING_SUB_AUTO_LOGIN, SETTING_SUB_AUTO_PLAY, SETTING_SUB_ALWAYS_IN_FRONT, SETTING_SUB_ALWAYS_IN_BACK ];
 
 		public static const CHECK_UPDATE:String = "检查更新";
 
