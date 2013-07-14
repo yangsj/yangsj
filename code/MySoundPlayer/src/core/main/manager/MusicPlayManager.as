@@ -8,7 +8,7 @@ package core.main.manager
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.FileReference;
-
+	
 	import core.Global;
 	import core.Setting;
 	import core.main.event.AppEvent;
@@ -71,6 +71,8 @@ package core.main.manager
 		public function playScanList( scanList:Vector.<FileReference> ):void
 		{
 			soundCurtIndex == -1;
+			stopSound();
+			soundCurrent = null;
 			if ( scanList )
 			{
 				isPlayDefalutList = false;
@@ -88,6 +90,8 @@ package core.main.manager
 		{
 			if ( isPlayDefalutList && _isPlaying )
 				return;
+			stopSound();
+			soundCurrent = null;
 			soundCurtIndex == -1;
 			isPlayDefalutList = true;
 			playSound();
@@ -207,7 +211,8 @@ package core.main.manager
 
 		protected function enterFrameHandler( event:Event ):void
 		{
-			dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, soundChannel.position, soundCurrent.length ));
+			if (soundChannel && soundCurrent)
+				dispatchEvent( new ProgressEvent( ProgressEvent.PROGRESS, false, false, soundChannel.position, soundCurrent.length ));
 		}
 
 		protected function soundCompleteHandler( event:Event ):void
@@ -221,7 +226,8 @@ package core.main.manager
 		{
 			if ( fileReference )
 			{
-				soundCurrent = fileReference.data.readObject() as Sound;
+				soundCurrent = new Sound();
+				soundCurrent.loadCompressedDataFromByteArray(fileReference.data,fileReference.data.length);
 				if ( soundCurrent )
 					scanListSound[ soundCurtIndex ] = soundCurrent;
 				fileReference.removeEventListener( IOErrorEvent.IO_ERROR, ioErrorLoadHandler );

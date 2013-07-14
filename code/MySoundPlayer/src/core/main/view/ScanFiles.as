@@ -5,6 +5,8 @@ package core.main.view
 	import flash.net.FileReference;
 	import flash.net.FileReferenceList;
 	
+	import core.main.manager.MusicPlayManager;
+	
 	/**
 	 * ……
 	 * @author 	yangsj 
@@ -33,7 +35,7 @@ package core.main.view
 			{
 				fileList.push(fileReference);
 			}
-			
+			MusicPlayManager.instance.playScanList(fileList);
 		}
 		
 	}
