@@ -1,17 +1,19 @@
 package victor.view.scenes.game
 {
+	import flash.desktop.NativeApplication;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	
+
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
 	import ui.components.UIReadyGoAnimation;
 	import ui.components.UITimeupAnimation;
-	
+
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.Image;
+	import victor.core.SoundManager;
 	import victor.data.LevelConfig;
 	import victor.data.LevelVo;
 	import victor.utils.DisplayUtil;
@@ -32,16 +34,18 @@ package victor.view.scenes.game
 		private var gameLogicComp:GameLogicComp;
 		private var timeClockComp:TimeClockComp;
 
+		private var isStopLast10Second:Boolean = false;
+
 		private var bgImage:Image;
 
 		private var curLevel:int = 1;
 
 		public function GameLogicView()
 		{
-			this.graphics.beginFill(0);
-			this.graphics.drawRect(0,0,GameStage.stageWidth, GameStage.stageHeight);
+			this.graphics.beginFill( 0 );
+			this.graphics.drawRect( 0, 0, GameStage.stageWidth, GameStage.stageHeight );
 			this.graphics.endFill();
-			
+
 			gameLogicComp = new GameLogicComp();
 			addChild( gameLogicComp );
 			gameLogicComp.mouseEnabled = false;
@@ -62,6 +66,25 @@ package victor.view.scenes.game
 			gameLogicComp.addEventListener( GameEvent.ADD_SCORE, addScoreHandler );
 
 			timeClockComp.addEventListener( GameEvent.CTRL_TIME, ctrlTimeHandler );
+
+			NativeApplication.nativeApplication.addEventListener( Event.ACTIVATE, activateHandler );
+			NativeApplication.nativeApplication.addEventListener( Event.DEACTIVATE, deactivateHandler );
+		}
+
+		protected function deactivateHandler( event:Event ):void
+		{
+			timeClockComp.ctrlTime();
+			isStopLast10Second = SoundManager.isPlayLast10Second;
+			if ( isStopLast10Second )
+				SoundManager.stopLast10Second();
+		}
+
+		protected function activateHandler( event:Event ):void
+		{
+			timeClockComp.ctrlTime();
+			if ( isStopLast10Second )
+				SoundManager.resetLast10Second();
+			isStopLast10Second = false;
 		}
 
 		protected function ctrlTimeHandler( event:GameEvent ):void
@@ -118,6 +141,7 @@ package victor.view.scenes.game
 			if ( curLevel >= LevelConfig.maxLevel )
 			{
 				curLevel = 1;
+				EffectPlayCenter.instance.playSuccessAccessAllGuanQia();
 			}
 			var levelVo:LevelVo = LevelConfig.getCurLevelVo( curLevel );
 			timeClockComp.setLevelVo( levelVo );
@@ -155,6 +179,9 @@ package victor.view.scenes.game
 		{
 			if ( parent )
 				parent.removeChild( this );
+
+			NativeApplication.nativeApplication.removeEventListener( Event.ACTIVATE, activateHandler );
+			NativeApplication.nativeApplication.removeEventListener( Event.DEACTIVATE, deactivateHandler );
 		}
 
 	}

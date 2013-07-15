@@ -5,13 +5,13 @@ package victor.view.scenes.game.logic
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-	
+
 	import victor.GameStage;
 	import victor.components.Button;
 	import victor.core.SoundManager;
@@ -103,6 +103,7 @@ package victor.view.scenes.game.logic
 		{
 			var i:int;
 			var leng:int = cols * rows;
+			limit = Math.min( limit, leng * 0.5 );
 			markList ||= new <int>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 ];
 			ArrayUtil.randomSort( markList );
 			var ary:Vector.<int> = markList.slice( 0, limit );
@@ -268,11 +269,11 @@ package victor.view.scenes.game.logic
 
 			// get short path
 			if ( seekGroups.length > 0 )
-			{				
+			{
 				seekGroups.sort( sortVec );
 				var tempVec1:Vector.<IItem> = seekGroups.pop();
 				var tempVec2:Vector.<Point> = new Vector.<Point>();
-				var time:Number = 0.05 * (tempVec1.length + 1);
+				var time:Number = 0.05 * ( tempVec1.length + 1 );
 				for each ( var item:IItem in tempVec1 )
 				{
 					tempVec2.push( item.globalPoint );
@@ -312,7 +313,7 @@ package victor.view.scenes.game.logic
 				lastClickTime = getTimer();
 				trace( "连击：" + combNumber, "》》》》》增加分数：" + score );
 				dispatchEvent( new GameEvent( GameEvent.ADD_SCORE, score ));
-				
+
 				SoundManager.playRemoveItems();
 
 			}

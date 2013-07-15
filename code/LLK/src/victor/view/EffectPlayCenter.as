@@ -4,6 +4,7 @@ package victor.view
 	import flash.display.Sprite;
 	
 	import ui.components.UIReadyGoAnimation;
+	import ui.components.UISuccessAccessAllGuanQia;
 	import ui.components.UITimeupAnimation;
 	import ui.components.UIWordEffect;
 	import ui.componets.UICombNumberSkin;
@@ -110,6 +111,20 @@ package victor.view
 			{
 				DisplayUtil.removedFromParent( mc );
 				safetyCall( callBack );
+			}
+		}
+		
+		public function playSuccessAccessAllGuanQia():void
+		{
+			var mc:MovieClip = new UISuccessAccessAllGuanQia();
+			mc.x = GameStage.stageWidth >> 1;
+			mc.y = GameStage.stageHeight >> 1;
+			addChild( mc );
+			GameStage.adjustScaleXY( mc );
+			MovieClipUtil.playMovieClip( mc, complete );
+			function complete():void
+			{
+				DisplayUtil.removedFromParent( mc );
 			}
 		}
 

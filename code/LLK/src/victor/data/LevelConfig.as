@@ -15,12 +15,14 @@ package victor.data
 
 		public static function getCurLevelVo( level:int ):LevelVo
 		{
+			level = Math.max( 1, level );
+			level = Math.min( level, maxLevel );
 			return levels[ level - 1 ];
 		}
 
 		public static function get maxLevel():int
 		{
-			return 100;
+			return 30;
 		}
 
 		private static var _levels:Vector.<LevelVo>;
@@ -30,7 +32,7 @@ package victor.data
 			if ( _levels == null )
 			{
 				var maxLv:int = maxLevel;
-				var maxTime:int = 60 + (maxLv / 5);
+				var maxTime:int = 60 + ( maxLv / 5 );
 				var numGap:int = int( maxLv / 15 );
 				var numSta:int = 15;
 				var numScroe:int = 100;
@@ -40,9 +42,9 @@ package victor.data
 					var boo:Boolean = i % numGap == 0;
 					var vo:LevelVo = new LevelVo();
 					vo.level = i;
-					vo.score = i % 5 == 0 ? numScroe += 10 : numScroe;
+					vo.score = numScroe + ( 5 * ( i - 1 ));
 					vo.picNum = boo ? numSta += 2 : numSta;
-					vo.limitTime = boo ? maxTime -= 5 : maxTime;
+					vo.limitTime = 60; //boo ? maxTime -= 5 : maxTime;
 					_levels[ i - 1 ] = vo;
 				}
 			}

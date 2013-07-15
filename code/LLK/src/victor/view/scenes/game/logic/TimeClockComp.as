@@ -2,9 +2,11 @@ package victor.view.scenes.game.logic
 {
 	import com.greensock.TweenMax;
 	
+	import flash.desktop.NativeApplication;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
@@ -135,7 +137,7 @@ package victor.view.scenes.game.logic
 			barImg.width = 1;
 			createNumTimeSprite( baseTimeSec );
 		}
-
+		
 		public function stopTimer():void
 		{
 			if ( timer )
@@ -198,7 +200,7 @@ package victor.view.scenes.game.logic
 			setTweenMcScoreEffect( score );
 		}
 
-		private function ctrlTime():void
+		public function ctrlTime():void
 		{
 			if ( isPlay )
 			{
