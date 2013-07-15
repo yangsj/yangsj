@@ -31,8 +31,8 @@
     <fullScreen>false</fullScreen>
     <aspectRatio>portrait</aspectRatio>
     <renderMode>auto</renderMode>
-    <maximizable>true</maximizable>
-    <minimizable>true</minimizable>
+    <maximizable>false</maximizable>
+    <minimizable>false</minimizable>
     <resizable>true</resizable>
   </initialWindow>
   <icon>
@@ -43,4 +43,4 @@
   </icon>
   <customUpdateUI>true</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
-</application>
+  <supportedProfiles>desktop extendedDesktop </supportedProfiles></application>
