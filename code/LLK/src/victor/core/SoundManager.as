@@ -53,7 +53,7 @@ package victor.core
 			stopBgMusic();
 			_bgTransform ||= new SoundTransform( 0.5 );
 			_bgSound ||= new BgMusic0();
-			_bgChannel = _bgSound.play( _bgPosition, 1, _bgTransform );
+			_bgChannel = _bgSound.play( _bgPosition, int.MAX_VALUE, _bgTransform );
 			if ( _bgChannel )
 				_bgChannel.addEventListener( Event.SOUND_COMPLETE, soundCompleteHandler );
 		}

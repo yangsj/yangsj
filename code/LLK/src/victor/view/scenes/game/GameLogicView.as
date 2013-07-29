@@ -4,12 +4,12 @@ package victor.view.scenes.game
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-
+	
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
 	import ui.components.UIReadyGoAnimation;
 	import ui.components.UITimeupAnimation;
-
+	
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.Image;
@@ -118,6 +118,8 @@ package victor.view.scenes.game
 			MovieClipUtil.playMovieClip( mc2, complete2 );
 
 			timeClockComp.stopTimer();
+			
+			SoundManager.stopLast10Second();
 
 			curLevel++;
 			function complete2():void
