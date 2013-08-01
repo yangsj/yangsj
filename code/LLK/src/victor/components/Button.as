@@ -5,9 +5,10 @@ package victor.components
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
-
+	
 	import ui.components.UIButtonSkin;
-
+	
+	import victor.core.SoundManager;
 	import victor.utils.safetyCall;
 
 
@@ -33,19 +34,19 @@ package victor.components
 			tfm.size = fontSize;
 
 			skin.txtName.defaultTextFormat = tfm;
-
-			skin.txtName.text = label;
+			skin.txtName.text = label+ " ";
 			skin.mcSkin.stop();
 
 			mouseChildren = false;
 			buttonMode = true;
 
-			skin.txtName.width = skin.txtName.textWidth + 15;
-			skin.txtName.height = skin.txtName.textHeight + 5;
+			var scale:Number = fontSize / 50;
+			skin.txtName.width = skin.txtName.textWidth + 10;
+			skin.txtName.height = skin.txtName.textHeight + 2;
 			skin.txtName.x = -skin.txtName.width >> 1;
 			skin.txtName.y = -skin.txtName.height >> 1;
-			skin.mcSkin.width = skin.txtName.textWidth + 30;
-			skin.mcSkin.height = skin.txtName.textHeight + 30;
+			skin.mcSkin.width = skin.txtName.textWidth + 30 * scale;
+			skin.mcSkin.height = skin.txtName.textHeight + 30 * scale;
 
 			clickCallBack = clickHandler;
 
@@ -87,10 +88,10 @@ package victor.components
 		{
 			var isUp:Boolean = event.type == MouseEvent.MOUSE_UP;
 			skin.mcSkin.gotoAndStop( isUp ? 1 : 2 );
-			if ( isUp )
+			if ( isUp && event.target == this )
 			{
-				if ( event.target == this )
-					safetyCall( clickCallBack );
+				safetyCall( clickCallBack );
+				SoundManager.playClickButton();
 			}
 		}
 

@@ -1,21 +1,19 @@
 package victor.view.scenes.game.logic
 {
 	import com.greensock.TweenMax;
-	
-	import flash.desktop.NativeApplication;
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.utils.Timer;
-	
+
 	import ui.components.UIAddScore100;
 	import ui.components.UITimeView;
-	
+
 	import victor.GameStage;
 	import victor.core.SoundManager;
 	import victor.data.LevelVo;
@@ -89,26 +87,6 @@ package victor.view.scenes.game.logic
 			txtTime.visible = false;
 		}
 
-		protected function btnMcClickHandler( event:MouseEvent ):void
-		{
-			ctrlTime();
-			if ( timer )
-			{
-				if ( timer.repeatCount - timer.currentCount <= 10 )
-				{
-					if ( isPlay )
-					{
-						SoundManager.resetLast10Second();
-					}
-					else
-					{
-						SoundManager.stopLast10Second();
-					}
-				}
-			}
-			SoundManager.playClick();
-		}
-
 		public function dispose():void
 		{
 			if ( timer )
@@ -137,11 +115,13 @@ package victor.view.scenes.game.logic
 			barImg.width = 1;
 			createNumTimeSprite( baseTimeSec );
 		}
-		
+
 		public function stopTimer():void
 		{
 			if ( timer )
 			{
+				if (timer.running == false)
+					return ;
 				timer.stop();
 			}
 			isPlay = false;
@@ -172,7 +152,7 @@ package victor.view.scenes.game.logic
 					var repeatCount:int = timer.repeatCount - addSec;
 					var leftCount:int = repeatCount - currentCount;
 					SoundManager.stopLast10Second();
-					if (leftCount <= 10)
+					if ( leftCount <= 10 )
 					{
 						SoundManager.playLast10Second(( 10 - leftCount ) / 10 );
 					}
@@ -221,43 +201,33 @@ package victor.view.scenes.game.logic
 				else
 				{
 					timer.stop();
+					if ( SoundManager.isPlayLast10Second )
+					{
+						SoundManager.stopLast10Second();
+					}
 				}
 			}
 			isPlay = !isPlay;
 		}
 
-		private function setTweenMcScoreEffect( score:int ):void
+		protected function btnMcClickHandler( event:MouseEvent ):void
 		{
-			var num:Sprite = NumberUtil.createNumSprite( score );
-			var mc:Sprite = new UIAddScore100();
-			num.width = num.width * mc.height / num.height;
-			num.height = mc.height;
-			num.x = -num.width >> 1;
-			num.y = -num.height >> 1;
-			mc.x = startPoint.x;
-			mc.y = startPoint.y;
-			mc.removeChildren();
-			mc.addChild( num );
-			GameStage.stage.addChild( mc );
-			TweenMax.to( mc, 1, { x: endPoint.x, y: endPoint.y, scaleX: 0.1, scaleY: 0.1, onComplete: addScoreTween, onCompleteParams: [ mc ]});
-		}
-
-		private function addScoreTween( mc:DisplayObject ):void
-		{
-			if ( mc && mc.parent )
-				mc.parent.removeChild( mc );
-			TweenMax.killTweensOf( startResultScore );
-			TweenMax.to( startResultScore, 0.5, { endArray: endResultScore, onUpdate: onUpdateScore, onComplete: onCompleteScore });
-		}
-
-		private function onUpdateScore():void
-		{
-			createNumScoreSprite( startResultScore[ 0 ]);
-		}
-
-		private function onCompleteScore():void
-		{
-			createNumScoreSprite( endResultScore[ 0 ]);
+			ctrlTime();
+			if ( timer )
+			{
+				if ( timer.repeatCount - timer.currentCount <= 10 )
+				{
+					if ( isPlay )
+					{
+						SoundManager.resetLast10Second();
+					}
+					else
+					{
+						SoundManager.stopLast10Second();
+					}
+				}
+			}
+			SoundManager.playClickButton();
 		}
 
 		protected function completeHandler( event:TimerEvent ):void
@@ -296,6 +266,40 @@ package victor.view.scenes.game.logic
 					SoundManager.stopLast10Second();
 				}
 			}
+		}
+
+		private function setTweenMcScoreEffect( score:int ):void
+		{
+			var num:Sprite = NumberUtil.createNumSprite( score );
+			var mc:Sprite = new UIAddScore100();
+			num.width = num.width * mc.height / num.height;
+			num.height = mc.height;
+			num.x = -num.width >> 1;
+			num.y = -num.height >> 1;
+			mc.x = startPoint.x;
+			mc.y = startPoint.y;
+			mc.removeChildren();
+			mc.addChild( num );
+			GameStage.stage.addChild( mc );
+			TweenMax.to( mc, 1, { x: endPoint.x, y: endPoint.y, scaleX: 0.1, scaleY: 0.1, onComplete: addScoreTween, onCompleteParams: [ mc ]});
+		}
+
+		private function addScoreTween( mc:DisplayObject ):void
+		{
+			if ( mc && mc.parent )
+				mc.parent.removeChild( mc );
+			TweenMax.killTweensOf( startResultScore );
+			TweenMax.to( startResultScore, 0.5, { endArray: endResultScore, onUpdate: onUpdateScore, onComplete: onCompleteScore });
+		}
+
+		private function onUpdateScore():void
+		{
+			createNumScoreSprite( startResultScore[ 0 ]);
+		}
+
+		private function onCompleteScore():void
+		{
+			createNumScoreSprite( endResultScore[ 0 ]);
 		}
 
 		private function createNumTimeSprite( num:int ):void

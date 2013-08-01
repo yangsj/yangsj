@@ -4,12 +4,10 @@ package victor.view.scenes.game
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	
+
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
-	import ui.components.UIReadyGoAnimation;
-	import ui.components.UITimeupAnimation;
-	
+
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.Image;
@@ -18,7 +16,9 @@ package victor.view.scenes.game
 	import victor.data.LevelVo;
 	import victor.utils.DisplayUtil;
 	import victor.utils.MovieClipUtil;
+	import victor.core.Alert;
 	import victor.view.EffectPlayCenter;
+	import victor.core.ViewStruct;
 	import victor.view.events.GameEvent;
 	import victor.view.scenes.game.logic.GameLogicComp;
 	import victor.view.scenes.game.logic.TimeClockComp;
@@ -40,6 +40,8 @@ package victor.view.scenes.game
 
 		private var curLevel:int = 1;
 
+		private static var _instance:GameLogicView;
+
 		public function GameLogicView()
 		{
 			this.graphics.beginFill( 0 );
@@ -53,22 +55,25 @@ package victor.view.scenes.game
 			timeClockComp = new TimeClockComp();
 			timeClockComp.completeCallBackFunction = timeCompleteFun;
 			addChild( timeClockComp );
-		}
-
-		public function initialize():void
-		{
-			timeClockComp.resetScore();
-
-			readyGo();
 
 			gameLogicComp.addEventListener( GameEvent.ADD_TIME, addTimeHandler );
 			gameLogicComp.addEventListener( GameEvent.DISPEL_SUCCESS, dispelSuccessHandler );
 			gameLogicComp.addEventListener( GameEvent.ADD_SCORE, addScoreHandler );
+			gameLogicComp.addEventListener( GameEvent.BACK_MENU, backMenuHandler );
 
 			timeClockComp.addEventListener( GameEvent.CTRL_TIME, ctrlTimeHandler );
+		}
 
+		public function initialize():void
+		{
 			NativeApplication.nativeApplication.addEventListener( Event.ACTIVATE, activateHandler );
 			NativeApplication.nativeApplication.addEventListener( Event.DEACTIVATE, deactivateHandler );
+
+			ViewStruct.addChild( this, ViewStruct.SCENE );
+
+			timeClockComp.resetScore();
+
+			readyGo();
 		}
 
 		protected function deactivateHandler( event:Event ):void
@@ -87,6 +92,23 @@ package victor.view.scenes.game
 			isStopLast10Second = false;
 		}
 
+		protected function backMenuHandler( event:GameEvent ):void
+		{
+			timeClockComp.ctrlTime();
+			Alert.show( "你确定要返回吗？", abc, def );
+			function abc():void
+			{
+				gameLogicComp.mouseChildren = false;
+				timeClockComp.stopTimer();
+				exit();
+			}
+			function def():void
+			{
+				timeClockComp.stopTimer();
+				timeClockComp.ctrlTime();
+			}
+		}
+
 		protected function ctrlTimeHandler( event:GameEvent ):void
 		{
 			gameLogicComp.mouseChildren = ( Boolean( event.data ));
@@ -99,6 +121,8 @@ package victor.view.scenes.game
 
 		protected function dispelSuccessHandler( event:GameEvent ):void
 		{
+			SoundManager.playSoundWin();
+
 			var mc1:MovieClip = new UILevelNextArrow();
 			mc1.x = GameStage.stageWidth >> 1;
 			mc1.y = GameStage.stageHeight >> 1;
@@ -118,9 +142,7 @@ package victor.view.scenes.game
 			MovieClipUtil.playMovieClip( mc2, complete2 );
 
 			timeClockComp.stopTimer();
-			
 			SoundManager.stopLast10Second();
-
 			curLevel++;
 			function complete2():void
 			{
@@ -174,17 +196,25 @@ package victor.view.scenes.game
 		private function timeCompleteFun():void
 		{
 			gameLogicComp.mouseChildren = false;
+			timeClockComp.stopTimer();
 			EffectPlayCenter.instance.playTimeup( exit );
+			SoundManager.playSoundLose();
 		}
 
 		private function exit():void
 		{
-			if ( parent )
-				parent.removeChild( this );
-
+			DisplayUtil.removedFromParent( this );
 			NativeApplication.nativeApplication.removeEventListener( Event.ACTIVATE, activateHandler );
 			NativeApplication.nativeApplication.removeEventListener( Event.DEACTIVATE, deactivateHandler );
 		}
+
+		public static function get instance():GameLogicView
+		{
+			if ( _instance == null )
+				_instance = new GameLogicView();
+			return _instance;
+		}
+
 
 	}
 }

@@ -39,6 +39,11 @@ package victor.view.events
 		 * 时间控制
 		 */
 		public static const CTRL_TIME:String = "ctrl_time";
+		
+		/**
+		 * 游戏界面返回菜单界面
+		 */
+		public static const BACK_MENU:String = "back_menu";
 
 
 	}

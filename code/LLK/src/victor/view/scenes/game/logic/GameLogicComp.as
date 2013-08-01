@@ -5,13 +5,13 @@ package victor.view.scenes.game.logic
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-
+	
 	import victor.GameStage;
 	import victor.components.Button;
 	import victor.core.SoundManager;
@@ -55,6 +55,7 @@ package victor.view.scenes.game.logic
 		private var isOver:Boolean = false;
 
 		public var btnRefresh:Button;
+		public var btnBack:Button;
 
 		public function GameLogicComp()
 		{
@@ -89,14 +90,26 @@ package victor.view.scenes.game.logic
 
 			btnRefresh = new Button( " 刷 新 ", btnRefreshHandler );
 			GameStage.adjustScaleXY( btnRefresh );
-			btnRefresh.x = GameStage.stageWidth >> 1;
+			btnRefresh.x = ( GameStage.stageWidth >> 1 ) - ( btnRefresh.width >> 1 ) - 10;
 			btnRefresh.y = GameStage.stageHeight - btnRefresh.height - 10;
 			addChild( btnRefresh );
 			btnRefresh.mouseEnabled = false;
 
+			btnBack = new Button( " 返 回 ", btnBackHandler );
+			GameStage.adjustScaleXY( btnBack );
+			btnBack.x = ( GameStage.stageWidth >> 1 ) + ( btnBack.width >> 1 ) + 10;
+			btnBack.y = GameStage.stageHeight - btnBack.height - 10;
+			addChild( btnBack );
+			btnBack.mouseEnabled = false;
+
 
 			drawPathLine ||= new DrawPathLine();
 			_lineContainer.addChild( drawPathLine );
+		}
+
+		private function btnBackHandler():void
+		{
+			dispatchEvent(new GameEvent(GameEvent.BACK_MENU));
 		}
 
 		private function initMarkData( limit:int ):void
@@ -117,11 +130,11 @@ package victor.view.scenes.game.logic
 		private function btnRefreshHandler():void
 		{
 			refresh();
-			SoundManager.playClick();
 		}
 
 		public function initialize():void
 		{
+			btnBack.mouseEnabled = false;
 			btnRefresh.mouseEnabled = false;
 			mouseChildren = true;
 			_listContainer.removeChildren();
@@ -130,6 +143,7 @@ package victor.view.scenes.game.logic
 		public function startAndReset( levelVo:LevelVo ):void
 		{
 			isOver = false;
+			btnBack.mouseEnabled = false;
 			btnRefresh.mouseEnabled = false;
 			dispelNumber = 0;
 			lastClickTime = 0;
@@ -173,6 +187,8 @@ package victor.view.scenes.game.logic
 
 				if ( btnRefresh )
 					btnRefresh.mouseEnabled = true;
+				if ( btnBack )
+					btnBack.mouseEnabled = true;
 			}
 		}
 
@@ -194,13 +210,18 @@ package victor.view.scenes.game.logic
 				}
 			}
 		}
+		
+		private function goBack():void
+		{
+			
+		}
 
 		protected function clickHandler( event:MouseEvent ):void
 		{
 			var target:IItem = event.target as IItem;
 			if ( target )
 			{
-				SoundManager.playClick();
+				SoundManager.playClickItem();
 				if ( startItem == null )
 				{
 					startItem = target;
@@ -314,7 +335,7 @@ package victor.view.scenes.game.logic
 				trace( "连击：" + combNumber, "》》》》》增加分数：" + score );
 				dispatchEvent( new GameEvent( GameEvent.ADD_SCORE, score ));
 
-				SoundManager.playRemoveItems();
+				SoundManager.playLinkItem();
 
 			}
 			else
