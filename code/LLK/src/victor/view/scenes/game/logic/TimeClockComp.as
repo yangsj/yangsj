@@ -201,10 +201,7 @@ package victor.view.scenes.game.logic
 				else
 				{
 					timer.stop();
-					if ( SoundManager.isPlayLast10Second )
-					{
-						SoundManager.stopLast10Second();
-					}
+					SoundManager.stopLast10Second();
 				}
 			}
 			isPlay = !isPlay;

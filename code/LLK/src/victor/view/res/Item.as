@@ -1,17 +1,18 @@
 package victor.view.res
 {
 	import com.greensock.TweenMax;
-	
+
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.geom.Point;
-	
+
 	import victor.GameStage;
 	import victor.URL;
 	import victor.core.Image;
 	import victor.core.interfaces.IItem;
+	import victor.utils.DisplayUtil;
 
 
 	/**
@@ -30,6 +31,7 @@ package victor.view.res
 		private var _isReal:Boolean;
 		private var _selected:Boolean;
 		private var _globalPoint:Point;
+		private var _parentTarget:DisplayObjectContainer;
 
 		private var _image:Image;
 		private var _border:Shape;
@@ -43,6 +45,13 @@ package victor.view.res
 
 		public function dispose():void
 		{
+			if ( _image )
+				_image.dispose();
+			DisplayUtil.removedFromParent( _image );
+
+			_image = null;
+			_globalPoint = null;
+			_parentTarget = null;
 		}
 
 		public function refresh():void
@@ -59,19 +68,17 @@ package victor.view.res
 			_isReal = true;
 			visible = true;
 
-			this.removeChildren();
-
-			if ( stage )
-				addedToStageHandler( null );
-			else
-				addEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
-
 			// 设置资源
-			if ( _image )
-				_image.dispose();
-			_image = new Image( URL.getHeadUrl( mark ));
-			_image.setSize( itemWidth, itemHeight );
-			addChild( _image );
+			if ( _image == null )
+			{
+				_image = new Image( URL.getHeadUrl( mark ));
+				_image.setSize( itemWidth, itemHeight );
+				addChild( _image );
+			}
+			else
+			{
+				_image.reset( URL.getHeadUrl( mark ));
+			}
 
 			if ( _border == null )
 			{
@@ -79,26 +86,25 @@ package victor.view.res
 				_border.graphics.lineStyle( 5, 0, 0.8 );
 				_border.graphics.drawRect( 0, 0, itemWidth, itemHeight );
 				_border.graphics.endFill();
+				addChild( _border );
 			}
-			addChild( _border );
 			if ( _selectEffect == null )
 			{
 				_selectEffect = new Shape();
 				_selectEffect.graphics.lineStyle( 5, 0x00FF00, 0.8 );
 				_selectEffect.graphics.drawRect( 0, 0, itemWidth, itemHeight );
 				_selectEffect.graphics.endFill();
+				addChild( _selectEffect );
 			}
-			addChild( _selectEffect );
 			selected = false;
-		}
 
-		protected function addedToStageHandler( event:Event ):void
-		{
-			removeEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
+			if ( parent == null && _parentTarget )
+				_parentTarget.addChild( this );
+
 			refresh();
 		}
 
-		public function removeFromParent(delay:Number = 0):void
+		public function removeFromParent( delay:Number = 0 ):void
 		{
 			mouseEnabled = false;
 			TweenMax.delayedCall( delay, function abc( target:DisplayObject ):void
@@ -114,7 +120,6 @@ package victor.view.res
 		public function get globalPoint():Point
 		{
 			return _globalPoint;
-			return localToGlobal( new Point( width >> 1, height >> 1 ));
 		}
 
 		public function get itemWidth():Number
@@ -135,7 +140,6 @@ package victor.view.res
 		public function set selected( value:Boolean ):void
 		{
 			_selected = value;
-//			filters = value ? [ new GlowFilter()] : [];
 			_selectEffect.visible = value;
 		}
 
@@ -177,6 +181,16 @@ package victor.view.res
 		public function set mark( value:int ):void
 		{
 			_mark = value;
+		}
+
+		public function get parentTarget():DisplayObjectContainer
+		{
+			return _parentTarget;
+		}
+
+		public function set parentTarget( value:DisplayObjectContainer ):void
+		{
+			_parentTarget = value;
 		}
 
 

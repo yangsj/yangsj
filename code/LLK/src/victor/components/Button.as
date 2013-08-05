@@ -1,14 +1,19 @@
 package victor.components
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 	import flash.text.TextFormat;
-	
+	import flash.text.TextFormatAlign;
+
 	import ui.components.UIButtonSkin;
-	
+
+	import victor.GameStage;
 	import victor.core.SoundManager;
+	import victor.core.interfaces.IDisposable;
 	import victor.utils.safetyCall;
 
 
@@ -17,40 +22,56 @@ package victor.components
 	 * @author 	yangsj
 	 * 			2013-6-28
 	 */
-	public class Button extends Sprite
+	public class Button extends Sprite implements IDisposable
 	{
-		private var skin:UIButtonSkin;
-
-		private var clickCallBack:Function;
-
+		private var _skin:UIButtonSkin;
+		private var _clickCallBack:Function;
 		private var _stage:Stage;
+		private var _txtName:TextField;
+		private var _mcSkin:MovieClip;
+		private var _tfm:TextFormat;
 
 		public function Button( label:String, clickHandler:Function = null, fontSize:int = 50 )
 		{
-			skin = new UIButtonSkin();
-			addChild( skin );
+			_skin = new UIButtonSkin();
+			_txtName = _skin.txtName;
+			_mcSkin = _skin.mcSkin;
+			addChild( _skin );
 
-			var tfm:TextFormat = skin.txtName.defaultTextFormat;
-			tfm.size = fontSize;
+			_clickCallBack = clickHandler;
 
-			skin.txtName.defaultTextFormat = tfm;
-			skin.txtName.text = label+ " ";
-			skin.mcSkin.stop();
+			_tfm = _txtName.defaultTextFormat;
+			_tfm.align = TextFormatAlign.LEFT;
+			_tfm.size = fontSize;
+
+			_txtName.wordWrap = false;
+			_txtName.defaultTextFormat = _tfm;
+			_mcSkin.stop();
 
 			mouseChildren = false;
 			buttonMode = true;
 
-			var scale:Number = fontSize / 50;
-			skin.txtName.width = skin.txtName.textWidth + 10;
-			skin.txtName.height = skin.txtName.textHeight + 2;
-			skin.txtName.x = -skin.txtName.width >> 1;
-			skin.txtName.y = -skin.txtName.height >> 1;
-			skin.mcSkin.width = skin.txtName.textWidth + 30 * scale;
-			skin.mcSkin.height = skin.txtName.textHeight + 30 * scale;
-
-			clickCallBack = clickHandler;
+			setLabel( label );
 
 			addListener();
+
+			GameStage.adjustScaleXY( this );
+		}
+
+		public function setLabel( label:String ):void
+		{
+			if ( label != _txtName.text )
+			{
+				_txtName.text = label;
+				var tw:Number = _txtName.textWidth;
+				var th:Number = _txtName.textHeight;
+				_txtName.width = tw + 10;
+				_txtName.height = th + 2;
+				_txtName.x = -tw >> 1;
+				_txtName.y = -th >> 1;
+				_mcSkin.width = tw + 30;
+				_mcSkin.height = th + 30;
+			}
 		}
 
 		public function dispose():void
@@ -60,8 +81,11 @@ package victor.components
 			if ( _stage )
 				_stage.removeEventListener( MouseEvent.MOUSE_UP, mouseHandler );
 
+			_tfm = null;
 			_stage = null;
-			clickCallBack = null;
+			_mcSkin = null;
+			_txtName = null;
+			_clickCallBack = null;
 		}
 
 		private function addListener():void
@@ -87,17 +111,21 @@ package victor.components
 		protected function mouseHandler( event:MouseEvent ):void
 		{
 			var isUp:Boolean = event.type == MouseEvent.MOUSE_UP;
-			skin.mcSkin.gotoAndStop( isUp ? 1 : 2 );
+			_mcSkin.gotoAndStop( isUp ? 1 : 2 );
 			if ( isUp && event.target == this )
 			{
-				safetyCall( clickCallBack );
+				event.stopPropagation();
+				safetyCall( _clickCallBack );
 				SoundManager.playClickButton();
 			}
 		}
 
 		override public function set mouseChildren( enable:Boolean ):void
 		{
-			super.mouseChildren = false;
+			if ( enable != mouseChildren )
+			{
+				super.mouseChildren = false;
+			}
 		}
 
 	}

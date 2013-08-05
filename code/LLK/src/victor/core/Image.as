@@ -38,6 +38,13 @@ package victor.core
 
 		public function Image( url:String, onComplete:Function = null, onError:Function = null )
 		{
+			reset( url, onComplete, onError );
+		}
+
+///////////////////////// public functions 
+
+		public function reset( url:String, onComplete:Function = null, onError:Function = null ):void
+		{
 			_url = url;
 			_onCompleteCall = onComplete;
 			_onErrorCall = onError;
@@ -72,8 +79,6 @@ package victor.core
 				startLoading();
 			}
 		}
-
-///////////////////////// public functions 
 
 		public function setPosXY( x:Number, y:Number ):void
 		{
@@ -121,6 +126,7 @@ package victor.core
 		{
 			try
 			{
+				DisplayUtil.removedFromParent( _bitmap );
 				_bitmap = new Bitmap( bitmapdata, "auto", true );
 				addChild( _bitmap );
 			}
@@ -216,7 +222,7 @@ package victor.core
 			{
 				trace( "Image加载资源Error函数创建默认位图错误！" );
 			}
-			
+
 			trace( "加载：[" + _url + "]失败!" );
 			_loadResult = false;
 			addedToParant();

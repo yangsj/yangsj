@@ -94,19 +94,8 @@ package victor.view.scenes.game
 
 		protected function backMenuHandler( event:GameEvent ):void
 		{
-			timeClockComp.ctrlTime();
-			Alert.show( "你确定要返回吗？", abc, def );
-			function abc():void
-			{
-				gameLogicComp.mouseChildren = false;
-				timeClockComp.stopTimer();
-				exit();
-			}
-			function def():void
-			{
-				timeClockComp.stopTimer();
-				timeClockComp.ctrlTime();
-			}
+			timeClockComp.stopTimer();
+			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime );
 		}
 
 		protected function ctrlTimeHandler( event:GameEvent ):void
@@ -169,8 +158,8 @@ package victor.view.scenes.game
 			}
 			var levelVo:LevelVo = LevelConfig.getCurLevelVo( curLevel );
 			timeClockComp.setLevelVo( levelVo );
-			gameLogicComp.initialize();
 			timeClockComp.initialize();
+			gameLogicComp.initialize();
 			gameLogicComp.startAndReset( levelVo );
 
 			EffectPlayCenter.instance.playReadyGo( timeClockComp.startTimer );

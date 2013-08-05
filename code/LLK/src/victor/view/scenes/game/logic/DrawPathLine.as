@@ -1,7 +1,7 @@
 package victor.view.scenes.game.logic
 {
 	import com.greensock.TweenMax;
-	
+
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -21,21 +21,23 @@ package victor.view.scenes.game.logic
 		public function DrawPathLine()
 		{
 			shape = new Shape();
-			shape.graphics.beginFill(0xff0000);
-			shape.graphics.drawTriangles(Vector.<Number>([5,0, -5,-5, -5,5]));
+			shape.graphics.beginFill( 0xff0000 );
+			shape.graphics.drawTriangles( Vector.<Number>([ 5, 0, -5, -5, -5, 5 ]));
 			shape.graphics.endFill();
-			addChild(shape);
+			addChild( shape );
 			shape.visible = false;
+
+			mouseChildren = false;
+			mouseEnabled = false;
 		}
 
 		public function setPoints( points:Vector.<Point> ):void
 		{
 			if ( points && points.length > 1 )
 			{
-				clearLine();
 				var point:Point = points.shift();
+				clearLine();
 				this.points = points;
-				this.graphics.clear();
 				this.graphics.lineStyle( 5, 0xff0000 );
 				this.graphics.moveTo( point.x, point.y );
 				pathPos = [ point.x, point.y ];
@@ -49,21 +51,29 @@ package victor.view.scenes.game.logic
 			{
 				var point:Point = points.shift();
 				shape.visible = true;
-				shape.x = pathPos[0];
-				shape.y = pathPos[1];
+				shape.x = pathPos[ 0 ];
+				shape.y = pathPos[ 1 ];
 				TweenMax.to( pathPos, 0.04, { endArray: [ point.x, point.y ], onUpdate: onUpdateTween, onComplete: onCompleteTween });
 			}
 			else
 			{
 				TweenMax.delayedCall( 0.2, clearLine );
-				this.graphics.endFill();
+				graphics.endFill();
 			}
 		}
 
 		private function onUpdateTween():void
 		{
-			this.graphics.lineTo( pathPos[ 0 ], pathPos[ 1 ]);
-			setShapePointAndDirection();
+			var x0:Number = shape.x;
+			var y0:Number = shape.y;
+			var x1:Number = pathPos[ 0 ];
+			var y1:Number = pathPos[ 1 ];
+			var degrees:Number = Math.atan2(( y1 - y0 ), ( x1 - x0 )) * 180 / Math.PI;
+
+			graphics.lineTo( x1, y1 );
+			shape.rotation = degrees;
+			shape.x = x1;
+			shape.y = y1;
 		}
 
 		private function onCompleteTween():void
@@ -78,19 +88,6 @@ package victor.view.scenes.game.logic
 			TweenMax.killDelayedCallsTo( clearLine );
 			this.graphics.clear();
 			shape.visible = false;
-		}
-		
-		private function setShapePointAndDirection():void
-		{
-			var x0:Number = shape.x;
-			var y0:Number = shape.y;
-			var x1:Number = pathPos[0];
-			var y1:Number = pathPos[1];
-			var angle:Number = Math.atan2((y1 - y0) , (x1 - x0));
-			var degrees:Number = angle * 180/Math.PI;
-			shape.rotation = degrees;
-			shape.x = x1;
-			shape.y = y1;
 		}
 
 	}

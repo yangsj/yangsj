@@ -1,5 +1,6 @@
 package victor.core.interfaces
 {
+	import flash.display.DisplayObjectContainer;
 	import flash.geom.Point;
 	
 	
@@ -64,6 +65,13 @@ package victor.core.interfaces
 		 * 本地坐标转换的全局坐标
 		 */
 		function get globalPoint():Point;
+		
+		/**
+		 * 父容器
+		 * @param value
+		 */
+		function get parentTarget():DisplayObjectContainer;
+		function set parentTarget(value:DisplayObjectContainer):void;
 		
 	}
 }

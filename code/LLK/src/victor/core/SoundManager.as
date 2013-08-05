@@ -4,7 +4,7 @@ package victor.core
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-	
+
 	import music.BgMusic0;
 
 	/**
@@ -24,20 +24,20 @@ package victor.core
 		private static var _bgPosition:int = 0;
 
 		private static var _soundTempTransform:SoundTransform;
-		
-		[Embed(source="/assets/sound/click.mp3")]
+
+		[Embed( source = "/assets/sound/click.mp3" )]
 		private static var SoundClickItem:Class; // 点击
-		
-		[Embed(source="/assets/sound/link.mp3")]
+
+		[Embed( source = "/assets/sound/link.mp3" )]
 		private static var SoundLinkItem:Class; // link
-		
-		[Embed(source="/assets/sound/button.mp3")]
+
+		[Embed( source = "/assets/sound/button.mp3" )]
 		private static var SoundClickButton:Class; //点击按钮
-		
-		[Embed(source="/assets/sound/uwin.mp3")]
+
+		[Embed( source = "/assets/sound/uwin.mp3" )]
 		private static var SoundWin:Class; //win
-		
-		[Embed(source="/assets/sound/ulose.mp3")]
+
+		[Embed( source = "/assets/sound/ulose.mp3" )]
 		private static var SoundLose:Class; //lose
 
 
@@ -87,17 +87,17 @@ package victor.core
 		}
 
 		//**********************   **********************************
-		
+
 		public static function playSoundWin():void
 		{
 			playTempSound( SoundWin );
 		}
-		
+
 		public static function playSoundLose():void
 		{
 			playTempSound( SoundLose );
 		}
-		
+
 		public static function playClickButton():void
 		{
 			playTempSound( SoundClickButton );
@@ -148,7 +148,7 @@ package victor.core
 		 */
 		public static function stopLast10Second():void
 		{
-			if ( _last10SecondChannel )
+			if ( _last10SecondChannel && _isPlayLast10Second )
 			{
 				_last10SecondStopPosition = _last10SecondChannel.position;
 				_last10SecondChannel.stop();
