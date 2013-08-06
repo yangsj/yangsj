@@ -4,7 +4,7 @@ package app.core
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-
+	
 	import music.BgMusic0;
 
 	/**
@@ -39,6 +39,9 @@ package app.core
 
 		[Embed( source = "/assets/sound/ulose.mp3" )]
 		private static var SoundLose:Class; //lose
+		
+		[Embed( source = "/assets/sound/error.mp3" )]
+		private static var SoundClickError:Class;
 
 
 		public function SoundManager()

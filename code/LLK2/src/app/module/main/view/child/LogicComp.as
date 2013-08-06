@@ -213,11 +213,12 @@ package app.module.main.view.child
 			if ( target )
 			{
 				event.stopPropagation();
-				SoundManager.playClickItem();
 				if ( _startItem == null )
 				{
 					_startItem = target;
 					_startItem.selected = true;
+					
+					SoundManager.playClickItem();
 				}
 				else
 				{
@@ -226,12 +227,16 @@ package app.module.main.view.child
 					{
 						_startItem.selected = false;
 						_startItem = null;
+						
+						SoundManager.playClickItem();
 					}
 					else if ( _startItem.mark != target.mark )
 					{
 						_startItem.selected = false;
 						_startItem = target;
 						_startItem.selected = true;
+						
+						SoundManager.playClickError();
 					}
 					else
 					{
