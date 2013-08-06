@@ -233,8 +233,8 @@ package app.module.main.view.child
 					else if ( _startItem.mark != target.mark )
 					{
 						_startItem.selected = false;
-						_startItem = target;
-						_startItem.selected = true;
+						_endItem.selected = false;
+						_startItem = null;
 						
 						SoundManager.playClickError();
 					}
@@ -265,9 +265,10 @@ package app.module.main.view.child
 			else
 			{
 				_startItem.selected = false;
-				_endItem.selected = true;
-				_startItem = _endItem;
+				_endItem.selected = false;
+				SoundManager.playClickError();
 			}
+			_startItem = null;
 			_endItem = null;
 		}
 
