@@ -1,5 +1,6 @@
 package app.data
 {
+	import app.module.main.DirectionType;
 
 	/**
 	 * ……
@@ -32,10 +33,10 @@ package app.data
 			if ( _levels == null )
 			{
 				var maxLv:int = maxLevel;
-				var maxTime:int = 60 + ( maxLv / 5 );
 				var numGap:int = int( maxLv / 15 );
 				var numSta:int = 15;
 				var numScroe:int = 100;
+				var max:uint = DirectionType.MAX;
 				_levels = new Vector.<LevelVo>( maxLv );
 				for ( var i:int = 1; i <= maxLv; i++ )
 				{
@@ -44,7 +45,8 @@ package app.data
 					vo.level = i;
 					vo.score = numScroe + ( 5 * ( i - 1 ));
 					vo.picNum = boo ? numSta += 2 : numSta;
-					vo.limitTime = 60; //boo ? maxTime -= 5 : maxTime;
+					vo.limitTime = 180; //boo ? maxTime -= 5 : maxTime;
+					vo.direction = (i - 1) % max;
 					_levels[ i - 1 ] = vo;
 				}
 			}

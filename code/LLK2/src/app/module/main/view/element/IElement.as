@@ -23,6 +23,11 @@ package app.module.main.view.element
 		function refresh():void;
 		
 		/**
+		 * 移动
+		 */
+		function tween(delay:Number = 0):void;
+		
+		/**
 		 * 移除显示列表
 		 */
 		function removeFromParent(delay:Number = 0):void;
@@ -82,7 +87,7 @@ package app.module.main.view.element
 		 * 是否是存在的
 		 */
 		function get isReal():Boolean;
-		function set isReal(value:Boolean):void;
+//		function set isReal(value:Boolean):void;
 		
 		/**
 		 * 父容器

@@ -181,7 +181,7 @@ package app.core
 		{
 //			YLogger.printImgInfoProgress( "结束加载：" + _url + "____________________________end" );
 			var bitmapdata:BitmapData;
-			var loadContent:DisplayObject = _loader.content;
+			var loadContent:DisplayObject = event.target.content;
 			if ( loadContent is Bitmap )
 			{
 				bitmapdata = ( loadContent as Bitmap ).bitmapData;

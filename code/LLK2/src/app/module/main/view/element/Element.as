@@ -9,8 +9,8 @@ package app.module.main.view.element
 	import flash.geom.Point;
 
 	import app.AppStage;
-	import app.module.AppUrl;
 	import app.core.Image;
+	import app.module.AppUrl;
 	import app.utils.DisplayUtil;
 
 
@@ -36,6 +36,11 @@ package app.module.main.view.element
 		private var _border:Shape;
 		private var _selectEffect:Shape;
 
+		private var _lastx:Number = 0;
+		private var _lasty:Number = 0;
+		private var _endx:Number = 0;
+		private var _endy:Number = 0;
+
 		public function Element()
 		{
 			mouseChildren = false;
@@ -53,11 +58,29 @@ package app.module.main.view.element
 			_parentTarget = null;
 		}
 
+		public function tween( delay:Number = 0 ):void
+		{
+			if ( isReal )
+			{
+				this.x = cols * ( itemWidth + 5 );
+				this.y = rows * ( itemHeight + 5 );
+				TweenMax.killTweensOf( this );
+				TweenMax.from( this, 0.2, { x: _lastx, y: _lasty, delay: delay });
+			}
+		}
+
 		public function refresh():void
 		{
+			_lastx = this.x;
+			_lasty = this.y;
 			this.x = cols * ( itemWidth + 5 );
 			this.y = rows * ( itemHeight + 5 );
 			_globalPoint = this.localToGlobal( new Point(( itemWidth >> 1 ), ( itemHeight >> 1 )));
+			if ( _isReal == false )
+			{
+				this.x = _lastx;
+				this.y = _lasty;
+			}
 
 			mouseEnabled = true;
 		}
@@ -111,14 +134,12 @@ package app.module.main.view.element
 				target.visible = false;
 				selected = false;
 			}, [ this ]);
-			isReal = false;
-			cols = 0;
-			rows = 0;
+			_isReal = false;
 		}
 
 		public function get globalPoint():Point
 		{
-			return _globalPoint;
+			return new Point( _globalPoint.x, _globalPoint.y );
 		}
 
 		public function get itemWidth():Number
@@ -167,10 +188,10 @@ package app.module.main.view.element
 			return _isReal;
 		}
 
-		public function set isReal( value:Boolean ):void
-		{
-			_isReal = value;
-		}
+//		public function set isReal( value:Boolean ):void
+//		{
+//			_isReal = value;
+//		}
 
 		public function get mark():int
 		{

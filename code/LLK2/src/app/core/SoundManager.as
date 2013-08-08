@@ -4,6 +4,7 @@ package app.core
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.net.URLRequest;
 	
 	import music.BgMusic0;
 
@@ -25,24 +26,32 @@ package app.core
 
 		private static var _soundTempTransform:SoundTransform;
 
-		[Embed( source = "/assets/sound/click.mp3" )]
-		private static var SoundClickItem:Class; // 点击
+//		[Embed( source = "/assets/sound/click.mp3" )]
+//		private static var SoundClickItem:Class; // 点击
+//
+//		[Embed( source = "/assets/sound/link.mp3" )]
+//		private static var SoundLinkItem:Class; // link
+//
+//		[Embed( source = "/assets/sound/button.mp3" )]
+//		private static var SoundClickButton:Class; //点击按钮
+//
+//		[Embed( source = "/assets/sound/uwin.mp3" )]
+//		private static var SoundWin:Class; //win
+//
+//		[Embed( source = "/assets/sound/ulose.mp3" )]
+//		private static var SoundLose:Class; //lose
+//		
+//		[Embed( source = "/assets/sound/error.mp3" )]
+//		private static var SoundClickError:Class;
 
-		[Embed( source = "/assets/sound/link.mp3" )]
-		private static var SoundLinkItem:Class; // link
-
-		[Embed( source = "/assets/sound/button.mp3" )]
-		private static var SoundClickButton:Class; //点击按钮
-
-		[Embed( source = "/assets/sound/uwin.mp3" )]
-		private static var SoundWin:Class; //win
-
-		[Embed( source = "/assets/sound/ulose.mp3" )]
-		private static var SoundLose:Class; //lose
+		private static var SoundClickItem:String = "/assets/sound/click.mp3"; // 点击
+		private static var SoundLinkItem:String = "/assets/sound/link.mp3"; // link
+		private static var SoundClickButton:String = "/assets/sound/button.mp3"; //点击按钮
+		private static var SoundWin:String = "/assets/sound/uwin.mp3"; //win
+		private static var SoundLose:String = "/assets/sound/ulose.mp3"; //lose
+		private static var SoundClickError:String = "/assets/sound/error.mp3";
 		
-		[Embed( source = "/assets/sound/error.mp3" )]
-		private static var SoundClickError:Class;
-
+		private static var bgs:Array = [BgMusic0, "/assets/sound/bg_wanshuiqianshanzongshiqing.map3"];
 
 		public function SoundManager()
 		{
@@ -66,11 +75,21 @@ package app.core
 			removeBgChannelListener();
 		}
 
-		public static function playBgMusic():void
+		public static function playBgMusic(isNew:Boolean = true):void
 		{
 			stopBgMusic();
 			_bgTransform ||= new SoundTransform( 0.5 );
-			_bgSound ||= new BgMusic0();
+			if ( isNew )
+			{
+				var element:* = bgs[ int( Math.random() * bgs.length )];
+				if ( element is Class )
+					_bgSound = new element();
+				else
+				{
+					_bgSound = new Sound( new URLRequest( element ));
+				}
+				_bgPosition = 0;
+			}
 			_bgChannel = _bgSound.play( _bgPosition, int.MAX_VALUE, _bgTransform );
 			if ( _bgChannel )
 				_bgChannel.addEventListener( Event.SOUND_COMPLETE, soundCompleteHandler );
@@ -176,9 +195,9 @@ package app.core
 		}
 
 
-		private static function playTempSound( soundClass:Class ):void
+		private static function playTempSound( soundClassOrUrl:* ):void
 		{
-			var sound:Sound = new soundClass();
+			var sound:Sound = soundClassOrUrl is Class ? new soundClassOrUrl() : new Sound(new URLRequest(soundClassOrUrl));
 			sound.play( 0, 1, soundTransform );
 		}
 

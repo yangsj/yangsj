@@ -12,14 +12,15 @@ package app.module.main.view.child
 	import flash.utils.getTimer;
 	
 	import app.AppStage;
-	import app.core.components.Button;
-	import app.core.SoundManager;
-	import app.module.main.view.element.IElement;
-	import app.data.LevelVo;
-	import app.utils.ArrayUtil;
 	import app.EffectControl;
+	import app.core.SoundManager;
+	import app.core.components.Button;
+	import app.data.LevelVo;
+	import app.module.main.DirectionType;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.element.Element;
+	import app.module.main.view.element.IElement;
+	import app.utils.ArrayUtil;
 
 	[Event( name = "back_menu", type = "app.module.main.events.MainEvent" )]
 
@@ -61,6 +62,8 @@ package app.module.main.view.child
 		private var _btnRefresh:Button;
 		private var _btnBack:Button;
 		private var _findPath:FindPath;
+
+		private var _moveIntervalTime:Number = 0;
 
 		public function LogicComp()
 		{
@@ -179,13 +182,13 @@ package app.module.main.view.child
 			function complete( event:TweenEvent ):void
 			{
 				var target:TimelineMax = event.target as TimelineMax;
+
 				if ( target )
-				{
 					target.removeEventListener( TweenEvent.COMPLETE, complete );
-				}
 
 				if ( _btnRefresh )
 					_btnRefresh.mouseEnabled = true;
+
 				if ( _btnBack )
 					_btnBack.mouseEnabled = true;
 			}
@@ -205,6 +208,8 @@ package app.module.main.view.child
 					item.refresh();
 				}
 			}
+			_moveIntervalTime = 0;
+			moveElements();
 		}
 
 		protected function clickHandler( event:MouseEvent ):void
@@ -217,7 +222,7 @@ package app.module.main.view.child
 				{
 					_startItem = target;
 					_startItem.selected = true;
-					
+
 					SoundManager.playClickItem();
 				}
 				else
@@ -227,7 +232,7 @@ package app.module.main.view.child
 					{
 						_startItem.selected = false;
 						_startItem = null;
-						
+
 						SoundManager.playClickItem();
 					}
 					else if ( _startItem.mark != target.mark )
@@ -235,7 +240,8 @@ package app.module.main.view.child
 						_startItem.selected = false;
 						_endItem.selected = false;
 						_startItem = null;
-						
+						_endItem = null;
+
 						SoundManager.playClickError();
 					}
 					else
@@ -261,6 +267,8 @@ package app.module.main.view.child
 				checkGameProgress();
 				checkAddScore();
 				SoundManager.playLinkItem();
+
+				moveElements();
 			}
 			else
 			{
@@ -275,52 +283,454 @@ package app.module.main.view.child
 		private function setDrawLine( tempVec1:Vector.<IElement> ):void
 		{
 			var tempVec2:Vector.<Point> = new Vector.<Point>();
-			var time:Number = 0.05 * ( tempVec1.length );
+			_moveIntervalTime = 0.05 * ( tempVec1.length );
+
 			for each ( var item:IElement in tempVec1 )
-			{
 				tempVec2.push( item.globalPoint );
-			}
+
 			_drawPathLine.setPoints( tempVec2 );
-			_startItem.removeFromParent( time );
-			_endItem.removeFromParent( time );
-			_startItem = null;
+			_startItem.removeFromParent( _moveIntervalTime );
+			_endItem.removeFromParent( _moveIntervalTime );
 		}
 
 		private function checkGameProgress():void
 		{
-			if ( _dispelNumber >= HALF )
-			{
-				_isOver = true;
+			_isOver = _dispelNumber >= HALF;
+			if ( _isOver )
 				dispatchEvent( new MainEvent( MainEvent.DISPEL_SUCCESS ));
-			}
 			else
-			{
 				dispatchEvent( new MainEvent( MainEvent.ADD_TIME, 1 ));
-			}
 		}
 
 		private function checkAddScore():void
 		{
 			// score
 			var score:int = _levelVo.score;
+
 			if ( getTimer() - _lastClickTime <= COMB_TIME_UNIT )
-			{
 				_combNumber++;
-				score += _combNumber * COMB_REWAR_SCORE_UNIT;
-				EffectControl.instance.playCombWords( _combNumber );
-			}
 			else
-			{
 				_combNumber = 0;
-			}
-			if ( _combNumber > 0 && _combNumber % 3 == 0 )
-			{
-				TweenMax.delayedCall( 0.5, EffectControl.instance.playGoodWords );
-			}
-			_lastClickTime = getTimer();
+
+			score += _combNumber * COMB_REWAR_SCORE_UNIT;
+			EffectControl.instance.playCombWords( _combNumber );
 			trace( "连击：" + _combNumber, "》》》》》增加分数：" + score );
+
+			if ( _combNumber > 0 && _combNumber % 3 == 0 )
+				TweenMax.delayedCall( 0.5, EffectControl.instance.playGoodWords );
+
+			_lastClickTime = getTimer();
 			dispatchEvent( new MainEvent( MainEvent.ADD_SCORE, score ));
 		}
+
+		private function moveElements():void
+		{
+			switch ( direction )
+			{
+				case DirectionType.DEFAULT:
+					break;
+				case DirectionType.DOWN:
+					moveDown();
+					break;
+				case DirectionType.UP:
+					moveUp();
+					break;
+				case DirectionType.LEFT:
+					moveLeft();
+					break;
+				case DirectionType.RIGHT:
+					moveRight();
+					break;
+				case DirectionType.DOWN_UP:
+					moveDownUp();
+					break;
+				case DirectionType.LEFT_RIGHT:
+					moveLeftRight();
+					break;
+				case DirectionType.byDown:
+					byDown();
+					break;
+				case DirectionType.byUp:
+					byUp();
+					break;
+				case DirectionType.byLeft:
+					byLeft();
+					break;
+				case DirectionType.byRight:
+					byRight();
+					break;
+				case DirectionType.byLeftMoveDown:
+					byLeftMoveDown();
+					break;
+				case DirectionType.byLeftMoveUp:
+					byLeftMoveUp();
+					break;
+				case DirectionType.byRightMoveDown:
+					byRightMoveDown();
+					break;
+				case DirectionType.byRightMoveUp:
+					byRightMoveUp();
+					break;
+				case DirectionType.byUpMoveLeft:
+					byUpMoveRight();
+					break;
+				case DirectionType.byUpMoveRight:
+					byUpMoveRight();
+					break;
+				case DirectionType.byDownMoveLeft:
+					byDownMoveLeft();
+					break;
+				case DirectionType.byDownMoveRight:
+					byDownMoveRight();
+					break;
+				default:
+					break;
+			}
+			moveRowOrCol();
+			_moveIntervalTime = 0;
+		}
+
+		private function moveDown( startCol:int = 0, endCol:int = COLS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var num:int = 0;
+			for ( var col:int = startCol; col < endCol; col++ )
+			{
+				num = 0;
+				for ( var row:int = ROWS - 1; row >= 0; row-- )
+				{
+					if ( num < ROWS )
+					{
+						element = _listAry[ row ][ col ];
+						if ( element.isReal == false )
+						{
+							for ( var i:int = row; i > 0; i-- )
+							{
+								temp = _listAry[ i - 1 ][ col ];
+								temp.rows = i;
+								_listAry[ i ][ col ] = temp;
+							}
+							element.rows = 0;
+							_listAry[ 0 ][ col ] = element;
+							row++;
+							num++;
+						}
+					}
+				}
+			}
+		}
+
+		private function moveUp( startCol:int = 0, endCol:int = COLS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var num:int = 0;
+			var end:int = ROWS - 1;
+			for ( var col:int = startCol; col < endCol; col++ )
+			{
+				num = 0;
+				for ( var row:int = 0; row < ROWS; row++ )
+				{
+					if ( num < ROWS )
+					{
+						element = _listAry[ row ][ col ];
+						if ( element.isReal == false )
+						{
+							for ( var i:int = row; i < end; i++ )
+							{
+								temp = _listAry[ i + 1 ][ col ];
+								temp.rows = i;
+								_listAry[ i ][ col ] = temp;
+							}
+							element.rows = end;
+							_listAry[ end ][ col ] = element;
+							row--;
+							num++;
+						}
+					}
+				}
+			}
+		}
+
+		private function moveLeft( startRow:int = 0, endRow:int = ROWS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var num:int = 0;
+			for ( var row:int = startRow; row < endRow; row++ )
+			{
+				num = 0;
+				for ( var col:int = 0; col < COLS; col++ )
+				{
+					if ( num < COLS )
+					{
+						element = _listAry[ row ][ col ];
+						if ( element.isReal == false )
+						{
+							for ( var i:int = col; i < COLS - 1; i++ )
+							{
+								temp = _listAry[ row ][ i + 1 ];
+								temp.cols = i;
+								_listAry[ row ][ i ] = temp;
+							}
+							element.cols = COLS - 1;
+							_listAry[ row ][ COLS - 1 ] = element;
+							col--;
+							num++;
+						}
+					}
+				}
+			}
+		}
+
+		private function moveRight( startRow:int = 0, endRow:int = ROWS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var num:int = 0;
+			for ( var row:int = startRow; row < endRow; row++ )
+			{
+				num = 0;
+				for ( var col:int = COLS - 1; col >= 0; col-- )
+				{
+					if ( num < COLS )
+					{
+						element = _listAry[ row ][ col ];
+						if ( element.isReal == false )
+						{
+							for ( var i:int = col; i > 0; i-- )
+							{
+								temp = _listAry[ row ][ i - 1 ];
+								temp.cols = i;
+								_listAry[ row ][ i ] = temp;
+							}
+							element.cols = 0
+							_listAry[ row ][ 0 ] = element;
+							col++;
+							num++;
+						}
+					}
+				}
+			}
+		}
+
+		private function byUp( startRow:int = 0, endRow:int = ROWS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var isMove:Boolean = false;
+			for ( var row:int = startRow; row < endRow; row++ )
+			{
+				isMove = true;
+				for ( var col:int = 0; col < COLS; col++ )
+				{
+					element = _listAry[ row ][ col ];
+					if ( element.isReal )
+					{
+						isMove = false;
+						break;
+					}
+				}
+				if ( isMove && row < endRow - 1 )
+				{
+					for ( col = 0; col < COLS; col++ )
+					{
+						temp = _listAry[ row ][ col ];
+						for ( var i:int = row + 1; i < endRow; i++ )
+						{
+							element = _listAry[ i ][ col ];
+							element.rows = i - 1;
+							_listAry[ i - 1 ][ col ] = element;
+						}
+						_listAry[ endRow - 1 ][ col ] = temp;
+					}
+				}
+			}
+		}
+
+		private function byDown( startRow:int = 0, endRow:int = ROWS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var isMove:Boolean = false;
+			for ( var row:int = endRow - 1; row >= startRow; row-- )
+			{
+				isMove = true;
+				for ( var col:int = 0; col < COLS; col++ )
+				{
+					element = _listAry[ row ][ col ];
+					if ( element.isReal )
+					{
+						isMove = false;
+						break;
+					}
+				}
+				if ( isMove && row > startRow )
+				{
+					for ( col = 0; col < COLS; col++ )
+					{
+						temp = _listAry[ row ][ col ];
+						for ( var i:int = row - 1; i >= startRow; i-- )
+						{
+							element = _listAry[ i ][ col ];
+							element.rows = i + 1;
+							_listAry[ i + 1 ][ col ] = element;
+						}
+						_listAry[ 0 ][ col ] = temp;
+					}
+				}
+			}
+		}
+
+		private function byLeft( startCol:int = 0, endCol:int = COLS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var isMove:Boolean = false;
+			for ( var col:int = startCol; col < endCol; col++ )
+			{
+				isMove = true;
+				for ( var row:int = 0; row < ROWS; row++ )
+				{
+					element = _listAry[ row ][ col ];
+					if ( element.isReal )
+					{
+						isMove = false;
+						break;
+					}
+				}
+				if ( isMove && col < endCol - 1 )
+				{
+					for ( row = 0; row < ROWS; row++ )
+					{
+						temp = _listAry[ row ][ col ];
+						for ( var i:int = col + 1; col < endCol - 1; i++ )
+						{
+							element = _listAry[ row ][ i ];
+							element.cols = i - 1;
+							_listAry[ row ][ i - 1 ] = element;
+						}
+						_listAry[ row ][ endCol - 1 ] = temp;
+					}
+				}
+			}
+		}
+
+		private function byRight( startCol:int = 0, endCol:int = COLS ):void
+		{
+			var temp:IElement;
+			var element:IElement;
+			var isMove:Boolean = false;
+			for ( var col:int = endCol - 1; col >= startCol; col-- )
+			{
+				isMove = true;
+				for ( var row:int = 0; row < ROWS; row++ )
+				{
+					element = _listAry[ row ][ col ];
+					if ( element.isReal )
+					{
+						isMove = false;
+						break;
+					}
+				}
+				if ( isMove && col > startCol )
+				{
+					for ( row = 0; row < ROWS; row++ )
+					{
+						temp = _listAry[ row ][ col ];
+						for ( var i:int = col - 1; col > startCol; i-- )
+						{
+							element = _listAry[ row ][ i ];
+							element.cols = i + 1;
+							_listAry[ row ][ i + 1 ] = element;
+						}
+						_listAry[ row ][ 0 ] = temp;
+					}
+				}
+			}
+		}
+
+		private function moveDownUp():void
+		{
+			moveUp( 0, int( COLS >> 1 ))
+			moveDown( int( COLS >> 1 ), COLS );
+		}
+
+		private function moveLeftRight():void
+		{
+			moveLeft( 0, int( ROWS >> 1 ));
+			moveRight( int( ROWS >> 1 ), ROWS );
+		}
+		private function byRightMoveUp():void
+		{
+			moveUp();
+			byRight();
+		}
+		
+		private function byRightMoveDown():void
+		{
+			moveDown();
+			byRight();
+		}
+		
+		private function byLeftMoveUp():void
+		{
+			moveUp();
+			byLeft();
+		}
+		
+		private function byLeftMoveDown():void
+		{
+			moveDown();
+			byLeft();
+		}
+		
+		private function byUpMoveLeft():void
+		{
+			moveLeft();
+			byUp();
+		}
+		
+		private function byUpMoveRight():void
+		{
+			moveRight();
+			byUp();
+		}
+		
+		private function byDownMoveLeft():void
+		{
+			moveLeft();
+			byDown();
+		}
+		
+		private function byDownMoveRight():void
+		{
+			moveRight();
+			byDown();
+		}
+
+		private function moveRowOrCol():void
+		{
+			var element:IElement;
+			for ( var row:int = 0; row < ROWS; row++ )
+			{
+				for ( var col:int = 0; col < COLS; col++ )
+				{
+					element = _listAry[ row ][ col ];
+					element.refresh();
+					element.tween( _moveIntervalTime );
+				}
+			}
+		}
+
+		///***************
+
+		public function get direction():uint
+		{
+			return _levelVo.direction;
+		}
+
 
 	}
 }

@@ -12,12 +12,10 @@ package app.data
 		{
 		}
 		
-		/**
-		 *等级 
-		 */
-		public var level:int = 1;
+		private var _level:int = 1;
 		private var _picNum:int = 15;
 		private var _limitTime:int = 60;
+		private var _direction:uint;
 		/**
 		 * 当前等级每次消除所得的分数
 		 */
@@ -53,6 +51,38 @@ package app.data
 		public function set limitTime(value:int):void
 		{
 			_limitTime = Math.max(60, value);
+		}
+
+		/**
+		 * 移动方向
+		 */
+		public function get direction():uint
+		{
+			return _direction;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set direction(value:uint):void
+		{
+			_direction = value;
+		}
+
+		/**
+		 *等级 
+		 */
+		public function get level():int
+		{
+			return _level;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set level(value:int):void
+		{
+			_level = value;
 		}
 
 

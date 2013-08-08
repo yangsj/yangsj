@@ -11,16 +11,16 @@ package app.module.main.view.child
 	import flash.text.TextField;
 	import flash.utils.Timer;
 
-	import ui.components.UIAddScore100;
-	import ui.components.UITimeView;
-
 	import app.AppStage;
 	import app.core.SoundManager;
 	import app.data.LevelVo;
+	import app.module.main.events.MainEvent;
 	import app.utils.DisplayUtil;
 	import app.utils.NumberUtil;
 	import app.utils.safetyCall;
-	import app.module.main.events.MainEvent;
+
+	import ui.components.UIAddScore100;
+	import ui.components.UITimeView;
 
 
 	/**
@@ -51,9 +51,11 @@ package app.module.main.view.child
 
 		private var lvSprite:Sprite;
 		private var isPlay:Boolean = false;
+		private var isTimeup:Boolean = false;
 
 		private var numTimeSprite:Sprite;
 		private var numScoreSprite:Sprite;
+
 
 		public function MenuComp()
 		{
@@ -106,6 +108,7 @@ package app.module.main.view.child
 
 		public function resetScore():void
 		{
+			isTimeup = false;
 			createNumScoreSprite( 0 );
 			endResultScore = [ 0 ];
 		}
@@ -120,8 +123,8 @@ package app.module.main.view.child
 		{
 			if ( timer )
 			{
-				if (timer.running == false)
-					return ;
+				if ( timer.running == false )
+					return;
 				timer.stop();
 			}
 			isPlay = false;
@@ -130,6 +133,7 @@ package app.module.main.view.child
 
 		public function startTimer():void
 		{
+			isTimeup = false;
 			isPlay = true;
 			ctrlTime();
 			timer ||= new Timer( 1000 );
@@ -229,6 +233,7 @@ package app.module.main.view.child
 
 		protected function completeHandler( event:TimerEvent ):void
 		{
+			isTimeup = true;
 			stopTimer();
 			safetyCall( _completeCallBackFunction );
 		}
@@ -345,6 +350,13 @@ package app.module.main.view.child
 		{
 			return endResultScore[ 0 ];
 		}
+
+		public function get isRunning():Boolean
+		{
+			return isTimeup ? false : timer.running;
+		}
+
+
 
 	}
 }

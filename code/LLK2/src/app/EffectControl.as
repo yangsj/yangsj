@@ -61,12 +61,15 @@ package app
 		 */
 		public function playCombWords( comb:int, callBack:Function = null ):void
 		{
-			var mc:MovieClip = new UICombNumberSkin();
-			var combNum:Sprite = NumberUtil.createNumSprite( comb );
-			combNum.x = 25;
-			combNum.y = -combNum.height >> 1;
-			mc.con.addChild( combNum );
-			centerPlayMovieClip( mc, callBack );
+			if (comb > 0)
+			{
+				var mc:MovieClip = new UICombNumberSkin();
+				var combNum:Sprite = NumberUtil.createNumSprite( comb );
+				combNum.x = 25;
+				combNum.y = -combNum.height >> 1;
+				mc.con.addChild( combNum );
+				centerPlayMovieClip( mc, callBack );
+			}
 		}
 
 		/**

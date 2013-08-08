@@ -1,8 +1,6 @@
 package app.module.menu.view
 {
 	import flash.desktop.NativeApplication;
-	import flash.display.Sprite;
-	import flash.events.Event;
 	
 	import framework.BaseScene;
 	
@@ -10,7 +8,6 @@ package app.module.menu.view
 	import app.module.AppUrl;
 	import app.core.Alert;
 	import app.core.Image;
-	import app.core.SoundManager;
 	import app.core.components.Button;
 	import app.module.menu.events.MenuEvent;
 	
@@ -67,20 +64,6 @@ package app.module.menu.view
 			AppStage.adjustXYScaleXY( btnHistoryRank );
 			AppStage.adjustXYScaleXY( btnGameHelp );
 			AppStage.adjustXYScaleXY( btnExitGame );
-
-			SoundManager.playBgMusic();
-			NativeApplication.nativeApplication.addEventListener( Event.ACTIVATE, activateHandler );
-			NativeApplication.nativeApplication.addEventListener( Event.DEACTIVATE, deactivateHandler );
-		}
-
-		protected function deactivateHandler( event:Event ):void
-		{
-			SoundManager.stopBgMusic();
-		}
-
-		protected function activateHandler( event:Event ):void
-		{
-			SoundManager.playBgMusic();
 		}
 
 		private function onCompleteLoaded( img:Image ):void

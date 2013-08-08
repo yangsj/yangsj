@@ -2,26 +2,24 @@ package app.module.main.view
 {
 	import flash.desktop.NativeApplication;
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.events.Event;
-	
-	import framework.BaseScene;
-	
-	import app.EffectControl;
+
 	import app.AppStage;
-	import app.module.AppUrl;
+	import app.EffectControl;
 	import app.core.Alert;
 	import app.core.Image;
 	import app.core.SoundManager;
-	import framework.ViewStruct;
 	import app.data.LevelConfig;
 	import app.data.LevelVo;
+	import app.module.AppUrl;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.child.LogicComp;
-	import app.module.main.view.child.MenuComp;
+	import app.module.main.view.child.MenuComp; 
 	import app.utils.DisplayUtil;
 	import app.utils.MovieClipUtil;
-	
+
+	import framework.BaseScene;
+
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
 
@@ -37,6 +35,7 @@ package app.module.main.view
 		private var timeClockComp:MenuComp;
 
 		private var isStopLast10Second:Boolean = false;
+		private var isRunning:Boolean = true;
 
 		private var bgImage:Image;
 
@@ -78,18 +77,23 @@ package app.module.main.view
 
 		protected function deactivateHandler( event:Event ):void
 		{
-			timeClockComp.ctrlTime();
+			isRunning = timeClockComp.isRunning;
 			isStopLast10Second = SoundManager.isPlayLast10Second;
+
+			if ( isRunning )
+				timeClockComp.ctrlTime();
+
 			if ( isStopLast10Second )
 				SoundManager.stopLast10Second();
 		}
 
 		protected function activateHandler( event:Event ):void
 		{
-			timeClockComp.ctrlTime();
+			if ( isRunning )
+				timeClockComp.ctrlTime();
+
 			if ( isStopLast10Second )
 				SoundManager.resetLast10Second();
-			isStopLast10Second = false;
 		}
 
 		protected function backMenuHandler( event:MainEvent ):void
@@ -164,14 +168,14 @@ package app.module.main.view
 
 			EffectControl.instance.playReadyGo( timeClockComp.startTimer );
 
-			if ( bgImage )
+			if ( bgImage == null )
 			{
-				DisplayUtil.removedFromParent( bgImage );
-				bgImage.dispose();
+				bgImage = new Image( AppUrl.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
+				addChildAt( bgImage, 0 );
 			}
+			else
+				bgImage.reset( AppUrl.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
 
-			bgImage = new Image( AppUrl.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
-			addChildAt( bgImage, 0 );
 		}
 
 		private function onCompleteLoaded( img:Image ):void
@@ -196,11 +200,11 @@ package app.module.main.view
 			NativeApplication.nativeApplication.removeEventListener( Event.ACTIVATE, activateHandler );
 			NativeApplication.nativeApplication.removeEventListener( Event.DEACTIVATE, deactivateHandler );
 		}
-		
+
 		override public function show():void
 		{
 			initialize();
-			
+
 			super.show();
 		}
 
