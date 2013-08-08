@@ -5,7 +5,7 @@ package app.core
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
-	
+
 	import music.BgMusic0;
 
 	/**
@@ -44,14 +44,18 @@ package app.core
 //		[Embed( source = "/assets/sound/error.mp3" )]
 //		private static var SoundClickError:Class;
 
+		private static var BgSnd_1:String = "/assets/sound/bg_wsqszsq.mp3";
+
+
 		private static var SoundClickItem:String = "/assets/sound/click.mp3"; // 点击
 		private static var SoundLinkItem:String = "/assets/sound/link.mp3"; // link
 		private static var SoundClickButton:String = "/assets/sound/button.mp3"; //点击按钮
 		private static var SoundWin:String = "/assets/sound/uwin.mp3"; //win
 		private static var SoundLose:String = "/assets/sound/ulose.mp3"; //lose
 		private static var SoundClickError:String = "/assets/sound/error.mp3";
-		
-		private static var bgs:Array = [BgMusic0, "/assets/sound/bg_wanshuiqianshanzongshiqing.map3"];
+
+
+		private static var bgSnd:Array = [ BgMusic0, BgSnd_1 ];
 
 		public function SoundManager()
 		{
@@ -75,22 +79,17 @@ package app.core
 			removeBgChannelListener();
 		}
 
-		public static function playBgMusic(isNew:Boolean = true):void
+		public static function playBgMusic( isNew:Boolean = true ):void
 		{
 			stopBgMusic();
 			_bgTransform ||= new SoundTransform( 0.5 );
 			if ( isNew )
 			{
-				var element:* = bgs[ int( Math.random() * bgs.length )];
-				if ( element is Class )
-					_bgSound = new element();
-				else
-				{
-					_bgSound = new Sound( new URLRequest( element ));
-				}
+				var soundClassOrUrl:* = bgSnd[ int( Math.random() * bgSnd.length )];
+				_bgSound = soundClassOrUrl is Class ? new soundClassOrUrl() : new Sound( new URLRequest( soundClassOrUrl ));
 				_bgPosition = 0;
 			}
-			_bgChannel = _bgSound.play( _bgPosition, int.MAX_VALUE, _bgTransform );
+			_bgChannel = _bgSound.play( _bgPosition, 1, _bgTransform );
 			if ( _bgChannel )
 				_bgChannel.addEventListener( Event.SOUND_COMPLETE, soundCompleteHandler );
 		}
@@ -197,7 +196,7 @@ package app.core
 
 		private static function playTempSound( soundClassOrUrl:* ):void
 		{
-			var sound:Sound = soundClassOrUrl is Class ? new soundClassOrUrl() : new Sound(new URLRequest(soundClassOrUrl));
+			var sound:Sound = soundClassOrUrl is Class ? new soundClassOrUrl() : new Sound( new URLRequest( soundClassOrUrl ));
 			sound.play( 0, 1, soundTransform );
 		}
 
