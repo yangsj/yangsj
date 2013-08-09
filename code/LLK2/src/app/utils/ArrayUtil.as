@@ -24,11 +24,6 @@ package app.utils
 				return int( Math.random() * 3 ) - 1;
 			}
 		}
-		
-		public static function split( string:String, delim:* ):Array
-		{
-			return string.split( delim );
-		}
 
 	}
 }

@@ -1,7 +1,8 @@
 package app.module.main.view.child
 {
-	import app.module.main.view.element.IElement;
+	import app.module.main.view.ElementConfig;
 	import app.module.main.view.element.Element;
+	import app.module.main.view.element.IElement;
 
 	/**
 	 * ……
@@ -22,17 +23,16 @@ package app.module.main.view.child
 		private var _startItem:IElement; // 起始节点
 		private var _endItem:IElement; // 结束节点
 		private var _map:Vector.<Vector.<IElement>>;
-		private var _cols:uint = 6;
-		private var _rows:uint = 9;
+		
+		private var _cols:uint = ElementConfig.COLS;
+		private var _rows:uint = ElementConfig.ROWS;
 
 		public function FindPath()
 		{
 		}
 
-		public function initMap( rows:uint, cols:uint, map:Vector.<Vector.<IElement>> ):void
+		public function initMap( map:Vector.<Vector.<IElement>> ):void
 		{
-			_rows = rows;
-			_cols = cols;
 			_map = map;
 		}
 

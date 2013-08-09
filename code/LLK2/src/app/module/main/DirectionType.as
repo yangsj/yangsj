@@ -26,32 +26,36 @@ package app.module.main
 
 		public static const RIGHT:uint = num++;
 
-		public static const DOWN_UP:uint = num++;
+		public static const downAndUp:uint = num++;
 
-		public static const LEFT_RIGHT:uint = num++;
-		
+		public static const upAndDown:uint = num++;
+
+		public static const leftAndRight:uint = num++;
+
+		public static const rightAndLeft:uint = num++;
+
 		public static const byDown:uint = num++;
-		
+
 		public static const byUp:uint = num++;
-		
+
 		public static const byLeft:uint = num++;
-		
+
 		public static const byRight:uint = num++;
-		
+
 		public static const byRightMoveUp:uint = num++;
-		
+
 		public static const byRightMoveDown:uint = num++;
-		
+
 		public static const byLeftMoveUp:uint = num++;
-		
+
 		public static const byLeftMoveDown:uint = num++;
-		
+
 		public static const byUpMoveLeft:uint = num++;
-		
+
 		public static const byUpMoveRight:uint = num++;
-		
+
 		public static const byDownMoveLeft:uint = num++;
-		
+
 		public static const byDownMoveRight:uint = num++;
 
 		public static const MAX:uint = num;
