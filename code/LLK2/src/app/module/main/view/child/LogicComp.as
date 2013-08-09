@@ -239,6 +239,8 @@ package app.module.main.view.child
 					{
 						_startItem.selected = false;
 						_endItem.selected = false;
+						_startItem.clickError();
+						_endItem.clickError();
 						_startItem = null;
 						_endItem = null;
 
@@ -274,6 +276,8 @@ package app.module.main.view.child
 			{
 				_startItem.selected = false;
 				_endItem.selected = false;
+				_startItem.clickError();
+				_endItem.clickError();
 				SoundManager.playClickError();
 			}
 			_startItem = null;

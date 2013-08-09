@@ -94,7 +94,6 @@ package app.module.main.view.child
 					break;
 			}
 			moveRowOrCol();
-			_moveIntervalTime = 0;
 		}
 
 		private function moveDown( startCol:int = 0, endCol:int = ElementConfig.COLS ):void
@@ -118,8 +117,8 @@ package app.module.main.view.child
 								temp.rows = i;
 								_map[ i ][ col ] = temp;
 							}
-							element.rows = startCol;
-							_map[ startCol ][ col ] = element;
+							element.rows = 0;
+							_map[ 0 ][ col ] = element;
 							row++;
 							num++;
 						}
@@ -212,8 +211,8 @@ package app.module.main.view.child
 								temp.cols = i;
 								_map[ row ][ i ] = temp;
 							}
-							element.cols = startRow
-							_map[ row ][ startRow ] = element;
+							element.cols = 0
+							_map[ row ][ 0 ] = element;
 							col++;
 							num++;
 						}
@@ -250,8 +249,8 @@ package app.module.main.view.child
 
 		private function moveDownUp():void
 		{
-			moveUp( 0, int( ElementConfig.COLS >> 1 ))
 			moveDown( int( ElementConfig.COLS >> 1 ), ElementConfig.COLS );
+			moveUp( 0, int( ElementConfig.COLS >> 1 ))
 		}
 
 		private function moveLeftRight():void
@@ -319,6 +318,7 @@ package app.module.main.view.child
 			var temp:IElement;
 			var element:IElement;
 			var isMove:Boolean = false;
+			var num:int = 0;
 			for ( var row:int = endRow - 1; row >= startRow; row-- )
 			{
 				isMove = true;
@@ -357,6 +357,12 @@ package app.module.main.view.child
 							_map[ endRow - 1 ][ col ] = temp;
 						}
 					}
+					num++;
+					row++;
+				}
+				if (num >= ElementConfig.ROWS)
+				{
+					break;
 				}
 			}
 		}
@@ -366,6 +372,7 @@ package app.module.main.view.child
 			var temp:IElement;
 			var element:IElement;
 			var isMove:Boolean = false;
+			var num:int = 0;
 			for ( var col:int = endCol - 1; col >= startCol; col-- )
 			{
 				isMove = true;
@@ -404,6 +411,12 @@ package app.module.main.view.child
 							_map[ row ][ startCol ] = temp;
 						}
 					}
+					num++;
+					col++;
+				}
+				if (num >= ElementConfig.COLS)
+				{
+					break;
 				}
 			}
 		}

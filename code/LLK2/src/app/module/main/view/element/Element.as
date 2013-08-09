@@ -1,13 +1,14 @@
 package app.module.main.view.element
 {
 	import com.greensock.TweenMax;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Point;
-
+	import flash.utils.setTimeout;
+	
 	import app.AppStage;
 	import app.core.Image;
 	import app.module.AppUrl;
@@ -35,6 +36,7 @@ package app.module.main.view.element
 		private var _image:Image;
 		private var _border:Shape;
 		private var _selectEffect:Shape;
+		private var _errorEffect:Shape;
 
 		private var _lastx:Number = 0;
 		private var _lasty:Number = 0;
@@ -67,6 +69,15 @@ package app.module.main.view.element
 				TweenMax.killTweensOf( this );
 				TweenMax.from( this, 0.2, { x: _lastx, y: _lasty, delay: delay });
 			}
+		}
+
+		public function clickError():void
+		{
+			_errorEffect.visible = true;
+			setTimeout( function abc():void
+			{
+				_errorEffect.visible = false;
+			}, 300 );
 		}
 
 		public function refresh():void
@@ -104,19 +115,18 @@ package app.module.main.view.element
 
 			if ( _border == null )
 			{
-				_border ||= new Shape();
-				_border.graphics.lineStyle( 5, 0, 0.8 );
-				_border.graphics.drawRect( 0, 0, itemWidth, itemHeight );
-				_border.graphics.endFill();
+				_border = getShape( 5, 0, 0.8 );
 				addChild( _border );
 			}
 			if ( _selectEffect == null )
 			{
-				_selectEffect = new Shape();
-				_selectEffect.graphics.lineStyle( 5, 0x00FF00, 0.8 );
-				_selectEffect.graphics.drawRect( 0, 0, itemWidth, itemHeight );
-				_selectEffect.graphics.endFill();
+				_selectEffect = getShape( 5, 0x00FF00, 0.8 );
 				addChild( _selectEffect );
+			}
+			if ( _errorEffect == null )
+			{
+				_errorEffect = getShape( 5, 0xFF0000, 0.8 );
+				addChild( _errorEffect );
 			}
 			selected = false;
 
@@ -124,6 +134,15 @@ package app.module.main.view.element
 				_parentTarget.addChild( this );
 
 			refresh();
+		}
+
+		private function getShape( thickness:Number = 0, color:uint = 0, alpha:Number = 1.0 ):Shape
+		{
+			var shape:Shape = new Shape();
+			shape.graphics.lineStyle( thickness, color, alpha );
+			shape.graphics.drawRect( 0, 0, itemWidth, itemHeight );
+			shape.graphics.endFill();
+			return shape;
 		}
 
 		public function removeFromParent( delay:Number = 0 ):void
@@ -161,6 +180,7 @@ package app.module.main.view.element
 		{
 			_selected = value;
 			_selectEffect.visible = value;
+			_errorEffect.visible = false;
 		}
 
 		public function get cols():int

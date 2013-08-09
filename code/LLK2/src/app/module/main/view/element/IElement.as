@@ -23,6 +23,11 @@ package app.module.main.view.element
 		function refresh():void;
 		
 		/**
+		 * 点击错误
+		 */
+		function clickError():void;
+		
+		/**
 		 * 移动
 		 */
 		function tween(delay:Number = 0):void;
