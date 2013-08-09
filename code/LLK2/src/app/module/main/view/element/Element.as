@@ -62,7 +62,7 @@ package app.module.main.view.element
 
 		public function tween( delay:Number = 0 ):void
 		{
-			if ( isReal && delay > 0 )
+			if ( isReal/* && delay > 0*/ )
 			{
 				this.x = cols * ( itemWidth + 5 );
 				this.y = rows * ( itemHeight + 5 );

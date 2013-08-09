@@ -3,7 +3,7 @@ package app.module.main.view
 	import flash.desktop.NativeApplication;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-
+	
 	import app.AppStage;
 	import app.EffectControl;
 	import app.core.Alert;
@@ -14,12 +14,12 @@ package app.module.main.view
 	import app.module.AppUrl;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.child.LogicComp;
-	import app.module.main.view.child.MenuComp; 
+	import app.module.main.view.child.MenuComp;
 	import app.utils.DisplayUtil;
 	import app.utils.MovieClipUtil;
-
+	
 	import framework.BaseScene;
-
+	
 	import ui.components.UILevelNextArrow;
 	import ui.components.UILevelNextWord;
 
@@ -115,34 +115,36 @@ package app.module.main.view
 		protected function dispelSuccessHandler( event:MainEvent ):void
 		{
 			SoundManager.playSoundWin();
+			
+			EffectControl.instance.playAccessEffect( readyGo );
 
-			var mc1:MovieClip = new UILevelNextArrow();
-			mc1.x = AppStage.stageWidth >> 1;
-			mc1.y = AppStage.stageHeight >> 1;
-			addChild( mc1 );
-			AppStage.adjustScaleXY( mc1 );
-			MovieClipUtil.playMovieClip( mc1, complete );
-			function complete():void
-			{
-				if ( mc1 && mc1.parent )
-					mc1.parent.removeChild( mc1 );
-			}
-			var mc2:MovieClip = new UILevelNextWord();
-			mc2.x = AppStage.stageWidth >> 1;
-			mc2.y = AppStage.stageHeight >> 1;
-			addChild( mc2 );
-			AppStage.adjustScaleXY( mc2 );
-			MovieClipUtil.playMovieClip( mc2, complete2 );
+//			var mc1:MovieClip = new UILevelNextArrow();
+//			mc1.x = AppStage.stageWidth >> 1;
+//			mc1.y = AppStage.stageHeight >> 1;
+//			addChild( mc1 );
+//			AppStage.adjustScaleXY( mc1 );
+//			MovieClipUtil.playMovieClip( mc1, complete );
+//			function complete():void
+//			{
+//				if ( mc1 && mc1.parent )
+//					mc1.parent.removeChild( mc1 );
+//			}
+//			var mc2:MovieClip = new UILevelNextWord();
+//			mc2.x = AppStage.stageWidth >> 1;
+//			mc2.y = AppStage.stageHeight >> 1;
+//			addChild( mc2 );
+//			AppStage.adjustScaleXY( mc2 );
+//			MovieClipUtil.playMovieClip( mc2, complete2 );
+//			function complete2():void
+//			{
+//				if ( mc2 && mc2.parent )
+//					mc2.parent.removeChild( mc2 );
+//				readyGo();
+//			}
 
 			timeClockComp.stopTimer();
 			SoundManager.stopLast10Second();
 			curLevel++;
-			function complete2():void
-			{
-				if ( mc2 && mc2.parent )
-					mc2.parent.removeChild( mc2 );
-				readyGo();
-			}
 		}
 
 		protected function addTimeHandler( event:MainEvent ):void

@@ -5,12 +5,12 @@ package app.module.main.view.child
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-
+	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-
+	
 	import app.AppStage;
 	import app.EffectControl;
 	import app.core.SoundManager;
@@ -44,7 +44,8 @@ package app.module.main.view.child
 		// 路径线显示容器
 		private var _drawPathLine:DrawPathLine;
 		private var _markList:Vector.<int>;
-		private var _listAry:Vector.<Vector.<IElement>>;
+		private var _itemMap:Vector.<Vector.<IElement>>;
+		private var _items:Vector.<IElement>;
 		private var _markAry:Vector.<int>;
 		private var _seekGroups:Vector.<Vector.<IElement>>;
 		private var _startItem:IElement;
@@ -70,15 +71,17 @@ package app.module.main.view.child
 		private function intiVars():void
 		{
 			var vec1:Vector.<IElement>;
-			_listAry = new Vector.<Vector.<IElement>>( ElementConfig.ROWS );
+			_itemMap = new Vector.<Vector.<IElement>>( ElementConfig.ROWS );
+			_items = new Vector.<IElement>()
 			for ( var i:uint = 0; i < ElementConfig.ROWS; i++ )
 			{
 				vec1 = new Vector.<IElement>( ElementConfig.COLS );
 				for ( var j:uint = 0; j < ElementConfig.COLS; j++ )
 				{
 					vec1[ j ] = new Element();
+					_items.push( vec1[ j ]);
 				}
-				_listAry[ i ] = vec1;
+				_itemMap[ i ] = vec1;
 			}
 			//
 			var leng:uint = 40;
@@ -91,7 +94,7 @@ package app.module.main.view.child
 			_drawPathLine = new DrawPathLine();
 			_listContainer = new Sprite();
 			_listContainer.y = 130 * AppStage.scaleY;
-			_listContainer.x = ( AppStage.stageWidth - (( _listAry[ 0 ][ 0 ].itemWidth + 5 ) * ElementConfig.COLS )) >> 1;
+			_listContainer.x = ( AppStage.stageWidth - (( _itemMap[ 0 ][ 0 ].itemWidth + 5 ) * ElementConfig.COLS )) >> 1;
 
 			_btnRefresh = new Button( " 刷 新 ", btnRefreshHandler );
 			_btnRefresh.x = ( AppStage.stageWidth >> 1 ) - ( _btnRefresh.width >> 1 ) - 10;
@@ -105,10 +108,10 @@ package app.module.main.view.child
 			_listContainer.addEventListener( MouseEvent.CLICK, clickHandler );
 
 			_findPath = new FindPath();
-			_findPath.initMap( _listAry );
+			_findPath.initMap( _itemMap );
 
 			_moveElementPos = new MoveElementPos();
-			_moveElementPos.initMap( _listAry );
+			_moveElementPos.initMap( _itemMap );
 
 			addChild( _listContainer );
 			addChild( _btnRefresh );
@@ -164,7 +167,7 @@ package app.module.main.view.child
 				groupAry = [];
 				for ( var j:uint = 0; j < ElementConfig.COLS; j++ )
 				{
-					item = _listAry[ i ][ j ];
+					item = _itemMap[ i ][ j ];
 					item.parentTarget = _listContainer;
 					item.mark = _markAry[ i * ElementConfig.COLS + j ];
 					item.cols = j;
@@ -196,17 +199,18 @@ package app.module.main.view.child
 
 		private function refresh():void
 		{
+			var row:uint, col:uint;
 			var item:IElement;
-			ArrayUtil.randomSort( _listAry );
-			for ( var i:uint = 0; i < ElementConfig.ROWS; i++ )
+			ArrayUtil.randomSort( _items );
+			for ( var index:int = 0; index < ElementConfig.LENGTH; index++)
 			{
-				for ( var j:uint = 0; j < ElementConfig.COLS; j++ )
-				{
-					item = _listAry[ i ][ j ];
-					item.cols = j;
-					item.rows = i;
-					item.refresh();
-				}
+				row = index / ElementConfig.COLS;
+				col = index % ElementConfig.COLS;
+				item = _items[ index ];
+				item.rows = row;
+				item.cols = col;
+				item.refresh();
+				_itemMap[ row ][ col ] = item;
 			}
 			_moveIntervalTime = 0;
 			moveElements();

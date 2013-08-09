@@ -19,7 +19,7 @@ package app.utils
 		public static function randomSort( ary:* ):void
 		{
 			ary.sort( abc );
-			function abc( a:int, b:int ):Number
+			function abc( a:*, b:* ):Number
 			{
 				return int( Math.random() * 3 ) - 1;
 			}

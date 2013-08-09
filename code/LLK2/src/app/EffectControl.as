@@ -3,13 +3,15 @@ package app
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	
-	import framework.ViewStruct;
-	
 	import app.utils.DisplayUtil;
 	import app.utils.MovieClipUtil;
 	import app.utils.NumberUtil;
 	import app.utils.safetyCall;
 	
+	import framework.ViewStruct;
+	
+	import ui.components.UILevelNextArrow;
+	import ui.components.UILevelNextWord;
 	import ui.components.UIReadyGoAnimation;
 	import ui.components.UISuccessAccessAllGuanQia;
 	import ui.components.UITimeupAnimation;
@@ -35,6 +37,7 @@ package app
 			ViewStruct.addChild( this, ViewStruct.EFFECT );
 			this.mouseEnabled = false;
 			this.mouseChildren = false;
+			parent.mouseChildren = false;
 		}
 
 		public static function get instance():EffectControl
@@ -88,6 +91,12 @@ package app
 		public function playTimeup( callBack:Function = null ):void
 		{
 			centerPlayMovieClip( new UITimeupAnimation(), callBack );
+		}
+		
+		public function playAccessEffect( callBack:Function ):void
+		{
+			centerPlayMovieClip(new UILevelNextArrow());
+			centerPlayMovieClip(new UILevelNextWord(), callBack);
 		}
 
 		/**
