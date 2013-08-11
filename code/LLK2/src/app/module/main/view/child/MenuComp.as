@@ -12,7 +12,7 @@ package app.module.main.view.child
 	import flash.utils.Timer;
 
 	import app.AppStage;
-	import app.core.SoundManager;
+	import app.manager.SoundManager;
 	import app.data.LevelVo;
 	import app.module.main.events.MainEvent;
 	import app.utils.DisplayUtil;

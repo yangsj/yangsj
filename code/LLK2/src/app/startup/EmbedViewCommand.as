@@ -8,6 +8,8 @@ package app.startup
 	import app.module.panel.help.HelpView;
 	import app.module.panel.rank.RankMediator;
 	import app.module.panel.rank.RankView;
+	import app.module.setting.SettingMediator;
+	import app.module.setting.SettingView;
 	
 	import framework.BaseCommand;
 	
@@ -33,6 +35,8 @@ package app.startup
 			addView( HelpView, HelpMediator );
 			
 			addView( RankView, RankMediator );
+			
+			addView( SettingView, SettingMediator );
 		}
 		
 	}

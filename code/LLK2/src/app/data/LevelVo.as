@@ -50,7 +50,7 @@ package app.data
 		 */
 		public function set limitTime(value:int):void
 		{
-			_limitTime = Math.max(60, value);
+			_limitTime = value;//Math.max(60, value);
 		}
 
 		/**

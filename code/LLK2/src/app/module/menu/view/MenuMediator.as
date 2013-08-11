@@ -28,8 +28,15 @@ package app.module.menu.view
 			addViewListener( MenuEvent.CLICK_MENU_START, showMainHandler );
 
 			addViewListener( MenuEvent.CLICK_MENU_RANK, showRankHandler );
+			
+			addViewListener( MenuEvent.CLICK_MENU_SETTING, showSettingHandler );
 		}
-
+		
+		private function showSettingHandler( event:MenuEvent ):void
+		{
+			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.SETTING ));
+		}
+		
 		private function showRankHandler( event:MenuEvent ):void
 		{
 			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.RANK ));

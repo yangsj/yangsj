@@ -21,6 +21,8 @@ package app.module.menu.events
 		
 		public static const CLICK_MENU_RANK:String = "click_menu_rank";
 		
+		public static const CLICK_MENU_SETTING:String = "click_menu_setting";
+		
 		public static const CLICK_MENU_EXIT:String = "click_menu_exit";
 		
 	}

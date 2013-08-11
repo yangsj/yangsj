@@ -5,7 +5,7 @@ package app.startup
 
 	import framework.BaseCommand;
 
-	import app.core.SoundManager;
+	import app.manager.SoundManager;
 
 
 	/**
@@ -29,7 +29,7 @@ package app.startup
 
 		protected function deactivateHandler( event:Event ):void
 		{
-			SoundManager.stopBgMusic();
+			SoundManager.stopBgSndMusic();
 		}
 
 		protected function activateHandler( event:Event ):void

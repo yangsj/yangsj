@@ -23,7 +23,7 @@ package app.data
 
 		public static function get maxLevel():int
 		{
-			return 30;
+			return DirectionType.MAX;
 		}
 
 		private static var _levels:Vector.<LevelVo>;
@@ -44,9 +44,11 @@ package app.data
 					var vo:LevelVo = new LevelVo();
 					vo.level = i;
 					vo.score = numScroe + ( 5 * ( i - 1 ));
-					vo.picNum = boo ? numSta += 2 : numSta;
-					vo.limitTime = 180; //boo ? maxTime -= 5 : maxTime;
-					vo.direction = (i - 1) % max;
+//					vo.picNum = boo ? numSta += 2 : numSta; // ok
+					vo.picNum = 2;// test
+					vo.limitTime = 120;
+//					vo.direction = (i - 1) % max;
+					vo.direction = DirectionType.byCenterFromLeftAndRightAndUpAndDown;
 					_levels[ i - 1 ] = vo;
 				}
 			}

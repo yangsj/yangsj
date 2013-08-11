@@ -76,12 +76,17 @@ package app.core
 			close();
 		}
 
-		public function show( content:String, confirmCallBackFun:Function = null, cancelCallBackFun:Function = null ):void
+		public function show( content:String, confirmCallBackFun:Function = null, cancelCallBackFun:Function = null, confirmNameLabel:String = " 确 定 ", cancelNameLabel = " 取 消 " ):void
 		{
 			txtContent.htmlText = content;
 			this.confirmCallBackFun = confirmCallBackFun;
 			this.cancelCallBackFun = cancelCallBackFun;
 			ViewStruct.addChild( this, ViewStruct.ALERT );
+			
+			btnConfirm.setLabel( confirmNameLabel );
+			btnCancel.setLabel( cancelNameLabel );
+			btnConfirm.x = ( skin.width >> 1 ) - ( btnConfirm.width >> 1 ) - 20;
+			btnCancel.x = ( skin.width >> 1 ) + ( btnCancel.width >> 1 ) + 20;
 
 			txtContent.y = ( btnCancel.y - 15 - txtContent.textHeight ) >> 1;
 		}
@@ -93,10 +98,10 @@ package app.core
 			cancelCallBackFun = null;
 		}
 
-		public static function show( content:String, confirmCallBackFun:Function = null, cancelCallBackFun:Function = null ):void
+		public static function show( content:String, confirmCallBackFun:Function = null, cancelCallBackFun:Function = null, confirmNameLabel:String = " 确 定 ", cancelNameLabel = " 取 消 " ):void
 		{
 			_alert ||= new Alert();
-			_alert.show( content, confirmCallBackFun, cancelCallBackFun );
+			_alert.show( content, confirmCallBackFun, cancelCallBackFun, confirmNameLabel, cancelNameLabel );
 		}
 
 		public static function close():void

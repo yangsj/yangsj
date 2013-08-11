@@ -30,6 +30,7 @@ package app.module.main.view.child
 			{
 				case DirectionType.DEFAULT:
 					break;
+				
 				case DirectionType.DOWN:
 					moveDown();
 					break;
@@ -42,6 +43,7 @@ package app.module.main.view.child
 				case DirectionType.RIGHT:
 					moveRight();
 					break;
+				
 				case DirectionType.downAndUp:
 					moveDownUp();
 					break;
@@ -54,18 +56,7 @@ package app.module.main.view.child
 				case DirectionType.rightAndLeft:
 					moveRightLeft();
 					break;
-				case DirectionType.byDown:
-					byDown();
-					break;
-				case DirectionType.byUp:
-					byUp();
-					break;
-				case DirectionType.byLeft:
-					byLeft();
-					break;
-				case DirectionType.byRight:
-					byRight();
-					break;
+				
 				case DirectionType.byLeftMoveDown:
 					byLeftMoveDown();
 					break;
@@ -79,7 +70,7 @@ package app.module.main.view.child
 					byRightMoveUp();
 					break;
 				case DirectionType.byUpMoveLeft:
-					byUpMoveRight();
+					byUpMoveLeft();
 					break;
 				case DirectionType.byUpMoveRight:
 					byUpMoveRight();
@@ -90,13 +81,48 @@ package app.module.main.view.child
 				case DirectionType.byDownMoveRight:
 					byDownMoveRight();
 					break;
+				
+				case DirectionType.moveDownLeft:
+					moveDownLeft();
+					break;
+				case DirectionType.moveDownRight:
+					moveDownRight();
+					break;
+				case DirectionType.moveUpLeft:
+					moveUpLeft();
+					break;
+				case DirectionType.moveUpRight:
+					moveUpRight();
+					break;
+				
+//				case DirectionType.byCenterFromUpAndDown:
+//					byCenterFromUpAndDown();
+//					break;
+//				case DirectionType.byCenterFromLeftAndRight:
+//					byCenterFromLeftAndRight();
+//					break;
+				case DirectionType.byCenterFromLeftAndRightAndUpAndDown:
+					byCenterFromLeftAndRightAndUpAndDown();
+					break;
+				case DirectionType.byCenterFromUpAndDownThenMoveLeft:
+					byCenterFromUpAndDownThenMoveLeft();
+					break;
+				case DirectionType.byCenterFromUpAndDownThenMoveRight:
+					byCenterFromUpAndDownThenMoveRight();
+					break;
+				case DirectionType.byCenterFromLeftAndRightThenMoveDown:
+					byCenterFromLeftAndRightThenMoveDown();
+					break;
+				case DirectionType.byCenterFromLeftAndRightThenMoveUp:
+					byCenterFromLeftAndRightThenMoveUp();
+					break;
 				default:
 					break;
 			}
 			moveRowOrCol();
 		}
 
-		private function moveDown( startCol:int = 0, endCol:int = ElementConfig.COLS ):void
+		private function moveDown( startCol:int = 0, endCol:int = ElementConfig.COLS, borderRow:int = ElementConfig.ROWS ):void
 		{
 			var temp:IElement;
 			var element:IElement;
@@ -104,7 +130,7 @@ package app.module.main.view.child
 			for ( var col:int = startCol; col < endCol; col++ )
 			{
 				num = 0;
-				for ( var row:int = ElementConfig.ROWS - 1; row >= 0; row-- )
+				for ( var row:int = borderRow - 1; row >= 0; row-- )
 				{
 					if ( num < ElementConfig.ROWS )
 					{
@@ -127,7 +153,7 @@ package app.module.main.view.child
 			}
 		}
 
-		private function moveUp( startCol:int = 0, endCol:int = ElementConfig.COLS ):void
+		private function moveUp( startCol:int = 0, endCol:int = ElementConfig.COLS, borderRow:int = 0 ):void
 		{
 			var temp:IElement;
 			var element:IElement;
@@ -136,7 +162,7 @@ package app.module.main.view.child
 			for ( var col:int = startCol; col < endCol; col++ )
 			{
 				num = 0;
-				for ( var row:int = 0; row < ElementConfig.ROWS; row++ )
+				for ( var row:int = borderRow; row < ElementConfig.ROWS; row++ )
 				{
 					if ( num < ElementConfig.ROWS )
 					{
@@ -159,7 +185,7 @@ package app.module.main.view.child
 			}
 		}
 
-		private function moveLeft( startRow:int = 0, endRow:int = ElementConfig.ROWS ):void
+		private function moveLeft( startRow:int = 0, endRow:int = ElementConfig.ROWS, borderCol:int = 0 ):void
 		{
 			var temp:IElement;
 			var element:IElement;
@@ -167,7 +193,7 @@ package app.module.main.view.child
 			for ( var row:int = startRow; row < endRow; row++ )
 			{
 				num = 0;
-				for ( var col:int = 0; col < ElementConfig.COLS; col++ )
+				for ( var col:int = borderCol; col < ElementConfig.COLS; col++ )
 				{
 					if ( num < ElementConfig.COLS )
 					{
@@ -190,7 +216,7 @@ package app.module.main.view.child
 			}
 		}
 
-		private function moveRight( startRow:int = 0, endRow:int = ElementConfig.ROWS ):void
+		private function moveRight( startRow:int = 0, endRow:int = ElementConfig.ROWS, borderCol:int = ElementConfig.COLS ):void
 		{
 			var temp:IElement;
 			var element:IElement;
@@ -198,7 +224,7 @@ package app.module.main.view.child
 			for ( var row:int = startRow; row < endRow; row++ )
 			{
 				num = 0;
-				for ( var col:int = ElementConfig.COLS - 1; col >= 0; col-- )
+				for ( var col:int = borderCol - 1; col >= 0; col-- )
 				{
 					if ( num < ElementConfig.COLS )
 					{
@@ -243,14 +269,14 @@ package app.module.main.view.child
 
 		private function moveUpDown():void
 		{
-			moveDown( 0, int( ElementConfig.COLS >> 1 ))
-			moveUp( int( ElementConfig.COLS >> 1 ), ElementConfig.COLS );
+			moveUp( 0, int( ElementConfig.COLS >> 1 ))
+			moveDown( int( ElementConfig.COLS >> 1 ), ElementConfig.COLS );
 		}
 
 		private function moveDownUp():void
 		{
-			moveDown( int( ElementConfig.COLS >> 1 ), ElementConfig.COLS );
-			moveUp( 0, int( ElementConfig.COLS >> 1 ))
+			moveDown( 0, int( ElementConfig.COLS >> 1 ))
+			moveUp( int( ElementConfig.COLS >> 1 ), ElementConfig.COLS );
 		}
 
 		private function moveLeftRight():void
@@ -312,6 +338,77 @@ package app.module.main.view.child
 			moveRight();
 			byDown();
 		}
+		
+		private function moveDownLeft():void
+		{
+			moveDown();
+			moveLeft();
+		}
+		
+		private function moveDownRight():void
+		{
+			moveDown();
+			moveRight();
+		}
+		
+		private function moveUpLeft():void
+		{
+			moveUp();
+			moveLeft();
+		}
+		
+		private function moveUpRight():void
+		{
+			moveUp();
+			moveRight();
+		}
+		
+		private function byCenterFromLeftAndRight():void
+		{
+			byLeft( ElementConfig.COLS >> 1, ElementConfig.COLS );
+			byRight( 0, ElementConfig.COLS >> 1 );
+			moveDown( 0, ElementConfig.COLS, ElementConfig.ROWS >> 1 );
+			moveUp(0, ElementConfig.COLS, ElementConfig.ROWS >> 1 );
+		}
+		private function byCenterFromUpAndDown():void
+		{
+			byUp( ElementConfig.ROWS >> 1, ElementConfig.ROWS);
+			byDown( 0, ElementConfig.ROWS >> 1 );
+			moveLeft( 0, ElementConfig.ROWS, ElementConfig.COLS >> 1 );
+			moveRight( 0, ElementConfig.ROWS, ElementConfig.COLS >> 1 );
+		}
+		
+		private function byCenterFromLeftAndRightAndUpAndDown():void
+		{
+			moveDown( 0, ElementConfig.COLS, ElementConfig.ROWS >> 1 );
+			moveUp(0, ElementConfig.COLS, ElementConfig.ROWS >> 1 );
+			moveLeft( 0, ElementConfig.ROWS, ElementConfig.COLS >> 1 );
+			moveRight( 0, ElementConfig.ROWS, ElementConfig.COLS >> 1 );
+		}
+		
+		private function byCenterFromLeftAndRightThenMoveDown():void
+		{
+			byCenterFromLeftAndRight();
+			moveDown();
+		}
+		
+		private function byCenterFromLeftAndRightThenMoveUp():void
+		{
+			byCenterFromLeftAndRight();
+			moveUp();
+		}
+		
+		private function byCenterFromUpAndDownThenMoveLeft():void
+		{
+			byCenterFromUpAndDown();
+			moveLeft();
+		}
+		
+		private function byCenterFromUpAndDownThenMoveRight():void
+		{
+			byCenterFromUpAndDown();
+			moveRight();
+		}
 
 		private function byUpOrDown( isDown:Boolean, startRow:int = 0, endRow:int = ElementConfig.ROWS ):void
 		{
@@ -319,7 +416,8 @@ package app.module.main.view.child
 			var element:IElement;
 			var isMove:Boolean = false;
 			var num:int = 0;
-			for ( var row:int = endRow - 1; row >= startRow; row-- )
+			var row:int = ( isDown ? endRow - 1 : startRow );
+			for ( row; ( isDown ? row >= startRow : row < endRow ); ( isDown ? row-- : row++ ))
 			{
 				isMove = true;
 				for ( var col:int = 0; col < ElementConfig.COLS; col++ )
@@ -331,7 +429,7 @@ package app.module.main.view.child
 						break;
 					}
 				}
-				if ( isMove && row > startRow )
+				if ( isMove && ( isDown ? row > startRow : row < endRow ))
 				{
 					for ( col = 0; col < ElementConfig.COLS; col++ )
 					{
@@ -358,9 +456,9 @@ package app.module.main.view.child
 						}
 					}
 					num++;
-					row++;
+					isDown ? row++ : row--;
 				}
-				if (num >= ElementConfig.ROWS)
+				if ( num >= ElementConfig.ROWS )
 				{
 					break;
 				}
@@ -373,7 +471,8 @@ package app.module.main.view.child
 			var element:IElement;
 			var isMove:Boolean = false;
 			var num:int = 0;
-			for ( var col:int = endCol - 1; col >= startCol; col-- )
+			var col:int = isLeft ? startCol : endCol - 1;
+			for ( col; ( isLeft ? col < endCol : col >= startCol ); ( isLeft ? col++ : col-- ))
 			{
 				isMove = true;
 				for ( var row:int = 0; row < ElementConfig.ROWS; row++ )
@@ -385,7 +484,7 @@ package app.module.main.view.child
 						break;
 					}
 				}
-				if ( isMove && col > startCol )
+				if ( isMove && ( isLeft ? col < endCol : col > startCol) )
 				{
 					for ( row = 0; row < ElementConfig.ROWS; row++ )
 					{
@@ -412,9 +511,9 @@ package app.module.main.view.child
 						}
 					}
 					num++;
-					col++;
+					isLeft ? col-- : col++;
 				}
-				if (num >= ElementConfig.COLS)
+				if ( num >= ElementConfig.COLS )
 				{
 					break;
 				}

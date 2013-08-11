@@ -13,10 +13,9 @@ package app.module.main.view.child
 	
 	import app.AppStage;
 	import app.EffectControl;
-	import app.core.SoundManager;
+	import app.manager.SoundManager;
 	import app.core.components.Button;
 	import app.data.LevelVo;
-	import app.module.main.DirectionType;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.ElementConfig;
 	import app.module.main.view.element.Element;
@@ -59,6 +58,7 @@ package app.module.main.view.child
 		private var _btnBack:Button;
 		private var _findPath:FindPath;
 		private var _moveElementPos:MoveElementPos;
+		private var _directionIcon:DrawDirectionIcon;
 
 		private var _moveIntervalTime:Number = 0;
 
@@ -112,11 +112,17 @@ package app.module.main.view.child
 
 			_moveElementPos = new MoveElementPos();
 			_moveElementPos.initMap( _itemMap );
+			
+			_directionIcon = new DrawDirectionIcon();
+			_directionIcon.x = 590;
+			_directionIcon.y = 100;
+			AppStage.adjustXY( _directionIcon );
 
 			addChild( _listContainer );
+			addChild( _drawPathLine );
 			addChild( _btnRefresh );
 			addChild( _btnBack );
-			addChild( _drawPathLine );
+			addChild( _directionIcon );
 		}
 
 		private function btnBackHandler():void
@@ -157,7 +163,8 @@ package app.module.main.view.child
 
 			initMarkData( levelVo.picNum );
 			ArrayUtil.randomSort( _markAry );
-			ArrayUtil.randomSort( _markAry );
+			
+			_directionIcon.setDirection( direction );
 
 			var item:IElement;
 			var groupAry:Array;
@@ -214,6 +221,9 @@ package app.module.main.view.child
 			}
 			_moveIntervalTime = 0;
 			moveElements();
+			if ( _startItem )
+				_startItem.selected = false;
+			_startItem = null;
 		}
 
 		protected function clickHandler( event:MouseEvent ):void

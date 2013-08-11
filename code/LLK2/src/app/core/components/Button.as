@@ -12,7 +12,7 @@ package app.core.components
 	import ui.components.UIButtonSkin;
 
 	import app.AppStage;
-	import app.core.SoundManager;
+	import app.manager.SoundManager;
 	import framework.interfaces.IDisposable;
 	import app.utils.safetyCall;
 

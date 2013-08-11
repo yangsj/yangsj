@@ -1,14 +1,14 @@
 package app.module.panel.help
 {
-	import com.greensock.TweenMax;
 	
-	import flash.events.MouseEvent;
+	import flash.display.Bitmap;
 	import flash.text.TextField;
 	
-	import framework.BasePanel;
-	
 	import app.AppStage;
+	import app.utils.BitmapUtil;
 	import app.utils.DisplayUtil;
+	
+	import framework.BasePanel;
 
 
 	/**
@@ -46,34 +46,12 @@ package app.module.panel.help
 			txtField.appendText( "(4) 胜利条件：在规定时间内将游戏界面上的图案全部消除。\n" );
 			txtField.appendText( "(5) 失败条件：到规定时间，界面上的图案仍未全部消除。\n" );
 			txtField.height = txtField.textHeight + 15;
-			txtField.x = ( width - txtField.width ) >> 1;
-			txtField.y = ( height - txtField.height ) >> 1;
-			addChild( txtField );
+			
+			var bitmap:Bitmap = BitmapUtil.drawBitmapFromTextFeild( txtField );
+			bitmap.x = ( width - bitmap.width ) >> 1;
+			bitmap.y = ( height - bitmap.height ) >> 1;
+			addChild( bitmap );
 
-			var txtTips:TextField = DisplayUtil.getTextFiled( 26, 0xffffff );
-			txtTips.appendText( "点击屏幕退出" );
-			txtTips.width = txtTips.textWidth + 5;
-			txtTips.height = txtTips.textHeight + 2;
-			txtTips.x = ( width - txtTips.textWidth ) >> 1;
-			txtTips.y = height - txtTips.textHeight - 5;
-			addChild( txtTips );
-		}
-		
-		override public function show():void
-		{
-			super.show();
-			
-			addEventListener( MouseEvent.CLICK, clickHandler );
-			
-			this.y = AppStage.stageHeight;
-			TweenMax.to( this, 0.5, { y: 0 });
-		}
-		
-		protected function clickHandler( event:MouseEvent ):void
-		{
-			removeEventListener( MouseEvent.CLICK, clickHandler );
-			TweenMax.killTweensOf( this );
-			TweenMax.to( this, 0.5, { y: -AppStage.stageHeight, onComplete: hide});
 		}
 
 	}

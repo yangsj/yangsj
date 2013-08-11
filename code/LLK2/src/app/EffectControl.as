@@ -104,7 +104,7 @@ package app
 		 */
 		public function playSuccessAccessAllGuanQia():void
 		{
-			centerToStage( new UISuccessAccessAllGuanQia() );
+			centerPlayMovieClip( new UISuccessAccessAllGuanQia() );
 		}
 
 		//************ private functions **************

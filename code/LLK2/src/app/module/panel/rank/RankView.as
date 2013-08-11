@@ -1,16 +1,17 @@
 package app.module.panel.rank
 {
-	import com.greensock.TweenMax;
-
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormatAlign;
 
-	import framework.BasePanel;
-
 	import app.AppStage;
+	import app.manager.LocalStoreManager;
+	import app.module.LocalStoreNameKey;
+	import app.utils.BitmapUtil;
 	import app.utils.DisplayUtil;
+
+	import framework.BasePanel;
 
 
 	/**
@@ -21,6 +22,7 @@ package app.module.panel.rank
 	public class RankView extends BasePanel
 	{
 		private var listContainer:Sprite;
+		private var listBitmap:Bitmap;
 
 		public function RankView()
 		{
@@ -32,7 +34,7 @@ package app.module.panel.rank
 			listContainer = new Sprite();
 			listContainer.y = 180;
 			listContainer.x = 26;
-			addChild( listContainer );
+//			addChild( listContainer );
 
 			var txtTitle:TextField = DisplayUtil.getTextFiled( 35, 0xffffff );
 			txtTitle.appendText( "排 行 榜" );
@@ -41,77 +43,67 @@ package app.module.panel.rank
 			txtTitle.x = ( width - txtTitle.textWidth ) >> 1;
 			txtTitle.y = ( 180 - txtTitle.textHeight ) >> 1;
 			addChild( txtTitle );
-
-			var txtTips:TextField = DisplayUtil.getTextFiled( 26, 0xffffff );
-			txtTips.appendText( "点击屏幕退出" );
-			txtTips.width = txtTips.textWidth + 5;
-			txtTips.height = txtTips.textHeight + 2;
-			txtTips.x = ( width - txtTips.textWidth ) >> 1;
-			txtTips.y = height - txtTips.textHeight - 5;
-			addChild( txtTips );
-			
-			trace("*****************************************************************************************");
 		}
 
 		override public function show():void
 		{
-			super.show();
-
-			addDisplay();
-		}
-
-		private function addDisplay():void
-		{
-			addEventListener( MouseEvent.CLICK, clickHandler );
-
 			addList();
 
-			this.y = AppStage.stageHeight;
-			TweenMax.to( this, 0.5, { y: 0 });
-		}
-
-		protected function clickHandler( event:MouseEvent ):void
-		{
-			removeEventListener( MouseEvent.CLICK, clickHandler );
-			TweenMax.killTweensOf( this );
-			TweenMax.to( this, 0.5, { y: -AppStage.stageHeight, onComplete: hide });
+			super.show();
 		}
 
 		private function addList():void
 		{
-			var ary:Array = [[ 1000000, new Date().time ], [ 1000009, new Date().time - 1000000 ], [ 1000008, new Date().time - 2000000 ], [ 1000007, new Date().time - 3000000 ], [ 1000006, new Date().time - 4000000 ], [ 1000005, new Date().time - 5000000 ], [ 1000004, new Date().time - 6000000 ], [ 1000003, new Date().time - 7000000 ], [ 1000002, new Date().time - 8000000 ], [ 1000001, new Date().time - 9000000 ]];
+			var ary:Array = LocalStoreManager.getData( LocalStoreNameKey.RANK_LIST ) as Array; //[[ 1000000, new Date().time ], [ 1000009, new Date().time - 1000000 ], [ 1000008, new Date().time - 2000000 ], [ 1000007, new Date().time - 3000000 ], [ 1000006, new Date().time - 4000000 ], [ 1000005, new Date().time - 5000000 ], [ 1000004, new Date().time - 6000000 ], [ 1000003, new Date().time - 7000000 ], [ 1000002, new Date().time - 8000000 ], [ 1000001, new Date().time - 9000000 ]];
 			var txt1:TextField;
 			var txt2:TextField;
 			var txt3:TextField;
-			var length:uint = ary.length;
+			var length:uint = ary ? ary.length : 0;
 			var tdata:Array;
 			DisplayUtil.removedAll( listContainer );
-			for ( var i:uint = 0; i < length; i++ )
+			DisplayUtil.removedFromParent( listBitmap );
+			if ( length > 0 )
 			{
-				tdata = ary[ i ];
-				txt1 = DisplayUtil.getTextFiled( 28, 0xffffff, TextFormatAlign.CENTER );
-				txt2 = DisplayUtil.getTextFiled( 28, 0xffffff, TextFormatAlign.CENTER );
-				txt3 = DisplayUtil.getTextFiled( 24, 0xffffff, TextFormatAlign.CENTER );
-				txt1.width = 48;
-				txt1.height = 41;
-				txt2.width = 195;
-				txt2.height = 41;
-				txt3.width = 315;
-				txt3.height = 34;
+				for ( var i:uint = 0; i < length; i++ )
+				{
+					tdata = ary[ i ];
+					txt1 = DisplayUtil.getTextFiled( 28, 0xffffff, TextFormatAlign.CENTER );
+					txt2 = DisplayUtil.getTextFiled( 28, 0xffffff, TextFormatAlign.CENTER );
+					txt3 = DisplayUtil.getTextFiled( 24, 0xffffff, TextFormatAlign.CENTER );
+					txt1.width = 48;
+					txt1.height = 41;
+					txt2.width = 195;
+					txt2.height = 41;
+					txt3.width = 315;
+					txt3.height = 34;
 
-				txt1.text = ( i + 1 ) + "";
-				txt1.y = 63 * i;
-				txt2.text = tdata[ 0 ] + "";
-				txt2.x = 62;
-				txt2.y = 63 * i;
-				txt3.text = getString( tdata[ 1 ]);
-				txt3.x = 271;
-				txt3.y = 4 + 63 * i;
+					txt1.text = ( i + 1 ) + "";
+					txt1.y = 63 * i;
+					txt2.text = tdata[ 0 ] + "";
+					txt2.x = 62;
+					txt2.y = 63 * i;
+					txt3.text = getString( tdata[ 1 ]);
+					txt3.x = 271;
+					txt3.y = 4 + 63 * i;
 
-				listContainer.addChild( txt1 );
-				listContainer.addChild( txt2 );
-				listContainer.addChild( txt3 );
+					listContainer.addChild( txt1 );
+					listContainer.addChild( txt2 );
+					listContainer.addChild( txt3 );
+				}
 			}
+			else
+			{
+				txt1 = DisplayUtil.getTextFiled( 28, 0xffffff, TextFormatAlign.CENTER );
+				txt1.width = AppStage.stageWidth - 50;
+				txt1.wordWrap = true;
+				txt1.text = "还没有历史成绩，去创造一个牛X的记录吧！";
+				txt1.height = txt1.textHeight + 5;
+				listContainer.addChild( txt1 );
+			}
+			listBitmap = BitmapUtil.cloneBitmapFromTarget( listContainer );
+			listBitmap.x = listContainer.x;
+			listBitmap.y = listContainer.y;
+			addChild( listBitmap );
 		}
 
 		private function getString( time:Number ):String

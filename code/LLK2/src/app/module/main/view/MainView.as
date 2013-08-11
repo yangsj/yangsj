@@ -1,28 +1,24 @@
 package app.module.main.view
 {
 	import flash.desktop.NativeApplication;
-	import flash.display.MovieClip;
 	import flash.events.Event;
 	
 	import app.AppStage;
 	import app.EffectControl;
 	import app.core.Alert;
 	import app.core.Image;
-	import app.core.SoundManager;
 	import app.data.LevelConfig;
 	import app.data.LevelVo;
+	import app.manager.LocalStoreManager;
+	import app.manager.SoundManager;
 	import app.module.AppUrl;
+	import app.module.LocalStoreNameKey;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.child.LogicComp;
 	import app.module.main.view.child.MenuComp;
 	import app.utils.DisplayUtil;
-	import app.utils.MovieClipUtil;
 	
 	import framework.BaseScene;
-	
-	import ui.components.UILevelNextArrow;
-	import ui.components.UILevelNextWord;
-
 
 	/**
 	 * ……
@@ -99,7 +95,7 @@ package app.module.main.view
 		protected function backMenuHandler( event:MainEvent ):void
 		{
 			timeClockComp.stopTimer();
-			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime );
+			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime, " 确 定 ", " 继 续 " );
 		}
 
 		protected function ctrlTimeHandler( event:MainEvent ):void
@@ -116,35 +112,20 @@ package app.module.main.view
 		{
 			SoundManager.playSoundWin();
 			
-			EffectControl.instance.playAccessEffect( readyGo );
-
-//			var mc1:MovieClip = new UILevelNextArrow();
-//			mc1.x = AppStage.stageWidth >> 1;
-//			mc1.y = AppStage.stageHeight >> 1;
-//			addChild( mc1 );
-//			AppStage.adjustScaleXY( mc1 );
-//			MovieClipUtil.playMovieClip( mc1, complete );
-//			function complete():void
-//			{
-//				if ( mc1 && mc1.parent )
-//					mc1.parent.removeChild( mc1 );
-//			}
-//			var mc2:MovieClip = new UILevelNextWord();
-//			mc2.x = AppStage.stageWidth >> 1;
-//			mc2.y = AppStage.stageHeight >> 1;
-//			addChild( mc2 );
-//			AppStage.adjustScaleXY( mc2 );
-//			MovieClipUtil.playMovieClip( mc2, complete2 );
-//			function complete2():void
-//			{
-//				if ( mc2 && mc2.parent )
-//					mc2.parent.removeChild( mc2 );
-//				readyGo();
-//			}
+			EffectControl.instance.playAccessEffect( abc );
 
 			timeClockComp.stopTimer();
 			SoundManager.stopLast10Second();
-			curLevel++;
+			
+			function abc():void
+			{
+				Alert.show(curLevel >= LevelConfig.maxLevel - 1 ? "恭喜！通过所有关卡" : "恭喜！挑战成功", exit, def, " 菜 单 ", " 下一关 ");
+			}
+			function def():void
+			{
+				curLevel++;
+				readyGo();
+			}
 		}
 
 		protected function addTimeHandler( event:MainEvent ):void
@@ -192,8 +173,13 @@ package app.module.main.view
 		{
 			gameLogicComp.mouseChildren = false;
 			timeClockComp.stopTimer();
-			EffectControl.instance.playTimeup( exit );
+			EffectControl.instance.playTimeup( abc );
 			SoundManager.playSoundLose();
+			
+			function abc():void
+			{
+				Alert.show("挑战失败！", exit, readyGo, " 菜 单 ", " 再来一次 " );
+			}
 		}
 
 		private function exit():void
@@ -201,6 +187,27 @@ package app.module.main.view
 			DisplayUtil.removedFromParent( this );
 			NativeApplication.nativeApplication.removeEventListener( Event.ACTIVATE, activateHandler );
 			NativeApplication.nativeApplication.removeEventListener( Event.DEACTIVATE, deactivateHandler );
+			
+			var arr:Array = LocalStoreManager.getData( LocalStoreNameKey.RANK_LIST ) as Array;
+			arr ||= [];
+			arr.push( [timeClockComp.totalScore, new Date().time]);
+			arr.sort( sortAryFun );
+			arr.splice(Math.min(arr.length, 10), Math.max(arr.length - 10, 0));
+			
+			LocalStoreManager.setData( LocalStoreNameKey.RANK_LIST, arr );
+			
+			function sortAryFun(ary1:Array, ary2:Array):Number
+			{
+				var a:int = ary1[0];
+				var b:int = ary2[0];
+				if ( a > b )
+					return -1;
+				else if ( a < b )
+					return 1;
+				return 0;
+			}
+			
+			curLevel = 1;
 		}
 
 		override public function show():void
