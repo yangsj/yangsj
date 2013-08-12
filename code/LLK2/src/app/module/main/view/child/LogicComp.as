@@ -84,7 +84,7 @@ package app.module.main.view.child
 				_itemMap[ i ] = vec1;
 			}
 			//
-			var leng:uint = 40;
+			var leng:uint = 21;
 			_markList = new Vector.<int>( leng );
 			for ( i = 0; i != leng; i++ )
 			{
@@ -98,11 +98,11 @@ package app.module.main.view.child
 
 			_btnRefresh = new Button( " 刷 新 ", btnRefreshHandler );
 			_btnRefresh.x = ( AppStage.stageWidth >> 1 ) - ( _btnRefresh.width >> 1 ) - 10;
-			_btnRefresh.y = AppStage.stageHeight - _btnRefresh.height - 10;
+			_btnRefresh.y = AppStage.stageHeight - ( _btnRefresh.height * 0.75 );
 
 			_btnBack = new Button( " 返 回 ", btnBackHandler );
 			_btnBack.x = ( AppStage.stageWidth >> 1 ) + ( _btnBack.width >> 1 ) + 10;
-			_btnBack.y = AppStage.stageHeight - _btnBack.height - 10;
+			_btnBack.y = AppStage.stageHeight - ( _btnBack.height * 0.75 );
 
 			_listContainer.mouseEnabled = false;
 			_listContainer.addEventListener( MouseEvent.CLICK, clickHandler );

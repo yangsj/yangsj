@@ -118,6 +118,11 @@ package app.manager
 
 		//**********************   **********************************
 
+		public static function playReadyGo():void
+		{
+			playTempSound( SoundReadyGo );
+		}
+
 		public static function playSoundWin():void
 		{
 			playTempSound( SoundWin );

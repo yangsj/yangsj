@@ -46,8 +46,8 @@ package app.data
 					vo.score = numScroe + ( 5 * ( i - 1 ));
 										vo.picNum = 2;// test
 										vo.direction = DirectionType.byCenterFromLeftAndRightAndUpAndDown;
-					vo.limitTime = 120;
-					vo.picNum = boo ? numSta += 2 : numSta; // ok
+					vo.limitTime = 180;
+					vo.picNum = 21;//boo ? numSta += 2 : numSta; // ok
 					vo.direction = (i - 1) % max;
 					_levels[ i - 1 ] = vo;
 				}

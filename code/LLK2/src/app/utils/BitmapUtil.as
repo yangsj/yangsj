@@ -35,7 +35,7 @@ package app.utils
 		public static function drawBitmapFromTextFeild( textFeild:TextField ):Bitmap
 		{
 			textFeild.width = textFeild.textWidth + 10;
-			textFeild.height = textFeild.textHeight + 3;
+			textFeild.height = textFeild.textHeight + 10;
 			var bitdata:BitmapData = new BitmapData( textFeild.width, textFeild.height, true, 0 );
 			bitdata.draw( textFeild, null, null, null, null, true );
 			return new Bitmap( bitdata, "auto", true );

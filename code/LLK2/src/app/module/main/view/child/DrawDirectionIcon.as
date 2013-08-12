@@ -19,8 +19,8 @@ package app.module.main.view.child
 		public function DrawDirectionIcon()
 		{
 			super();
-			scaleX = 0.15;
-			scaleY = 0.15;
+			scaleX = 0.3;
+			scaleY = 0.3;
 		}
 
 		public function setDirection( direction:uint ):void

@@ -3,6 +3,7 @@ package app
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	
+	import app.manager.SoundManager;
 	import app.utils.DisplayUtil;
 	import app.utils.MovieClipUtil;
 	import app.utils.NumberUtil;
@@ -82,6 +83,7 @@ package app
 		public function playReadyGo( callBack:Function = null ):void
 		{
 			centerPlayMovieClip( new UIReadyGoAnimation(), callBack );
+			SoundManager.playReadyGo();
 		}
 
 		/**
