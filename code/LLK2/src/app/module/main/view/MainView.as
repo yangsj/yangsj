@@ -56,9 +56,14 @@ package app.module.main.view
 			gameLogicComp.addEventListener( MainEvent.ADD_TIME, addTimeHandler );
 			gameLogicComp.addEventListener( MainEvent.DISPEL_SUCCESS, dispelSuccessHandler );
 			gameLogicComp.addEventListener( MainEvent.ADD_SCORE, addScoreHandler );
-			gameLogicComp.addEventListener( MainEvent.BACK_MENU, backMenuHandler );
 
 			timeClockComp.addEventListener( MainEvent.CTRL_TIME, ctrlTimeHandler );
+		}
+		
+		public function backMenu():void
+		{
+			timeClockComp.stopTimer();
+			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime, " 确 定 ", " 继 续 " );
 		}
 
 		protected function initialize():void
@@ -66,7 +71,8 @@ package app.module.main.view
 			NativeApplication.nativeApplication.addEventListener( Event.ACTIVATE, activateHandler );
 			NativeApplication.nativeApplication.addEventListener( Event.DEACTIVATE, deactivateHandler );
 
-			timeClockComp.resetScore();
+			if ( timeClockComp )
+				timeClockComp.resetScore();
 
 			readyGo();
 		}
@@ -92,20 +98,16 @@ package app.module.main.view
 				SoundManager.resetLast10Second();
 		}
 
-		protected function backMenuHandler( event:MainEvent ):void
-		{
-			timeClockComp.stopTimer();
-			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime, " 确 定 ", " 继 续 " );
-		}
-
 		protected function ctrlTimeHandler( event:MainEvent ):void
 		{
-			gameLogicComp.mouseChildren = ( Boolean( event.data ));
+			if ( gameLogicComp )
+				gameLogicComp.mouseChildren = ( Boolean( event.data ));
 		}
 
 		protected function addScoreHandler( event:MainEvent ):void
 		{
-			timeClockComp.addScore( int( event.data ));
+			if ( timeClockComp )
+				timeClockComp.addScore( int( event.data ));
 		}
 
 		protected function dispelSuccessHandler( event:MainEvent ):void
@@ -114,7 +116,9 @@ package app.module.main.view
 			
 			EffectControl.instance.playAccessEffect( abc );
 
-			timeClockComp.stopTimer();
+			if ( timeClockComp )
+				timeClockComp.stopTimer();
+			
 			SoundManager.stopLast10Second();
 			
 			function abc():void
@@ -130,7 +134,8 @@ package app.module.main.view
 
 		protected function addTimeHandler( event:MainEvent ):void
 		{
-			timeClockComp.addTime( int( event.data ));
+			if ( timeClockComp )
+				timeClockComp.addTime( int( event.data ));
 		}
 
 		/**

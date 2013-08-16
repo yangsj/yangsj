@@ -1,5 +1,7 @@
 package app.startup
 {
+	import app.module.model.Global;
+	
 	import framework.BaseCommand;
 	
 	
@@ -13,6 +15,11 @@ package app.startup
 		public function InjectClassCommand()
 		{
 			super();
+		}
+		
+		override public function execute():void
+		{
+			injectActor( Global );
 		}
 	}
 }

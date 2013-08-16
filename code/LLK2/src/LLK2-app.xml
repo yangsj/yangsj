@@ -297,4 +297,9 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
+    
+	<extensions>
+        <extensionID>com.adobe.Vibration</extensionID>
+    </extensions>
+    
 </application>

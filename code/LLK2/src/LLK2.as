@@ -1,5 +1,6 @@
 package
 {
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -30,6 +31,7 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			new AppContext( this );
+			
 		}
 		
 	}

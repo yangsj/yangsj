@@ -127,7 +127,7 @@ package app.module.main.view.child
 
 		private function btnBackHandler():void
 		{
-			dispatchEvent( new MainEvent( MainEvent.BACK_MENU ));
+			dispatchEvent( new MainEvent( MainEvent.BACK_MENU, null, true ));
 		}
 
 		private function initMarkData( limit:uint ):void

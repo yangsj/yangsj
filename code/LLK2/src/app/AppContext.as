@@ -6,6 +6,8 @@ package app
 	import app.startup.CommonCommand;
 	import app.startup.EmbedViewCommand;
 	import app.startup.EnterCommand;
+	import app.startup.InjectClassCommand;
+	import app.startup.KeyboardCommand;
 	import app.startup.StartupCommand;
 	
 	import framework.BaseContext;
@@ -47,6 +49,8 @@ package app
 		private function addCommand():void
 		{
 			
+			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, InjectClassCommand, ContextEvent, true );
+			
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, EmbedViewCommand, ContextEvent, true );
 			
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, StartupCommand, ContextEvent, true );
@@ -54,6 +58,8 @@ package app
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, CommonCommand, ContextEvent, true );
 
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, BgMusicCommand, ContextEvent, true );
+			
+			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, KeyboardCommand, ContextEvent, true );
 
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, EnterCommand, ContextEvent, true );
 			

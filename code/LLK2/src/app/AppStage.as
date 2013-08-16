@@ -3,9 +3,7 @@ package app
 	import flash.desktop.NativeApplication;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Screen;
 	import flash.display.Stage;
-	import flash.geom.Rectangle;
 	import flash.system.Capabilities;
 
 	/**
@@ -35,7 +33,7 @@ package app
 			if ( _stage == null )
 			{
 				_stage = stage;
-				;
+				
 				_stageWidth = _stage.fullScreenWidth;
 				_stageHeight = _stage.fullScreenHeight;
 				_stage.stageWidth = _stageWidth;
