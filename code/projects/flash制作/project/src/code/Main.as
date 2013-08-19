@@ -3,11 +3,13 @@ package code
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import ui.*;
+	import ui.UIMain01;
+	import ui.UIMain02;
 	
 	
 	/**
@@ -115,16 +117,23 @@ package code
 		{
 			try
 			{
-				var loader:URLLoader = new URLLoader();
-				loader.addEventListener(Event.COMPLETE, completeHandler );
-				if ( Global.projectType == Global.PROJECT_01 )
+				var url:String;
+				if ( stage.loaderInfo.parameters.hasOwnProperty("pathUrl") ) 
+					url = stage.loaderInfo.parameters["pathUrl"];
+				
+				else
+					url = stage.loaderInfo.loaderURL.substr( 0, url.lastIndexOf("/") );
+				
+				if ( url.indexOf(".xml") == -1 )
 				{
-					loader.load( new URLRequest("pathUrl01.xml"));
+					if ( Global.projectType == Global.PROJECT_01 )
+						url += "/pathUrl01.xml?v=" + new Date().time;
+					
+					else if ( Global.projectType == Global.PROJECT_02 )
+						url += "/pathUrl02.xml?v=" + new Date().time;
 				}
-				else if ( Global.projectType == Global.PROJECT_02 )
-				{
-					loader.load( new URLRequest("pathUrl02.xml"));
-				}
+				
+				startLoad( url );
 			}
 			catch( e:* )
 			{
@@ -132,14 +141,39 @@ package code
 			}
 		}
 		
+		private function startLoad(url:String):void
+		{
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, completeHandler );
+			loader.addEventListener(IOErrorEvent.IO_ERROR, loaderErrorHandler );
+			loader.load( new URLRequest( url ));
+		}
+		
+		private function removeLoad( loader:URLLoader ):void
+		{
+			if ( loader )
+			{
+				loader.close();
+				loader.removeEventListener(Event.COMPLETE, completeHandler );
+				loader.removeEventListener(IOErrorEvent.IO_ERROR, loaderErrorHandler );
+				loader = null;
+			}
+		}
+		
+		protected function loaderErrorHandler(event:IOErrorEvent):void
+		{
+			var loader:URLLoader = event.target as URLLoader;
+			removeLoad( loader );
+			
+			initTips( null );
+		}
+		
 		protected function completeHandler(event:Event):void
 		{
 			var loader:URLLoader = event.target as URLLoader;
-			var xml:XML = new XML( loader.data );
+			initTips( new XML( loader.data ) );
 			
-			trace( xml );
-			
-			initTips( xml );
+			removeLoad( loader );
 		}		
 		
 		private function initTips( xml:XML ):void

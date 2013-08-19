@@ -13,9 +13,10 @@ package app.module.main.view.child
 	
 	import app.AppStage;
 	import app.EffectControl;
-	import app.manager.SoundManager;
+	import app.NativeExtensions;
 	import app.core.components.Button;
 	import app.data.LevelVo;
+	import app.manager.SoundManager;
 	import app.module.main.events.MainEvent;
 	import app.module.main.view.ElementConfig;
 	import app.module.main.view.element.Element;
@@ -232,6 +233,9 @@ package app.module.main.view.child
 			if ( target )
 			{
 				event.stopPropagation();
+				
+				NativeExtensions.vibrate( 50 );
+				
 				if ( _startItem == null )
 				{
 					_startItem = target;

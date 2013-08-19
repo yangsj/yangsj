@@ -32,6 +32,7 @@ package
 			
 			new AppContext( this );
 			
+			 addChild ( new Test() );
 		}
 		
 	}

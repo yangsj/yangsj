@@ -8,13 +8,15 @@ package app.core.components
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-
-	import ui.components.UIButtonSkin;
-
+	
 	import app.AppStage;
+	import app.NativeExtensions;
 	import app.manager.SoundManager;
-	import framework.interfaces.IDisposable;
 	import app.utils.safetyCall;
+	
+	import framework.interfaces.IDisposable;
+	
+	import ui.components.UIButtonSkin;
 
 
 	/**
@@ -117,6 +119,8 @@ package app.core.components
 				event.stopPropagation();
 				safetyCall( _clickCallBack );
 				SoundManager.playClickButton();
+				
+				NativeExtensions.vibrate( 50 );
 			}
 		}
 
