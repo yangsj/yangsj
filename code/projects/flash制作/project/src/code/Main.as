@@ -7,9 +7,9 @@ package code
 	import flash.events.MouseEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.utils.getDefinitionByName;
 	
 	import ui.UIMain01;
-	import ui.UIMain02;
 	
 	
 	/**
@@ -25,19 +25,12 @@ package code
 		private var aryPath:Array = [];
 		private var vecBar:Vector.<BarTips>;
 		
-		public function Main()
+		public function Main( clz:Class )
 		{
-			if ( Global.projectType == Global.PROJECT_01 )
-			{
-				_skin = new UIMain01();
-			}
-			else if ( Global.projectType == Global.PROJECT_02 )
-			{
-				_skin = new UIMain02();
-			}
+			_skin = new clz();
 			addChild( _skin );
 			
-			vecBar = new Vector.<BarTips>();
+			vecBar = new Vector.<BarTips>( LENGTH );
 			
 			initMenu();
 			
@@ -122,7 +115,10 @@ package code
 					url = stage.loaderInfo.parameters["pathUrl"];
 				
 				else
-					url = stage.loaderInfo.loaderURL.substr( 0, url.lastIndexOf("/") );
+				{
+					url = stage.loaderInfo.loaderURL;
+					url = url.substr( 0, url.lastIndexOf("/") );
+				}
 				
 				if ( url.indexOf(".xml") == -1 )
 				{
@@ -192,13 +188,14 @@ package code
 				else if ( Global.projectType == Global.PROJECT_02 )
 				{
 					xml = <data>
-							<item id="0" url="www.baidu.com" name="三维动画影片" window="_blank" />
-							<item id="1" url="www.baidu.com" name="三维互动系统" window="_blank" />
-							<item id="2" url="www.baidu.com" name="互动数字沙盘" window="_blank" />
-							<item id="3" url="www.baidu.com" name="传动展项" window="_blank" />
+							<item id="0" url="http://blog.163.com/acsh_ysj/" name="三维动画影片" window="_blank" />
+							<item id="1" url="http://blog.163.com/acsh_ysj/" name="三维互动系统" window="_blank" />
+							<item id="2" url="http://blog.163.com/acsh_ysj/" name="互动数字沙盘" window="_blank" />
+							<item id="3" url="http://blog.163.com/acsh_ysj/" name="传统展项" window="_blank" />
 						  </data>
 				}
 			}
+			
 			var xmllist:XMLList = xml.children();
 			for each (xml in xmllist)
 			{
@@ -210,7 +207,7 @@ package code
 				var mc:MovieClip = _skin["mc" + i] as MovieClip;
 				var bar:BarTips = new BarTips( mc, i < aryPath.length ? aryPath[i] : new PathVo( i ) );
 				bar.playLoopOnce( i * 0.2);
-				vecBar.push( bar );
+				vecBar[i] = bar;
 			}
 			
 		}

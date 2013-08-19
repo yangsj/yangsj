@@ -15,6 +15,8 @@ package
 	 */
 	public class Project extends Sprite
 	{
+		protected var clz:Class;
+		
 		public function Project()
 		{
 			if ( stage ) 
@@ -29,7 +31,7 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			addChild( new Main());
+			addChild( new Main( clz ));
 			
 //			var txt:TextField = new TextField();
 //			txt.text = "author: victor    time: " + new Date().toString();
