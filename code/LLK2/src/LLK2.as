@@ -1,13 +1,11 @@
 package
 {
-	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	
 	import app.AppContext;
-	
 	
 	/**
 	 * ……
@@ -31,8 +29,6 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			new AppContext( this );
-			
-			 addChild ( new Test() );
 		}
 		
 	}

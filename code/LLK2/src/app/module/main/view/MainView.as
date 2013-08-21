@@ -63,7 +63,7 @@ package app.module.main.view
 		public function backMenu():void
 		{
 			timeClockComp.stopTimer();
-			Alert.show( "你确定要返回吗？", exit, timeClockComp.ctrlTime, " 确 定 ", " 继 续 " );
+			Alert.showAlert("", "你确定要返回吗？", "确定", exit, "继续", timeClockComp.ctrlTime);
 		}
 
 		protected function initialize():void
@@ -123,7 +123,8 @@ package app.module.main.view
 			
 			function abc():void
 			{
-				Alert.show(curLevel >= LevelConfig.maxLevel - 1 ? "恭喜！通过所有关卡" : "恭喜！挑战成功", exit, def, " 菜 单 ", " 下一关 ");
+				var message:String = curLevel >= LevelConfig.maxLevel - 1 ? "恭喜！通过所有关卡" : "恭喜！挑战成功";
+				Alert.showAlert( "恭喜", message, "菜单", exit, "下一关", def );
 			}
 			function def():void
 			{
@@ -183,7 +184,7 @@ package app.module.main.view
 			
 			function abc():void
 			{
-				Alert.show("挑战失败！", exit, readyGo, " 菜 单 ", " 再来一次 " );
+				Alert.showAlert( "再接再厉", "您本次挑战失败！再接再厉", "菜单", exit, "再来一次", readyGo );
 			}
 		}
 
