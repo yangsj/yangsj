@@ -11,6 +11,7 @@ package app.module.model
 	{
 		private static var _currentModule:uint;
 		private static var _lastDownTime:Number = 0;
+		private static var _switchResultVibrate:Boolean = true;
 		
 		public function Global()
 		{
@@ -41,6 +42,22 @@ package app.module.model
 		public static function get isIOS():Boolean
 		{
 			return (Capabilities.manufacturer.indexOf("iOS") != -1);
+		}
+
+		/**
+		 * 震动开关
+		 */
+		public static function get switchResultVibrate():Boolean
+		{
+			return _switchResultVibrate;
+		}
+
+		/**
+		 * @private
+		 */
+		public static function set switchResultVibrate(value:Boolean):void
+		{
+			_switchResultVibrate = value;
 		}
 
 

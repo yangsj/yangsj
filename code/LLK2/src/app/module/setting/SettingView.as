@@ -5,6 +5,7 @@ package app.module.setting
 	
 	import app.AppStage;
 	import app.manager.SoundManager;
+	import app.module.model.Global;
 	
 	import framework.BasePanel;
 	
@@ -17,6 +18,7 @@ package app.module.setting
 	{
 		private var bgSndBar:Bar;
 		private var effectSndBar:Bar;
+		private var vibrateSwitch:Switch;
 		private var container:Sprite;
 		
 		public function SettingView()
@@ -31,11 +33,14 @@ package app.module.setting
 			
 			bgSndBar = new Bar("背景音乐", SoundManager.setBgSndVoice);
 			effectSndBar = new Bar("音效音量", SoundManager.setEffectSndVoice);
+			vibrateSwitch = new Switch("震动开关", switchCallBack);
 			
-			effectSndBar.y = bgSndBar.x + bgSndBar.height * 2;
+			effectSndBar.y = bgSndBar.y + bgSndBar.height * 2;
+			vibrateSwitch.y = effectSndBar.y + effectSndBar.height * 2;
 			
 			container.addChild( bgSndBar );
 			container.addChild( effectSndBar );
+			container.addChild( vibrateSwitch );
 			
 			container.y = 200;
 			container.x = (AppStage.stageWidth - container.width)>> 1;
@@ -45,6 +50,11 @@ package app.module.setting
 			initValue();
 			
 			super();
+		}
+		
+		private function switchCallBack():void
+		{
+			Global.switchResultVibrate = vibrateSwitch.switchResult;
 		}
 		
 		public function initValue():void

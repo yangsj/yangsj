@@ -2,6 +2,8 @@ package app
 {
 	import com.adobe.nativeExtensions.Vibration;
 	
+	import app.module.model.Global;
+	
 	/**
 	 * ……
 	 * @author 	yangsj 
@@ -23,7 +25,7 @@ package app
 		 */
 		public static function vibrate( duration:Number ):void
 		{
-			if (Vibration.isSupported)
+			if (Vibration.isSupported && Global.switchResultVibrate )
 			{
 				vibration ||= new Vibration();
 				vibration.vibrate( duration );

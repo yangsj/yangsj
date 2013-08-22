@@ -84,6 +84,7 @@ package app.module.main.view.child
 		{
 			mouseEnabled = false;
 			intiStartList();
+			intiUI();
 		}
 
 		private function intiUI():void
@@ -258,7 +259,7 @@ package app.module.main.view.child
 			{
 				event.stopPropagation();
 
-				NativeExtensions.vibrate( 50 );
+				NativeExtensions.vibrate( 30 );
 
 				if ( _startItem == null )
 				{
