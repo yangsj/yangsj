@@ -1,5 +1,6 @@
 package app.module.model
 {
+	import flash.system.Capabilities;
 	
 	/**
 	 * ……
@@ -16,16 +17,6 @@ package app.module.model
 			super();
 		}
 
-		public static function get currentModule():uint
-		{
-			return _currentModule;
-		}
-
-		public static function set currentModule(value:uint):void
-		{
-			_currentModule = value;
-		}
-
 		public static function get lastDownTime():Number
 		{
 			return _lastDownTime;
@@ -34,6 +25,22 @@ package app.module.model
 		public static function set lastDownTime(value:Number):void
 		{
 			_lastDownTime = value;
+		}
+		
+		/**
+		 * 是否是安卓平台
+		 */
+		public static function get isAndroid():Boolean
+		{
+			return (Capabilities.manufacturer.indexOf("Android") != -1);
+		}
+		
+		/**
+		 * 是否是ios平台
+		 */
+		public static function get isIOS():Boolean
+		{
+			return (Capabilities.manufacturer.indexOf("iOS") != -1);
 		}
 
 

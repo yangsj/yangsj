@@ -11,7 +11,7 @@ package app.module.main.view.child
 	 */
 	public class FindPath
 	{
-		private var _seekGroups:Vector.<Vector.<IElement>>;
+		private var _seekResult:Vector.<IElement>;
 		private var _vecFirst:Vector.<IElement>; // 记录未发生拐点的节点
 		private var _vecSecond:Vector.<IElement>; // 记录第一次拐点后的节点
 		private var _vecThird:Vector.<IElement>; // 记录第二次拐点后的节点
@@ -42,7 +42,7 @@ package app.module.main.view.child
 			_endItem = endItem;
 
 			// set init vars
-			_seekGroups = new Vector.<Vector.<IElement>>();
+			_seekResult = new Vector.<IElement>();
 			_s_cols = _startItem.cols;
 			_s_rows = _startItem.rows;
 			_e_cols = _endItem.cols;
@@ -53,11 +53,8 @@ package app.module.main.view.child
 			goRight();
 			goUp();
 			goDown();
-
-			// sort paths : According to the small to large order
-			_seekGroups.sort( sortVec );
-
-			return _seekGroups.pop();
+			
+			return _seekResult;
 		}
 
 		/**
@@ -243,7 +240,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					_seekGroups.push( _vecFirst );
+					setResult( _vecFirst );
 				return true;
 			}
 			else
@@ -276,7 +273,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					_seekGroups.push( _vecFirst );
+					setResult( _vecFirst );
 				return true;
 			}
 			else
@@ -310,7 +307,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					_seekGroups.push( _vecFirst.concat( _vecSecond ));
+					setResult( _vecFirst.concat( _vecSecond ));
 				return true;
 			}
 			else
@@ -344,7 +341,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点
-					_seekGroups.push( _vecFirst.concat( _vecSecond ));
+					setResult( _vecFirst.concat( _vecSecond ));
 				return true;
 			}
 			else
@@ -378,7 +375,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					_seekGroups.push( _vecFirst.concat( _vecThird ));
+					setResult( _vecFirst.concat( _vecThird ));
 				return true;
 			}
 			return false;
@@ -397,22 +394,10 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点
-					_seekGroups.push( _vecFirst.concat( _vecSecond, _vecThird ));
+					setResult( _vecFirst.concat( _vecSecond, _vecThird ));
 				return true;
 			}
 			return false;
-		}
-
-
-
-
-		private function sortVec( a:Vector.<IElement>, b:Vector.<IElement> ):Number
-		{
-			if ( a.length > b.length )
-				return -1;
-			else if ( a.length < b.length )
-				return 1;
-			return 0;
 		}
 
 		private function createTempItem( cols:int, rows:int ):IElement
@@ -424,6 +409,12 @@ package app.module.main.view.child
 			item.initialize();
 			item.visible = false;
 			return item;
+		}
+		
+		private function setResult(result:Vector.<IElement>):void
+		{
+			if ( _seekResult.length == 0 || _seekResult.length > result.length )
+				_seekResult = result;
 		}
 
 	}

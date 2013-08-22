@@ -301,8 +301,9 @@
     
 	<extensions>
         <extensionID>com.adobe.Vibration</extensionID>
-    <extensionID>com.freshplanet.AirAlert</extensionID>
+	    <extensionID>com.freshplanet.AirAlert</extensionID>
     <extensionID>com.freshplanet.AirPushNotification</extensionID>
     </extensions>
+    
     
 </application>

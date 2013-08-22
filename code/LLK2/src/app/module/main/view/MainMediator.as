@@ -32,6 +32,8 @@ package app.module.main.view
 			super.onRemove();
 			
 			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.MENU ));
+			
+			view.clearBgImage();
 		}
 
 		override public function onRegister():void
@@ -40,8 +42,6 @@ package app.module.main.view
 
 			addViewListener( MainEvent.BACK_MENU, backMenuHandler, MainEvent );
 			addContextListener( MainEvent.BACK_MENU, backMenuHandler, MainEvent );
-			
-			Global.currentModule = GlobalType.MODULE_MAIN;
 		}
 		
 		private function backMenuHandler( event:MainEvent ):void

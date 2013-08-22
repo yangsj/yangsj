@@ -1,20 +1,10 @@
 package app.module.menu.view
 {
-	import flash.events.KeyboardEvent;
-	import flash.ui.Keyboard;
-	import flash.utils.getTimer;
-	
-	import app.AppStage;
 	import app.events.ViewEvent;
-	import app.module.GlobalType;
 	import app.module.ViewName;
 	import app.module.menu.events.MenuEvent;
-	import app.module.model.Global;
-	import app.utils.safetyCall;
 	
 	import framework.BaseMediator;
-	import framework.ViewStruct;
-
 
 	/**
 	 * ……
@@ -29,13 +19,6 @@ package app.module.menu.view
 			super();
 		}
 		
-		override public function onRemove():void
-		{
-			super.onRemove();
-			
-			AppStage.stage.removeEventListener( KeyboardEvent.KEY_DOWN, keyboardHandler );
-		}
-
 		override public function onRegister():void
 		{
 			super.onRegister();
@@ -48,30 +31,6 @@ package app.module.menu.view
 			
 			addViewListener( MenuEvent.CLICK_MENU_SETTING, showSettingHandler );
 			
-			Global.currentModule = GlobalType.MODULE_MENU;
-			
-//			AppStage.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyboardHandler, int.MAX_VALUE );
-		}
-		
-		protected function keyboardHandler(event:KeyboardEvent):void
-		{
-			var keyCode:uint = event.keyCode;
-			if ( keyCode == Keyboard.BACK )
-			{
-				var cha:Number = getTimer() - Global.lastDownTime;
-				if ( Global.lastDownTime == 0 || cha > 1500 )
-				{
-					event.preventDefault();
-					
-					ViewStruct.addBackWordEffect();
-					Global.lastDownTime = getTimer();
-				}
-				else if ( cha <= 1500 )
-				{
-					ViewStruct.removeBackWordEffect();
-					Global.lastDownTime = 0;
-				}
-			}
 		}
 		
 		private function showSettingHandler( event:MenuEvent ):void

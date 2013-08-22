@@ -112,7 +112,7 @@ package framework
 				txtTips.width = txtTips.textWidth + 5;
 				txtTips.height = txtTips.textHeight + 2;
 
-				var bitdata:BitmapData = new BitmapData( txtTips.width, txtTips.height, false, 0 );
+				var bitdata:BitmapData = new BitmapData( txtTips.width, txtTips.height, true, 0 );
 				bitdata.draw( txtTips );
 				var bitmap:Bitmap = new Bitmap( bitdata, "auto", true );
 				bitmap.x = 15;

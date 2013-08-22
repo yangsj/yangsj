@@ -96,13 +96,6 @@ package app.module.main.view.child
 				case DirectionType.moveUpRight:
 					drawArrow( 45 );
 					break;
-
-//				case DirectionType.byCenterFromUpAndDown:
-//					
-//					break;
-//				case DirectionType.byCenterFromLeftAndRight:
-//					
-//					break;
 				case DirectionType.byCenterFromLeftAndRightAndUpAndDown:
 					drawCenterCenter();
 					break;

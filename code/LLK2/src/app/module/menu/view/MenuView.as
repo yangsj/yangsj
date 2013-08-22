@@ -1,7 +1,5 @@
 package app.module.menu.view
 {
-	import com.freshplanet.ane.AirAlert.AirAlert;
-
 	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
 
@@ -49,28 +47,18 @@ package app.module.menu.view
 			addChild( bgImg );
 
 			btnEnterGame = new Button( "开始游戏", btnEnterGameHandler );
-//			btnEnterGame.x = 320;
-//			btnEnterGame.y = 320;
 			container.addChild( btnEnterGame );
 
 			btnHistoryRank = new Button( "历史排行", btnHistoryRankHandler );
-//			btnHistoryRank.x = 320;
-//			btnHistoryRank.y = 450;
 			container.addChild( btnHistoryRank );
 
 			btnGameHelp = new Button( "游戏帮助", btnGameHelpHandler );
-//			btnGameHelp.x = 320;
-//			btnGameHelp.y = 580;
 			container.addChild( btnGameHelp );
 
 			btnSetting = new Button( "系统设置", btnSettingHandler );
-//			btnSetting.x = 320;
-//			btnSetting.y = 710;
 			container.addChild( btnSetting );
 
 			btnExitGame = new Button( "退出游戏", btnExitGameHandler );
-//			btnExitGame.x = 320;
-//			btnExitGame.y = 840;
 			container.addChild( btnExitGame );
 
 			btnEnterGame.y = 0;

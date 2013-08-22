@@ -5,12 +5,12 @@ package app.module.main.view.child
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-	
+
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-	
+
 	import app.AppStage;
 	import app.EffectControl;
 	import app.NativeExtensions;
@@ -43,55 +43,51 @@ package app.module.main.view.child
 		private var _listContainer:Sprite;
 		// 路径线显示容器
 		private var _drawPathLine:DrawPathLine;
+		// 原始总标记清单
 		private var _markList:Vector.<int>;
-		private var _itemMap:Vector.<Vector.<IElement>>;
-		private var _items:Vector.<IElement>;
+		// 每局用于初始化标记清单
 		private var _markAry:Vector.<int>;
-		private var _seekGroups:Vector.<Vector.<IElement>>;
+		// Elements清单（用于刷新）
+		private var _items:Vector.<IElement>;
+		// Elements地图查找清单（二维数组）
+		private var _itemMap:Vector.<Vector.<IElement>>;
+		// 查找的起始节点
 		private var _startItem:IElement;
+		// 查找的结束节点
 		private var _endItem:IElement;
+		// 成功消除的次数
 		private var _dispelNumber:int = 0;
+		// 关卡数据
 		private var _levelVo:LevelVo;
+		// 上一次成功消除的时间
 		private var _lastClickTime:Number = 0;
+		// 连击次数
 		private var _combNumber:int = 0;
+		// 是否完成
 		private var _isOver:Boolean = false;
+
+		// 刷新按钮
 		private var _btnRefresh:Button;
+		// 返回按钮
 		private var _btnBack:Button;
-		private var _findPath:FindPath;
-		private var _moveElementPos:MoveElementPos;
+		// 方向iu
 		private var _directionIcon:DrawDirectionIcon;
 
+		// 路径查找管理器
+		private var _findPath:FindPath;
+		// 经过的位置记录
+		private var _moveElementPos:MoveElementPos;
+		// 成功消除画出路径所需时间
 		private var _moveIntervalTime:Number = 0;
 
 		public function LogicComp()
 		{
 			mouseEnabled = false;
-			intiVars();
+			intiStartList();
 		}
 
-		private function intiVars():void
+		private function intiUI():void
 		{
-			var vec1:Vector.<IElement>;
-			_itemMap = new Vector.<Vector.<IElement>>( ElementConfig.ROWS );
-			_items = new Vector.<IElement>()
-			for ( var i:uint = 0; i < ElementConfig.ROWS; i++ )
-			{
-				vec1 = new Vector.<IElement>( ElementConfig.COLS );
-				for ( var j:uint = 0; j < ElementConfig.COLS; j++ )
-				{
-					vec1[ j ] = new Element();
-					_items.push( vec1[ j ]);
-				}
-				_itemMap[ i ] = vec1;
-			}
-			//
-			var leng:uint = 21;
-			_markList = new Vector.<int>( leng );
-			for ( i = 0; i != leng; i++ )
-			{
-				_markList[ i ] = ( i + 1 );
-			}
-
 			_drawPathLine = new DrawPathLine();
 			_listContainer = new Sprite();
 			_listContainer.y = 130 * AppStage.scaleY;
@@ -113,7 +109,7 @@ package app.module.main.view.child
 
 			_moveElementPos = new MoveElementPos();
 			_moveElementPos.initMap( _itemMap );
-			
+
 			_directionIcon = new DrawDirectionIcon();
 			_directionIcon.x = 590;
 			_directionIcon.y = 100;
@@ -126,25 +122,53 @@ package app.module.main.view.child
 			addChild( _directionIcon );
 		}
 
+		private function intiStartList():void
+		{
+			var i:uint, j:uint;
+			var vec1:Vector.<IElement>;
+			var item:IElement;
+			var leng:uint = ElementConfig.MARK_LENGTH;
+
+			_itemMap = new Vector.<Vector.<IElement>>( ElementConfig.ROWS );
+			_items = new Vector.<IElement>( ElementConfig.LENGTH );
+			for ( i = 0; i < ElementConfig.ROWS; i++ )
+			{
+				vec1 = new Vector.<IElement>( ElementConfig.COLS );
+				for ( j = 0; j < ElementConfig.COLS; j++ )
+				{
+					item = new Element();
+					vec1[ j ] = item;
+
+					_items[ j ] = item;
+				}
+				_itemMap[ i ] = vec1;
+			}
+
+			_markList = new Vector.<int>( leng );
+			for ( i = 0; i != leng; i++ )
+			{
+				_markList[ i ] = ( i + 1 );
+			}
+		}
+
 		private function btnBackHandler():void
 		{
 			dispatchEvent( new MainEvent( MainEvent.BACK_MENU, null, true ));
 		}
 
+		private function btnRefreshHandler():void
+		{
+			refresh();
+		}
+
 		private function initMarkData( limit:uint ):void
 		{
-			limit = Math.min( limit, ElementConfig.LENGTH * 0.5 );
-			ArrayUtil.randomSort( _markList );
+			limit = Math.min( limit, ElementConfig.MARK_LENGTH );
 			_markAry ||= new Vector.<int>( ElementConfig.LENGTH );
 			for ( var i:uint = 0; i < ElementConfig.LENGTH; i += 2 )
 			{
 				_markAry[ i ] = _markAry[ i + 1 ] = _markList[ uint( Math.random() * limit )];
 			}
-		}
-
-		private function btnRefreshHandler():void
-		{
-			refresh();
 		}
 
 		public function initialize():void
@@ -164,7 +188,7 @@ package app.module.main.view.child
 
 			initMarkData( levelVo.picNum );
 			ArrayUtil.randomSort( _markAry );
-			
+
 			_directionIcon.setDirection( direction );
 
 			var item:IElement;
@@ -210,7 +234,7 @@ package app.module.main.view.child
 			var row:uint, col:uint;
 			var item:IElement;
 			ArrayUtil.randomSort( _items );
-			for ( var index:int = 0; index < ElementConfig.LENGTH; index++)
+			for ( var index:int = 0; index < ElementConfig.LENGTH; index++ )
 			{
 				row = index / ElementConfig.COLS;
 				col = index % ElementConfig.COLS;
@@ -233,9 +257,9 @@ package app.module.main.view.child
 			if ( target )
 			{
 				event.stopPropagation();
-				
+
 				NativeExtensions.vibrate( 50 );
-				
+
 				if ( _startItem == null )
 				{
 					_startItem = target;
@@ -255,14 +279,7 @@ package app.module.main.view.child
 					}
 					else if ( _startItem.mark != target.mark )
 					{
-						_startItem.selected = false;
-						_endItem.selected = false;
-						_startItem.clickError();
-						_endItem.clickError();
-						_startItem = null;
-						_endItem = null;
-
-						SoundManager.playClickError();
+						clickError();
 					}
 					else
 					{
@@ -270,6 +287,8 @@ package app.module.main.view.child
 
 						seek();
 					}
+					_startItem = null;
+					_endItem = null;
 				}
 			}
 		}
@@ -292,14 +311,17 @@ package app.module.main.view.child
 			}
 			else
 			{
-				_startItem.selected = false;
-				_endItem.selected = false;
-				_startItem.clickError();
-				_endItem.clickError();
-				SoundManager.playClickError();
+				clickError();
 			}
-			_startItem = null;
-			_endItem = null;
+		}
+
+		private function clickError():void
+		{
+			_startItem.selected = false;
+			_endItem.selected = false;
+			_startItem.clickError();
+			_endItem.clickError();
+			SoundManager.playClickError();
 		}
 
 		private function setDrawLine( tempVec1:Vector.<IElement> ):void

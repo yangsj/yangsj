@@ -1,5 +1,7 @@
 package app.module.main.view
 {
+	import com.greensock.TweenMax;
+	
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	
@@ -60,10 +62,15 @@ package app.module.main.view
 			timeClockComp.addEventListener( MainEvent.CTRL_TIME, ctrlTimeHandler );
 		}
 		
+		public function clearBgImage():void
+		{
+			TweenMax.killDelayedCallsTo( createBgImage );
+		}
+		
 		public function backMenu():void
 		{
 			timeClockComp.stopTimer();
-			Alert.showAlert("", "你确定要返回吗？", "确定", exit, "继续", timeClockComp.ctrlTime);
+			Alert.showAlert("返回首页", "你确定要返回吗？", "确定", exit, "继续", timeClockComp.ctrlTime);
 		}
 
 		protected function initialize():void
@@ -75,6 +82,8 @@ package app.module.main.view
 				timeClockComp.resetScore();
 
 			readyGo();
+			
+			createBgImage();
 		}
 
 		protected function deactivateHandler( event:Event ):void
@@ -156,15 +165,21 @@ package app.module.main.view
 			gameLogicComp.startAndReset( levelVo );
 
 			EffectControl.instance.playReadyGo( timeClockComp.startTimer );
-
+		}
+		
+		private function createBgImage():void
+		{
+			var url:String = AppUrl.getBgUrl( int( Math.random() * 17 ));
 			if ( bgImage == null )
 			{
-				bgImage = new Image( AppUrl.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
+				bgImage = new Image( url , onCompleteLoaded );
 				addChildAt( bgImage, 0 );
 			}
 			else
-				bgImage.reset( AppUrl.getBgUrl( int( Math.random() * 10 )), onCompleteLoaded );
-
+				bgImage.reset( url, onCompleteLoaded );
+			
+			clearBgImage();
+			TweenMax.delayedCall( 20, createBgImage );
 		}
 
 		private function onCompleteLoaded( img:Image ):void
