@@ -302,7 +302,9 @@
 	<extensions>
         <extensionID>com.adobe.Vibration</extensionID>
 	    <extensionID>com.freshplanet.AirAlert</extensionID>
-    <extensionID>com.freshplanet.AirPushNotification</extensionID>
+    
+    <extensionID>org.zengrong.ane.ANEToolkit</extensionID>
+    <extensionID>com.freshplanet.AirNetworkInfo</extensionID>
     </extensions>
     
     

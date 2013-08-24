@@ -5,12 +5,12 @@ package app.module.main.view.child
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Back;
 	import com.greensock.events.TweenEvent;
-
+	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-
+	
 	import app.AppStage;
 	import app.EffectControl;
 	import app.NativeExtensions;
@@ -103,7 +103,7 @@ package app.module.main.view.child
 			_btnBack.y = AppStage.stageHeight - ( _btnBack.height * 0.75 );
 
 			_listContainer.mouseEnabled = false;
-			_listContainer.addEventListener( MouseEvent.CLICK, clickHandler );
+			_listContainer.addEventListener( MouseEvent.MOUSE_DOWN, clickDownHandler );
 
 			_findPath = new FindPath();
 			_findPath.initMap( _itemMap );
@@ -132,6 +132,7 @@ package app.module.main.view.child
 
 			_itemMap = new Vector.<Vector.<IElement>>( ElementConfig.ROWS );
 			_items = new Vector.<IElement>( ElementConfig.LENGTH );
+			
 			for ( i = 0; i < ElementConfig.ROWS; i++ )
 			{
 				vec1 = new Vector.<IElement>( ElementConfig.COLS );
@@ -140,7 +141,7 @@ package app.module.main.view.child
 					item = new Element();
 					vec1[ j ] = item;
 
-					_items[ j ] = item;
+					_items[ i * ElementConfig.COLS + j ] = item;
 				}
 				_itemMap[ i ] = vec1;
 			}
@@ -252,14 +253,14 @@ package app.module.main.view.child
 			_startItem = null;
 		}
 
-		protected function clickHandler( event:MouseEvent ):void
+		protected function clickDownHandler( event:MouseEvent ):void
 		{
 			var target:IElement = event.target as IElement;
-			if ( target )
+			if ( target && target.isReal )
 			{
 				event.stopPropagation();
-
-				NativeExtensions.vibrate( 30 );
+				
+				NativeExtensions.vibrate( 20 );
 
 				if ( _startItem == null )
 				{
@@ -274,7 +275,6 @@ package app.module.main.view.child
 					if ( _endItem == _startItem )
 					{
 						_startItem.selected = false;
-						_startItem = null;
 
 						SoundManager.playClickItem();
 					}
@@ -285,12 +285,16 @@ package app.module.main.view.child
 					else
 					{
 						_endItem.selected = true;
+						
+						SoundManager.playClickItem();
 
 						seek();
 					}
 					_startItem = null;
 					_endItem = null;
 				}
+				
+				NativeExtensions.vibrate( 20 );
 			}
 		}
 
@@ -303,6 +307,7 @@ package app.module.main.view.child
 			if ( tempVec1 && tempVec1.length > 0 )
 			{
 				_dispelNumber++;
+				toRemoveItem( tempVec1 );
 				setDrawLine( tempVec1 );
 				checkGameProgress();
 				checkAddScore();
@@ -314,6 +319,13 @@ package app.module.main.view.child
 			{
 				clickError();
 			}
+		}
+		
+		private function toRemoveItem( tempVec1:Vector.<IElement> ):void
+		{
+			_moveIntervalTime = 0.05 * ( tempVec1.length );
+			_startItem.removeFromParent( _moveIntervalTime );
+			_endItem.removeFromParent( _moveIntervalTime );
 		}
 
 		private function clickError():void
@@ -328,14 +340,11 @@ package app.module.main.view.child
 		private function setDrawLine( tempVec1:Vector.<IElement> ):void
 		{
 			var tempVec2:Vector.<Point> = new Vector.<Point>();
-			_moveIntervalTime = 0.05 * ( tempVec1.length );
 
 			for each ( var item:IElement in tempVec1 )
 				tempVec2.push( item.globalPoint );
 
 			_drawPathLine.setPoints( tempVec2 );
-			_startItem.removeFromParent( _moveIntervalTime );
-			_endItem.removeFromParent( _moveIntervalTime );
 		}
 
 		private function checkGameProgress():void
@@ -354,12 +363,10 @@ package app.module.main.view.child
 
 			if ( getTimer() - _lastClickTime <= ElementConfig.COMB_TIME_UNIT )
 				_combNumber++;
-			else
-				_combNumber = 0;
+			else _combNumber = 0;
 
 			score += _combNumber * ElementConfig.COMB_REWAR_SCORE_UNIT;
 			EffectControl.instance.playCombWords( _combNumber );
-			trace( "连击：" + _combNumber, "》》》》》增加分数：" + score );
 
 			if ( _combNumber > 0 && _combNumber % 3 == 0 )
 				TweenMax.delayedCall( 0.5, EffectControl.instance.playGoodWords );

@@ -36,6 +36,8 @@ package app.data
 		{
 			_picNum = Math.min(value, 21);
 			_picNum = Math.max( _picNum, 12 );
+			
+//			_picNum = 1;
 		}
 
 		/**

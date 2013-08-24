@@ -1,5 +1,7 @@
 package app.startup
 {
+	import app.module.loading.LoadingMediator;
+	import app.module.loading.LoadingView;
 	import app.module.main.view.MainMediator;
 	import app.module.main.view.MainView;
 	import app.module.menu.view.MenuMediator;
@@ -8,6 +10,8 @@ package app.startup
 	import app.module.panel.help.HelpView;
 	import app.module.panel.rank.RankMediator;
 	import app.module.panel.rank.RankView;
+	import app.module.panel.update.UpdateMediator;
+	import app.module.panel.update.UpdateView;
 	import app.module.setting.SettingMediator;
 	import app.module.setting.SettingView;
 	
@@ -37,6 +41,10 @@ package app.startup
 			addView( RankView, RankMediator );
 			
 			addView( SettingView, SettingMediator );
+			
+			addView( LoadingView, LoadingMediator );
+			
+			addView( UpdateView, UpdateMediator );
 		}
 		
 	}

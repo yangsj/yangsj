@@ -4,6 +4,8 @@ package app.module.setting
 	import flash.events.MouseEvent;
 	
 	import app.AppStage;
+	import app.core.components.Button;
+	import app.events.AppEvent;
 	import app.manager.SoundManager;
 	import app.module.model.Global;
 	
@@ -19,7 +21,9 @@ package app.module.setting
 		private var bgSndBar:Bar;
 		private var effectSndBar:Bar;
 		private var vibrateSwitch:Switch;
+		private var autoUpdateSwitch:Switch;
 		private var container:Sprite;
+		private var btnCheckUpdate:Button;
 		
 		public function SettingView()
 		{
@@ -34,22 +38,39 @@ package app.module.setting
 			bgSndBar = new Bar("背景音乐", SoundManager.setBgSndVoice);
 			effectSndBar = new Bar("音效音量", SoundManager.setEffectSndVoice);
 			vibrateSwitch = new Switch("震动开关", switchCallBack);
+			autoUpdateSwitch = new Switch("自动更新", autoUpdateSwitchCallBack );
 			
 			effectSndBar.y = bgSndBar.y + bgSndBar.height * 2;
 			vibrateSwitch.y = effectSndBar.y + effectSndBar.height * 2;
+			autoUpdateSwitch.y = vibrateSwitch.y + vibrateSwitch.height * 2;
 			
 			container.addChild( bgSndBar );
 			container.addChild( effectSndBar );
 			container.addChild( vibrateSwitch );
+			container.addChild( autoUpdateSwitch );
+			
+			btnCheckUpdate = new Button("检查更新", checkUpdateHandler);
+			btnCheckUpdate.x = container.width >> 1;
+			btnCheckUpdate.y = container.height + btnCheckUpdate.height * 1.5;
+			
+			container.addChild( btnCheckUpdate );
 			
 			container.y = 200;
 			container.x = (AppStage.stageWidth - container.width)>> 1;
 			
-			AppStage.adjustXYScaleXY( container );
-			
 			initValue();
 			
 			super();
+		}
+		
+		private function autoUpdateSwitchCallBack():void
+		{
+			Global.isAutoUpdate = autoUpdateSwitch.switchResult;
+		}
+		
+		private function checkUpdateHandler():void
+		{
+			dispatchEvent( new AppEvent( AppEvent.CHECK_UPDATE ));
 		}
 		
 		private function switchCallBack():void

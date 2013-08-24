@@ -33,7 +33,12 @@ package app.module.main.view.element
 		function tween(delay:Number = 0):void;
 		
 		/**
-		 * 移除显示列表
+		 * 及时移除显示列表
+		 */		
+		function toRemoved():void;
+		
+		/**
+		 * 延迟移除显示列表
 		 */
 		function removeFromParent(delay:Number = 0):void;
 		

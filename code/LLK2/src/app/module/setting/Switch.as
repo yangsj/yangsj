@@ -50,7 +50,8 @@ package app.module.setting
 			addChild( container );
 			
 			bgShape = new Shape();
-			bgShape.graphics.beginFill(0xffffff);
+			bgShape.graphics.lineStyle( 2, 0xffffff, 0.8 );
+			bgShape.graphics.beginFill( 0xffffff );
 			bgShape.graphics.drawRoundRect(0,0, 200, 40, 40);
 			bgShape.graphics.endFill();
 			container.addChild( bgShape );

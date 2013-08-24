@@ -1,5 +1,7 @@
 package app.module.setting
 {
+	import app.events.AppEvent;
+	
 	import framework.BaseMediator;
 	
 	/**
@@ -19,7 +21,14 @@ package app.module.setting
 		{
 			super.onRegister();
 			
+			addViewListener( AppEvent.CHECK_UPDATE, checkUpdateHandler, AppEvent );
+		}
+		
+		private function checkUpdateHandler( event:AppEvent ):void
+		{
+			dispatch( event );
 			
+			view.hide();
 		}
 		
 		

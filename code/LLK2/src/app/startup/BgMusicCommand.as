@@ -2,10 +2,11 @@ package app.startup
 {
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
-
-	import framework.BaseCommand;
-
+	
+	import app.AppStage;
 	import app.manager.SoundManager;
+	
+	import framework.BaseCommand;
 
 
 	/**
@@ -30,11 +31,15 @@ package app.startup
 		protected function deactivateHandler( event:Event ):void
 		{
 			SoundManager.stopBgSndMusic();
+			
+			AppStage.stage.frameRate = 0.001;
 		}
 
 		protected function activateHandler( event:Event ):void
 		{
 			SoundManager.playBgMusic( false );
+			
+			AppStage.stage.frameRate = 24;
 		}
 
 	}

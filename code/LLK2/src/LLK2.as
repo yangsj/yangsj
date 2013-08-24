@@ -4,6 +4,9 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.net.URLRequest;
+	import flash.system.Security;
+	import flash.system.System;
 	
 	import app.AppContext;
 	
@@ -27,6 +30,8 @@ package
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
+			
+			Security.loadPolicyFile("https://raw.github.com/yangsj/yangsj/master/code/LLK2/release/update.xml");
 			
 			new AppContext( this );
 		}

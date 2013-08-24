@@ -5,9 +5,9 @@ package app
 	import app.startup.BgMusicCommand;
 	import app.startup.CommonCommand;
 	import app.startup.EmbedViewCommand;
-	import app.startup.EnterCommand;
 	import app.startup.InjectClassCommand;
 	import app.startup.KeyboardCommand;
+	import app.startup.ShowLoadingCommand;
 	import app.startup.StartupCommand;
 	
 	import framework.BaseContext;
@@ -61,7 +61,7 @@ package app
 			
 			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, KeyboardCommand, ContextEvent, true );
 
-			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, EnterCommand, ContextEvent, true );
+			commandMap.mapEvent( ContextEvent.STARTUP_COMPLETE, ShowLoadingCommand, ContextEvent, true );
 			
 		}
 

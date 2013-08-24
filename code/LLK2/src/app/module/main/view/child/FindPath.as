@@ -11,17 +11,30 @@ package app.module.main.view.child
 	 */
 	public class FindPath
 	{
+		// 寻找到的最短最优路径之一的拐点数
+		private var _inflexionPointNum:int = -1;
+		// 寻找到的最短最优路径之一
 		private var _seekResult:Vector.<IElement>;
-		private var _vecFirst:Vector.<IElement>; // 记录未发生拐点的节点
-		private var _vecSecond:Vector.<IElement>; // 记录第一次拐点后的节点
-		private var _vecThird:Vector.<IElement>; // 记录第二次拐点后的节点
-		private var _s_cols:int = 0; // 起始节点的列号
-		private var _s_rows:int = 0; // 起始节点的行号
-		private var _e_cols:int = 0; // 终止节点的列号
-		private var _e_rows:int = 0; // 终止节点的行号
+		// 记录未发生拐点的节点
+		private var _vecFirst:Vector.<IElement>;
+		// 记录第一次拐点后的节点
+		private var _vecSecond:Vector.<IElement>;
+		// 记录第二次拐点后的节点
+		private var _vecThird:Vector.<IElement>;
+		// 起始节点的列号
+		private var _s_cols:int = 0;
+		// 起始节点的行号
+		private var _s_rows:int = 0;
+		// 终止节点的列号
+		private var _e_cols:int = 0;
+		// 终止节点的行号
+		private var _e_rows:int = 0;
 
-		private var _startItem:IElement; // 起始节点
-		private var _endItem:IElement; // 结束节点
+		// 起始节点
+		private var _startItem:IElement;
+		// 结束节点
+		private var _endItem:IElement;
+		// 地图数据
 		private var _map:Vector.<Vector.<IElement>>;
 		
 		private var _cols:uint = ElementConfig.COLS;
@@ -42,18 +55,156 @@ package app.module.main.view.child
 			_endItem = endItem;
 
 			// set init vars
+			_inflexionPointNum = -1;
 			_seekResult = new Vector.<IElement>();
 			_s_cols = _startItem.cols;
 			_s_rows = _startItem.rows;
 			_e_cols = _endItem.cols;
 			_e_rows = _endItem.rows;
-
-			// seek
-			goLeft();
-			goRight();
-			goUp();
-			goDown();
 			
+			// seek
+			// 在同一列
+			if ( _s_cols == _e_cols )
+			{
+				if ( _s_rows > _e_rows )
+				{
+					goUp();
+					if ( _inflexionPointNum == 0 )
+						return _seekResult;
+				}
+				if ( _s_rows < _e_rows )
+				{
+					goDown();
+					if ( _inflexionPointNum == 0 )
+						return _seekResult;
+				}
+				goLeft();
+				if ( _inflexionPointNum != -1 )
+					return _seekResult;
+				goRight();
+				if ( _inflexionPointNum != -1 )
+					return _seekResult;
+			}
+			// 在同一行
+			if ( _s_rows == _e_rows )
+			{
+				if ( _s_cols > _e_cols )
+				{
+					goLeft();
+					if ( _inflexionPointNum == 0 )
+						return _seekResult;
+				}
+				if ( _s_cols < _e_cols )
+				{
+					goRight();
+					if ( _inflexionPointNum == 0 )
+						return _seekResult;
+				}
+				goUp();
+				if ( _inflexionPointNum != -1 )
+					return _seekResult;
+				goDown();
+				if ( _inflexionPointNum != -1 )
+					return _seekResult;
+			}
+			// 在左边
+			if ( _s_cols > _e_cols )
+			{
+				goLeft();
+				if ( _inflexionPointNum == 1 )
+					return _seekResult;
+				
+				// 在上边
+				if ( _s_rows > _e_rows )
+				{
+					goUp();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				// 在下边
+				if ( _s_rows < _e_rows )
+				{
+					goDown();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				if ( _inflexionPointNum == 2 )
+					return _seekResult;
+				goRight();
+			}
+			// 在右边
+			if ( _s_cols < _e_cols )
+			{
+				goRight();
+				if ( _inflexionPointNum == 1 )
+					return _seekResult;
+				
+				// 在上边
+				if ( _s_rows > _e_rows )
+				{
+					goUp();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				// 在下边
+				if ( _s_rows < _e_rows )
+				{
+					goDown();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				if ( _inflexionPointNum == 2 )
+					return _seekResult;
+				goLeft();
+			}
+			// 在上边
+			if ( _s_rows > _e_rows )
+			{
+				goUp();
+				if ( _inflexionPointNum == 1 )
+					return _seekResult;
+				// 在左边
+				if ( _s_cols > _e_cols )
+				{
+					goLeft();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				// 在右边
+				if ( _s_cols < _e_cols )
+				{
+					goRight();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				if ( _inflexionPointNum == 2 )
+					return _seekResult;
+				goDown();
+			}
+			// 在上边
+			if ( _s_rows < _e_rows )
+			{
+				goDown();
+				if ( _inflexionPointNum == 1 )
+					return _seekResult;
+				// 在左边
+				if ( _s_cols > _e_cols )
+				{
+					goLeft();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				// 在右边
+				if ( _s_cols < _e_cols )
+				{
+					goRight();
+					if ( _inflexionPointNum == 1 )
+						return _seekResult;
+				}
+				if ( _inflexionPointNum == 2 )
+					return _seekResult;
+				goUp();
+			}
 			return _seekResult;
 		}
 
@@ -62,6 +213,7 @@ package app.module.main.view.child
 		 */
 		private function goLeft():void
 		{
+			trace( "goLeft******************************" );
 			_vecFirst = new Vector.<IElement>();
 			_vecFirst.push( _startItem );
 			for ( var i:int = _s_cols - 1; i >= -1; i-- ) //从起始节点向左循环
@@ -76,6 +228,7 @@ package app.module.main.view.child
 		 */
 		private function goRight():void
 		{
+			trace( "goRight******************************" );
 			_vecFirst = new Vector.<IElement>();
 			_vecFirst.push( _startItem );
 			for ( var i:int = _s_cols + 1; i <= _cols; i++ ) //从起始节点向右循环
@@ -90,6 +243,7 @@ package app.module.main.view.child
 		 */
 		private function goUp():void
 		{
+			trace( "goUp******************************" );
 			_vecFirst = new Vector.<IElement>();
 			_vecFirst.push( _startItem );
 			for ( var i:int = _s_rows - 1; i >= -1; i-- ) //从起始节点向上循环
@@ -104,6 +258,7 @@ package app.module.main.view.child
 		 */
 		private function goDown():void
 		{
+			trace( "goDown******************************" );
 			_vecFirst = new Vector.<IElement>();
 			_vecFirst.push( _startItem );
 			for ( var i:int = _s_rows + 1; i <= _rows; i++ ) //从起始节点向下循环
@@ -240,7 +395,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					setResult( _vecFirst );
+					setResult( _vecFirst, 0 );
 				return true;
 			}
 			else
@@ -273,7 +428,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					setResult( _vecFirst );
+					setResult( _vecFirst, 0 );
 				return true;
 			}
 			else
@@ -307,7 +462,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					setResult( _vecFirst.concat( _vecSecond ));
+					setResult( _vecFirst.concat( _vecSecond ), 1);
 				return true;
 			}
 			else
@@ -341,7 +496,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点
-					setResult( _vecFirst.concat( _vecSecond ));
+					setResult( _vecFirst.concat( _vecSecond ), 1 );
 				return true;
 			}
 			else
@@ -375,7 +530,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点 
-					setResult( _vecFirst.concat( _vecThird ));
+					setResult( _vecFirst.concat( _vecThird ), 2 );
 				return true;
 			}
 			return false;
@@ -394,7 +549,7 @@ package app.module.main.view.child
 			if ( item.isReal )
 			{
 				if ( item == _endItem ) // 是结束节点
-					setResult( _vecFirst.concat( _vecSecond, _vecThird ));
+					setResult( _vecFirst.concat( _vecSecond, _vecThird ), 2 );
 				return true;
 			}
 			return false;
@@ -411,10 +566,15 @@ package app.module.main.view.child
 			return item;
 		}
 		
-		private function setResult(result:Vector.<IElement>):void
+		private function setResult(result:Vector.<IElement>, num:uint ):void
 		{
-			if ( _seekResult.length == 0 || _seekResult.length > result.length )
+			if ( ( _seekResult.length == 0 ) 
+				|| ( _seekResult.length == result.length && num < _inflexionPointNum )
+				|| ( _seekResult.length > result.length ) )
+			{
 				_seekResult = result;
+				_inflexionPointNum = num;
+			}
 		}
 
 	}

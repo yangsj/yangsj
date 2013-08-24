@@ -28,6 +28,7 @@ package framework
 		public static const ALERT:uint = numCount++;
 		public static const EFFECT:uint = numCount++;
 		public static const BACK_WORD:uint = numCount++;
+		public static const UPDATE_PANEL:uint = numCount++;
 
 		private static var container:Sprite;
 

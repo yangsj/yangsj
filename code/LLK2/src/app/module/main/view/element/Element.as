@@ -62,7 +62,7 @@ package app.module.main.view.element
 
 		public function tween( delay:Number = 0 ):void
 		{
-			if ( isReal/* && delay > 0*/ )
+			if ( isReal )
 			{
 				this.x = cols * ( itemWidth + 5 );
 				this.y = rows * ( itemHeight + 5 );
@@ -144,16 +144,23 @@ package app.module.main.view.element
 			shape.graphics.endFill();
 			return shape;
 		}
+		
+		public function toRemoved():void
+		{
+			TweenMax.killDelayedCallsTo( toRemoved );
+			mouseEnabled = false;
+			selected = false;
+			visible = false;
+			_isReal = false;
+		}
 
 		public function removeFromParent( delay:Number = 0 ):void
 		{
-			mouseEnabled = false;
-			TweenMax.delayedCall( delay, function abc( target:DisplayObject ):void
-			{
-				target.visible = false;
-				selected = false;
-			}, [ this ]);
 			_isReal = false;
+			mouseEnabled = false;
+			if ( delay > 0 )
+				TweenMax.delayedCall( delay, toRemoved);
+			else toRemoved();
 		}
 
 		public function get globalPoint():Point

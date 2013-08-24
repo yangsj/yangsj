@@ -17,7 +17,11 @@ package app.events
 		
 		public static const BG_MUSIC:String = "back_ground_music";
 		
-//		public static const SHOW_VIEW:String = "display_view";
+		public static const ENTER_GAME:String = "enter_game";
+		
+		public static const CHECK_UPDATE:String = "check_update";
+		
+		public static const DOWNLOAD_APP:String = "download_app";
 		
 		
 	}

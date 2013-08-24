@@ -1,7 +1,8 @@
 package app.startup
 {
+	import app.events.AppEvent;
 	import app.events.ViewEvent;
-
+	
 	import framework.BaseCommand;
 
 
@@ -21,6 +22,10 @@ package app.startup
 		{
 
 			commandMap.mapEvent( ViewEvent.SHOW_VIEW, ShowViewCommand, ViewEvent );
+			
+			commandMap.mapEvent( AppEvent.ENTER_GAME, EnterCommand, AppEvent, true );
+			
+			commandMap.mapEvent( AppEvent.CHECK_UPDATE, CheckUpdaterCommand, AppEvent );
 
 		}
 

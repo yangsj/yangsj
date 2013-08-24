@@ -1,6 +1,7 @@
 package app
 {
 	import com.adobe.nativeExtensions.Vibration;
+	import com.freshplanet.nativeExtensions.AirNetworkInfo;
 	
 	import app.module.model.Global;
 	
@@ -30,6 +31,22 @@ package app
 				vibration ||= new Vibration();
 				vibration.vibrate( duration );
 			}
+		}
+		
+		/**
+		 * 网络是否连接
+		 */
+		public static function get isContented():Boolean
+		{
+			return AirNetworkInfo.networkInfo.isConnected();
+		}
+		
+		/**
+		 * 网络是否是WIFI连接
+		 */
+		public static function get isConnectedWithWIFI():Boolean
+		{
+			return AirNetworkInfo.networkInfo.isConnectedWithWIFI();
 		}
 		
 	}
