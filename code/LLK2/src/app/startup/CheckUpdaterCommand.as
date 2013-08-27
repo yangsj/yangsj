@@ -40,28 +40,31 @@ package app.startup
 
 		private function loaderXml():void
 		{
-//			try
-//			{
-//				var url:String = "https://raw.github.com/yangsj/yangsj/master/code/LLK2/release/update.xml?t=" + (new Date().time);
-//				var urlLoader:URLLoader = new URLLoader();
-//				urlLoader.addEventListener( Event.COMPLETE, loadCompleteHandler );
-//				urlLoader.addEventListener( IOErrorEvent.IO_ERROR, loadErrorHandler );
-//				urlLoader.load( new URLRequest( url ) );
-//			}
-//			catch ( e:* )
-//			{
-//				trace("下载更新配置文件失败！！！！！！！！！！");
-//			}
+			try
+			{
+				var url:String = "https://raw.github.com/yangsj/yangsj/master/code/LLK2/release/update.xml?t=" + (new Date().time);
+				var urlLoader:URLLoader = new URLLoader();
+				urlLoader.addEventListener( Event.COMPLETE, loadCompleteHandler );
+				urlLoader.addEventListener( IOErrorEvent.IO_ERROR, loadErrorHandler );
+				urlLoader.load( new URLRequest( url ) );
+			}
+			catch ( e:* )
+			{
+				trace("下载更新配置文件失败！！！！！！！！！！");
+			}
 			
-			Global.appUpdateUrl = "https://raw.github.com/yangsj/yangsj/master/code/LLK2/release/LLK2.apk?t=" + ( new Date().time );
-			Global.fileNameStr = "LLK2.apk";
-			
-			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.UPDATE ));
+//			Global.appUpdateUrl = "https://raw.github.com/yangsj/yangsj/master/code/LLK2/release/LLK2.apk?t=" + ( new Date().time );
+//			Global.fileNameStr = "LLK2.apk";
+//			
+//			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.UPDATE ));
 		}
 		
 		protected function loadErrorHandler( event:IOErrorEvent ):void
 		{
 			trace("IOErrorEvent  " + event.text );
+			var urlLoader:URLLoader = event.target as URLLoader;
+			urlLoader.removeEventListener( Event.COMPLETE, loadCompleteHandler );
+			urlLoader.removeEventListener( IOErrorEvent.IO_ERROR, loadErrorHandler );
 		}
 		
 		protected function loadCompleteHandler( event:Event ):void
@@ -86,12 +89,12 @@ package app.startup
 				file.deleteFile();
 			}
 			
-//			if ( curVersion != updateVersion )
-//			{
+			if ( curVersion != updateVersion )
+			{
 				// has update
 				Global.currentVersion = updateVersion;
 				dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.UPDATE ));
-//			}
+			}
 		}
 		
 	}

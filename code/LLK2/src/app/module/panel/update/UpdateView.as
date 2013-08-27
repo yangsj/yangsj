@@ -129,6 +129,7 @@ package app.module.panel.update
 			function progressHandler( event:ProgressEvent ):void
 			{
 				var perent:Number = event.bytesLoaded / event.bytesTotal;
+				trace( perent, event.bytesLoaded , event.bytesTotal );
 				if ( progressBar )
 					progressBar.setProgress( event.bytesLoaded / event.bytesTotal );
 				else Alert.showAlert("正在下载应用安装包...", "已完成 " + (( perent * 100 ).toFixed( 2 )) + "%", "取消", cancelHandler );
