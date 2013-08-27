@@ -38,6 +38,17 @@ package victor.framework.utils
 				}
 			}
 		}
+		
+		public static function cloneArray( ary:Array ):Array
+		{
+			var arr:Array = [];
+			for each (var ay:* in ary )
+			{
+				arr.push( ay );
+			}
+			return arr;
+		}
+		
 
 	}
 }
