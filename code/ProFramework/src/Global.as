@@ -1,6 +1,7 @@
 package
 {
 	import flash.system.Capabilities;
+	import app.utils.appStage;
 	
 	/**
 	 * ……

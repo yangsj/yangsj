@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	
 	import app.AppContext;
+	import app.utils.appStage;
 
 
 	[SWF( width = "760", height = "600", frameRate = "30" )]
@@ -31,6 +32,7 @@ package
 			appStage = stage;
 			appStage.align = StageAlign.TOP_LEFT;
 			appStage.scaleMode = StageScaleMode.NO_SCALE;
+			appStage.color = 0;
 			
 			new AppContext( this );
 		}

@@ -6,15 +6,18 @@
 	<!-- version:资源版本控制 -->
 	<!-- first:是否登陆加载（1登陆加载/0非登陆加载） -->
 	
-	<item name="login" url="assets/login.swf" version="1" first="1" />
-	<item name="swf2" url="assets/swf2.swf" version="1" first="1" />
-	<item name="SWF3" url="assets/SWF3.swf" version="1" first="1" />
-	<item name="SWF4" url="assets/SWF4.swf" version="1" first="1" />
-	<item name="SWF5" url="assets/SWF5.swf" version="1" first="1" />
-	<item name="SWF6" url="assets/SWF6.swf" version="1" first="1" />
-	<item name="SWF7" url="assets/SWF7.swf" version="1" first="1" />
-	<item name="SWF8" url="assets/SWF8.swf" version="1" first="1" />
-	<item name="SWF9" url="assets/SWF9.swf" version="1" first="1" />
-	<item name="SWF10" url="assets/SWF10.swf" version="1" first="1" />
+	<item name="login" url="assets/test/login.swf" version="1" first="1" />
+	<item name="swf2" url="assets/test/swf2.swf" version="1" first="1" />
+	<item name="SWF3" url="assets/test/SWF3.swf" version="1" first="1" />
+	<item name="SWF4" url="assets/test/SWF4.swf" version="1" first="1" />
+	<item name="SWF5" url="assets/test/SWF5.swf" version="1" first="1" />
+	<item name="SWF6" url="assets/test/SWF6.swf" version="1" first="1" />
+	<item name="SWF7" url="assets/test/SWF7.swf" version="1" first="1" />
+	<item name="SWF8" url="assets/test/SWF8.swf" version="1" first="1" />
+	<item name="SWF9" url="assets/test/SWF9.swf" version="1" first="1" />
+	<item name="test1" url="assets/test/test1.swf" version="1" first="1" />
+	<item name="test2" url="assets/test/test2.swf" version="1" first="0" />
+	<item name="test3" url="assets/test/test3.swf" version="1" first="0" />
+	<item name="testPanel" url="assets/test/testPanel.swf" version="1" first="0" />
 	
 </data>

@@ -3,6 +3,9 @@ package victor.framework.core
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import app.managers.LoaderManager;
+	
+	import victor.framework.components.Reflection;
 	import victor.framework.interfaces.IView;
 	
 	/**
@@ -14,7 +17,11 @@ package victor.framework.core
 	{
 		protected var _data:Object;
 		
+		protected var _skin:Sprite;
+		
 		private var isInit:Boolean = false;
+		
+		
 		
 		public function ViewSprite()
 		{
@@ -31,11 +38,24 @@ package victor.framework.core
 		protected function addedToStageHandler( event:Event ):void
 		{
 			if ( isInit == false )
+			{
 				onceInit();
+				setSkinWithName( skinName );
+				Reflection.reflection( this, _skin );
+			}
 			
 			initialize();
 			
 			isInit = true;
+		}
+		
+		protected function setSkinWithName( skinName:String ):void
+		{
+			if ( skinName )
+			{
+				_skin = LoaderManager.instance.getObj( skinName ) as Sprite;
+				addChild( _skin );
+			}
 		}
 		
 		protected function onceInit():void
@@ -70,6 +90,11 @@ package victor.framework.core
 		public function set data(value:Object):void
 		{
 			_data = value;
+		}
+		
+		protected function get skinName():String
+		{
+			return "";
 		}
 
 

@@ -1,6 +1,8 @@
 package app.startup
 {
 	
+	import app.modules.panel.test.TestMediator;
+	import app.modules.panel.test.TestView;
 	import app.modules.preloader.PreloaderMediator;
 	import app.modules.preloader.PreloaderView;
 	
@@ -21,6 +23,8 @@ package app.startup
 		override public function execute():void
 		{
 			addView( PreloaderView, PreloaderMediator );
+			
+			addView( TestView, TestMediator );
 		}
 		
 	}

@@ -1,5 +1,8 @@
 package app.startup
 {
+	import app.events.ViewEvent;
+	import app.modules.ViewName;
+	
 	import victor.framework.core.BaseCommand;
 	
 	
@@ -17,7 +20,8 @@ package app.startup
 		
 		override public function execute():void
 		{
-			
+			dispatch( new ViewEvent( ViewEvent.SHOW_VIEW, ViewName.Test ));
+			dispatch( new ViewEvent( ViewEvent.HIDE_VIEW, ViewName.Preloader ));
 		}
 		
 	}

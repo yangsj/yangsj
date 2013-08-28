@@ -4,6 +4,8 @@ package victor.framework.core
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	
+	import app.utils.appStage;
+	
 	import victor.framework.utils.DisplayUtil;
 
 	/**
@@ -21,8 +23,7 @@ package victor.framework.core
 		public static const PANEL:uint = numCount++;
 		public static const ALERT:uint = numCount++;
 		public static const EFFECT:uint = numCount++;
-		public static const BACK_WORD:uint = numCount++;
-		public static const UPDATE_PANEL:uint = numCount++;
+		public static const LOADING:uint = numCount++;
 
 		private static var container:Sprite;
 
@@ -65,6 +66,26 @@ package victor.framework.core
 		public static function addPanel( panel:DisplayObject ):void
 		{
 			addChild( panel, PANEL );
+			
+			var con:Sprite = getContainer( PANEL ) as Sprite;
+			if ( con.numChildren == 1 )
+			{
+				con.graphics.clear();
+				con.graphics.beginFill( 0, 0.01 );
+				con.graphics.drawRect( 0, 0, appStage.stageWidth, appStage.stageHeight );
+				con.graphics.endFill();
+			}
+		}
+		
+		public static function removePanel( panel:DisplayObject ):void
+		{
+			removeChild( panel );
+			
+			var con:Sprite = getContainer( PANEL ) as Sprite;
+			if ( con.numChildren == 0 )
+			{
+				con.graphics.clear();
+			}
 		}
 
 		/**

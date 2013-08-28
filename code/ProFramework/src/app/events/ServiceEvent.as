@@ -26,5 +26,10 @@ package app.events
 		 */
 		public static const FAILED:String = "service_event_failed";
 		
+		/**
+		 * 连接关闭
+		 */
+		public static const CLOSED:String = "service_event_closed";
+		
 	}
 }

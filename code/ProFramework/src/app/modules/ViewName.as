@@ -1,5 +1,6 @@
 package app.modules
 {
+	import app.modules.panel.test.TestView;
 	import app.modules.preloader.PreloaderView;
 	
 	/**
@@ -11,6 +12,8 @@ package app.modules
 	{
 		
 		public static const Preloader:Class = PreloaderView;
+		
+		public static const Test:Class = TestView;
 		
 	}
 }

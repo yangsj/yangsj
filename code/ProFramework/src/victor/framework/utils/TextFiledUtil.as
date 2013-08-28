@@ -12,16 +12,19 @@ package victor.framework.utils
 	public class TextFiledUtil
 	{
 		
-		public static function create(size:uint, color:uint, align:String = TextFormatAlign.LEFT, wordWrap:Boolean = false):TextField
+		public static function create(font:String, size:uint, color:uint, align:String = TextFormatAlign.LEFT, isBold:Boolean = false, wordWrap:Boolean = false):TextField
 		{
 			var tfm:TextFormat = new TextFormat();
 			tfm.align = align;
-			tfm.bold = true;
+			tfm.bold = isBold;
 			tfm.color = color;
 			tfm.kerning = true;
 			tfm.leading = 8;
 			tfm.letterSpacing = 2;
 			tfm.size = size;
+			if ( font )
+				tfm.font = font;
+			
 			var txt:TextField = new TextField();
 			txt.defaultTextFormat = tfm;
 			txt.selectable = false;

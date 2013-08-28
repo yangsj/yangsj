@@ -11,6 +11,7 @@ package app.startup
 	import app.modules.ViewName;
 	
 	import victor.framework.core.BaseCommand;
+	import app.utils.log;
 	
 	
 	/**
@@ -33,7 +34,7 @@ package app.startup
 			loader.addEventListener(IOErrorEvent.IO_ERROR, errorHandler );
 			loader.load( new URLRequest( url ));
 			
-			vTrace ( url );
+			log ( url );
 		}
 		
 		protected function completeHandler(event:Event):void
@@ -52,7 +53,7 @@ package app.startup
 		protected function errorHandler(event:IOErrorEvent):void
 		{
 			removeEvent( event.target as URLLoader );
-			vTrace( event.text );
+			log( event.text );
 		}
 		
 		private function removeEvent( loader:URLLoader ):void
@@ -66,13 +67,13 @@ package app.startup
 		
 		private function loaderCompleteCallBack():void
 		{
-			vTrace( "登陆资源加载完毕！！！" );
+			log( "登陆资源加载完毕！！！" );
 			dispatch( new LoadEvent( LoadEvent.LOAD_COMPLETE ));
 		}
 		
 		private function loaderProgressCallBack( perent:Number ):void
 		{
-			vTrace ( "loaderProgressCallBack: " + perent );
+			log ( "loaderProgressCallBack: " + perent );
 			dispatch( new LoadEvent( LoadEvent.LOAD_PROGRESS, perent ));
 		}
 		

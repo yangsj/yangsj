@@ -2,6 +2,7 @@ package victor.framework.utils
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import app.utils.safetyCall;
 
 	/**
 	 * ……

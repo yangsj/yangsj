@@ -4,6 +4,7 @@ package app.modules.preloader
 	
 	import victor.framework.core.BaseScene;
 	import victor.framework.utils.TextFiledUtil;
+	import app.utils.appStage;
 	
 	
 	/**
@@ -26,7 +27,7 @@ package app.modules.preloader
 		
 		public function setProgressValue( value:Number ):void
 		{
-			txtValue ||= TextFiledUtil.create(45, 0xffffff );
+			txtValue ||= TextFiledUtil.create( "", 45, 0xffffff );
 			txtValue.text = ( value * 100 ).toFixed( 2 ) + "%";
 			txtValue.width = txtValue.textWidth + 15;
 			txtValue.height = txtValue.textHeight + 5;

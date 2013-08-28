@@ -10,9 +10,11 @@ package app.managers
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.utils.Dictionary;
-
+	import flash.utils.getDefinitionByName;
+	
 	import victor.framework.utils.ArrayUtil;
-	import victor.framework.utils.safetyCall;
+	import app.utils.safetyCall;
+	import app.utils.log;
 
 
 	/**
@@ -20,7 +22,7 @@ package app.managers
 	 * @author 	yangsj
 	 * 			2013-8-27
 	 */
-	public class LoaderManager extends EventDispatcher
+	public class LoaderManager
 	{
 		private static var _instance:LoaderManager;
 
@@ -33,15 +35,15 @@ package app.managers
 
 		private static const dictResLoaded:Dictionary = new Dictionary();
 		private static const dictResList:Dictionary = new Dictionary();
+		private static const dictContext:Dictionary = new Dictionary();
 		private static const loginLoad:Array = [];
 
 		private static const context:LoaderContext = new LoaderContext( false, ApplicationDomain.currentDomain );
 
 		///////////////////////////////////////////////////////
 
-		public function LoaderManager( target:IEventDispatcher = null )
+		public function LoaderManager()
 		{
-			super( target );
 		}
 
 		public function setApplicationConfig( applicationXml:XML ):void
@@ -52,14 +54,13 @@ package app.managers
 				var name:String = String( xml.@name );
 				var url:String = String( xml.@url );
 				var version:String = String( xml.@version );
-				var first:int = int( xml.@first );
 				var path:String = Global.serverURL + url + "?t=" + version;
 				dictResList[ name ] = path;
-				if ( first == 1 )
+				if ( int( xml.@first ) == 1 )
 				{
 					loginLoad.push( name );
 				}
-				vTrace( name + ":" + path );
+				log( name + ":" + path );
 			}
 		}
 
@@ -130,8 +131,35 @@ package app.managers
 			{
 				completeHandler( null );
 			}
-
-
+		}
+		
+		public function getObj( linkName:String, resName:String = "" ):Object
+		{
+			try
+			{
+				return new ( getClass( linkName, resName ))();
+			}
+			catch ( e:Error )
+			{
+			}
+			return null;
+		}
+		
+		public function getClass( linkName:String, resName:String = "" ):Class
+		{
+			try
+			{
+				if ( resName == "")
+					return getDefinitionByName( linkName ) as Class;
+				else
+				{
+					
+				}
+			}
+			catch ( e:Error )
+			{
+			}
+			return null;
 		}
 
 	}
