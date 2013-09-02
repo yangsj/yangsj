@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	
+	<!-- name:用于获取资源url的名称 -->
+	<!-- url:资源路径 -->
+	<!-- version:资源版本控制 -->
+	<!-- first:是否登陆加载（1登陆加载/0非登陆加载） -->
+	
+	<item name="testPanel" url="assets/panel/testPanel.swf" version="1" first="0" />
+	
+</data>
