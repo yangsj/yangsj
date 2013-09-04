@@ -15,8 +15,8 @@ package victor.framework.components.scroll {
     /**
      * @author fireyang
      */
-    public class FyScrollPanel implements IDisposable {
-        protected var _bar : FYScrollBar;
+    public class BaseScrollPanel implements IDisposable {
+        protected var _bar : ScrollBar;
         protected var _target : Sprite;
         // 显示大小
         protected var _contentRect : Rectangle;
@@ -31,8 +31,8 @@ package victor.framework.components.scroll {
         private var _barPos : Point;
         private var _barContainer : DisplayObjectContainer;
 
-        function FyScrollPanel(skin : Sprite) : void {
-            _bar = new FYScrollBar(skin);
+        function BaseScrollPanel(skin : Sprite) : void {
+            _bar = new ScrollBar(skin);
             _bar.init(1);
             _bar.onChange = onBarChange;
             _maskSp = creatSp(Shape) as Shape;

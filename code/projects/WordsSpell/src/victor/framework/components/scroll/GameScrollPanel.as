@@ -8,7 +8,7 @@ package victor.framework.components.scroll
 	/**
 	 * @author fireyang
 	 */
-	public class GameScrollPanel extends FyScrollPanel
+	public class GameScrollPanel extends BaseScrollPanel
 	{
 		public function set speed( value:int ):void
 		{
@@ -25,7 +25,7 @@ package victor.framework.components.scroll
 			super( skin );
 		}
 
-		public function get bar():FYScrollBar
+		public function get bar():ScrollBar
 		{
 			return _bar;
 		}

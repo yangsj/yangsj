@@ -18,7 +18,7 @@ package victor.framework.components.scroll
 	 *  滚动条
 	 * @author fireyang
 	 */
-	public class FyBaseScrollBar extends Sprite implements IDisposable
+	public class BaseScrollBar extends Sprite implements IDisposable
 	{
 		private var _skin:Sprite;
 		private var _UpBtn:SimpleButton;
@@ -70,7 +70,7 @@ package victor.framework.components.scroll
 		/**
 		 * Construct a <code>FyBaseScrollBar</code>.
 		 */
-		public function FyBaseScrollBar( skin:Sprite )
+		public function BaseScrollBar( skin:Sprite )
 		{
 			_skin = skin;
 			_UpBtn = _skin.getChildByName( "_UpBtn" ) as SimpleButton;

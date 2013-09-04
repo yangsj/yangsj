@@ -17,7 +17,7 @@ package victor.framework.components.scroll
 	 *  滚动条
 	 * @author fireyang
 	 */
-	public class FYScrollBar extends Sprite implements IDisposable
+	public class ScrollBar extends Sprite implements IDisposable
 	{
 		// 外型
 		private var _skin:Sprite;
@@ -46,7 +46,7 @@ package victor.framework.components.scroll
 		/**
 		 * Construct a <code>FyBaseScrollBar</code>.
 		 */
-		public function FYScrollBar( skin:Sprite )
+		public function ScrollBar( skin:Sprite )
 		{
 			_skin = skin;
 			// GlobalFun.assetsManager.createClassByName("ui_oneFight_scrollBar");

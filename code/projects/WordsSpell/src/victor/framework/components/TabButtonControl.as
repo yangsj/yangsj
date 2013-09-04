@@ -4,12 +4,14 @@ package victor.framework.components
 	import flash.events.MouseEvent;
 	
 	import app.utils.safetyCall;
+	
+	import victor.framework.interfaces.IDisposable;
 
 	/**
 	 * ……
 	 * @author yangsj
 	 */
-	public class TabButtonControl
+	public class TabButtonControl implements IDisposable
 	{
 		public static const FRAME_OUT:String = "up";
 		public static const FRAME_OVER:String = "over";
@@ -61,7 +63,6 @@ package victor.framework.components
 				list.push( target );
 				initTarget( target );
 			}
-
 		}
 
 		/**

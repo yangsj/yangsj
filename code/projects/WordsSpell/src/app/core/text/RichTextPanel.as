@@ -15,14 +15,14 @@ package app.core.text {
     
     import app.managers.LoaderManager;
     
-    import victor.framework.components.scroll.FYScrollBar;
+    import victor.framework.components.scroll.ScrollBar;
 
     /**
      * @author fireyang
      */
     public class RichTextPanel extends Sprite {
         private var _text : RichTextField;
-        private var _bar : FYScrollBar;
+        private var _bar : ScrollBar;
         private var _tf : TextField;
         private var _oldMaxScroll : int;
         public var focusChangeHandler : Function;
@@ -39,7 +39,7 @@ package app.core.text {
             _text.lineHeight = 18;
             // _text.textfield.background = true;
             // _text.textfield.backgroundColor = 0xaaaaaa;
-            _bar = new FYScrollBar(getBarSkin());
+            _bar = new ScrollBar(getBarSkin());
             _tf.addEventListener(MouseEvent.MOUSE_WHEEL, onWheelHandler);
             _tf.addEventListener(TextEvent.TEXT_INPUT, onInput);
             _tf.addEventListener(FocusEvent.FOCUS_IN, onFocusChange);

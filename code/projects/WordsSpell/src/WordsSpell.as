@@ -8,7 +8,7 @@ package
 	import app.AppContext;
 	import app.utils.appStage;
 	
-	[SWF( width = "760", height = "600", frameRate = "30" )]
+	[SWF( width = "960", height = "560", frameRate = "30" )]
 	/**
 	 * ……
 	 * @author 	yangsj 

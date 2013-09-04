@@ -3,8 +3,12 @@ package app.modules.panel.test
 	import com.riaidea.text.RichTextField;
 	
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.text.TextFormat;
+	
+	import app.modules.LoadingEffect;
+	import app.utils.appStage;
 	
 	import victor.framework.components.scroll.GameScrollPanel;
 	import victor.framework.core.BasePanel;
@@ -78,6 +82,12 @@ package app.modules.panel.test
 			
 		}
 		
+		protected function clickHandler(event:MouseEvent):void
+		{
+			appStage.removeEventListener(MouseEvent.CLICK, clickHandler );
+			LoadingEffect.hide();
+		}
+		
 		protected function linkHandler(event:TextEvent):void
 		{
 			trace( event.text );
@@ -85,6 +95,10 @@ package app.modules.panel.test
 		
 		override protected function openComplete():void
 		{
+			
+			LoadingEffect.show();
+			
+			appStage.addEventListener(MouseEvent.CLICK, clickHandler );
 		}
 		
 		override protected function get skinName():String
