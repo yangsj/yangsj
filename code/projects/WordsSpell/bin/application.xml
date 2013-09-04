@@ -6,6 +6,8 @@
 	<!-- version:资源版本控制 -->
 	<!-- first:是否登陆加载（1登陆加载/0非登陆加载） -->
 	
+	<item name="component" url="assets/component.swf" version="1" first="1" />
+	
 	<item name="testPanel" url="assets/panel/testPanel.swf" version="1" first="0" />
 	
 </data>

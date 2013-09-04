@@ -42,14 +42,13 @@ package victor.framework.core
 		{
 			if ( event.type == MouseEvent.MOUSE_DOWN )
 			{
-				var rect:Rectangle = this.getBounds( this );
 				dragTarget.buttonMode = true;
-				this.startDrag( false, new Rectangle(-rect.x, -rect.y, appStage.stageWidth - dragTarget.width, appStage.stageHeight - dragTarget.height));
+				startDrag( false, new Rectangle(-rectangle.x, -rectangle.y, appStage.stageWidth - dragTarget.width, appStage.stageHeight - dragTarget.height));
 				appStage.addEventListener(MouseEvent.MOUSE_UP, dragTargetMouseHandler );
 			}
 			else if ( event.type == MouseEvent.MOUSE_UP )
 			{
-				this.stopDrag();
+				stopDrag();
 				dragTarget.buttonMode = false;
 				appStage.removeEventListener(MouseEvent.MOUSE_UP, dragTargetMouseHandler );
 			}
@@ -115,14 +114,14 @@ package victor.framework.core
 		
 		private function changePosAtOpen():void
 		{
-			x = (( appStage.stageWidth - width ) >> 1 ) - rectangle.x * scaleX;
-			y = (( appStage.stageHeight - height ) >> 1 ) - rectangle.y * scaleY;
+			x = (( appStage.stageWidth - rectangle.width * scaleX ) >> 1 ) - rectangle.x * scaleX;
+			y = (( appStage.stageHeight - rectangle.height * scaleX ) >> 1 ) - rectangle.y * scaleY;
 		}
 		
 		private function changePosAtHide():void
 		{
-			x = hideX + (( rectangle.width - width ) >> 1 );
-			y = hideY + (( rectangle.height - height ) >> 1 );
+			x = hideX + (( rectangle.width - rectangle.width * scaleX ) >> 1 );
+			y = hideY + (( rectangle.height - rectangle.height * scaleX ) >> 1 );
 		}
 		
 		private function addDisplayList():void
@@ -141,7 +140,7 @@ package victor.framework.core
 			changePosAtOpen();
 			
 			TweenMax.killTweensOf( this );
-			TweenMax.to( this, 0.5, { scaleX: 1, scaleY: 1, alpha: 1, onUpdate: changePosAtOpen, ease: Back.easeOut });
+			TweenMax.to( this, 0.5, { scaleX: 1, scaleY: 1, alpha: 1, onUpdate: changePosAtOpen, ease: Back.easeOut, onComplete:openComplete });
 		}
 		
 		private function startLoadResource():void
@@ -156,6 +155,10 @@ package victor.framework.core
 		}
 		
 ///////////////// protected functions //////////////////////////////
+		
+		protected function openComplete():void
+		{
+		}
 		
 		protected function loadComplete():void
 		{

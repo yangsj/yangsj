@@ -19,5 +19,10 @@ package app.modules
 		 */
 		public static const Test:String = "TestView";
 		
+		/**
+		 * 注册创建信息
+		 */
+		public static const register:String = "RegisterView";
+		
 	}
 }
