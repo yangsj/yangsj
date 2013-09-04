@@ -3,12 +3,12 @@ package victor.framework.core
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	
+
 	import app.managers.LoaderManager;
-	
+
 	import victor.framework.components.Reflection;
 	import victor.framework.interfaces.IView;
-	
+
 	/**
 	 * ……
 	 * @author 	yangsj
@@ -17,15 +17,15 @@ package victor.framework.core
 	public class ViewSprite extends Sprite implements IView
 	{
 		protected var _data:Object;
-		
+
 		protected var _skin:Sprite;
-		
+
 		protected var rectangle:Rectangle;
-		
+
 		private var _isInit:Boolean = false;
-		
-		
-		
+
+
+
 		public function ViewSprite()
 		{
 			super();
@@ -44,15 +44,16 @@ package victor.framework.core
 			{
 				setSkinWithName( skinName );
 				Reflection.reflection( this, _skin );
-				rectangle = this.getBounds( this );
+				var rect:Rectangle = this.getBounds( this );
+				rectangle = new Rectangle( rect.x, rect.y, rect.width, rect.height );
 				onceInit();
 			}
-			
+
 			initialize();
-			
+
 			_isInit = true;
 		}
-		
+
 		protected function setSkinWithName( skinName:String ):void
 		{
 			if ( skinName )
@@ -61,21 +62,21 @@ package victor.framework.core
 				addChild( _skin );
 			}
 		}
-		
+
 		protected function onceInit():void
 		{
 		}
-		
+
 		public function initialize():void
 		{
 		}
-		
+
 		public function dispose():void
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, addedToStageHandler );
 			removeEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );
 		}
-		
+
 		public function refresh():void
 		{
 		}
@@ -95,16 +96,16 @@ package victor.framework.core
 			return _data;
 		}
 
-		public function set data(value:Object):void
+		public function set data( value:Object ):void
 		{
 			_data = value;
 		}
-		
+
 		protected function get skinName():String
 		{
 			return "";
 		}
-		
+
 		/**
 		 * 指定资源加载的域名称（默认当前域）
 		 */

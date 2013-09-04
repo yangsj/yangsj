@@ -1,4 +1,4 @@
-package app.modules.preloader
+package app.modules.login.preloader
 {
 	import app.events.LoadEvent;
 	
