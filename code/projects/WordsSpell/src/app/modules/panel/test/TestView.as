@@ -3,12 +3,16 @@ package app.modules.panel.test
 	import com.riaidea.text.RichTextField;
 	
 	import flash.display.Sprite;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.text.TextFormat;
+	import flash.ui.Keyboard;
 	
+	import app.core.Alert;
 	import app.modules.LoadingEffect;
 	import app.utils.appStage;
+	import app.utils.log;
 	
 	import victor.framework.components.scroll.GameScrollPanel;
 	import victor.framework.core.BasePanel;
@@ -80,6 +84,13 @@ package app.modules.panel.test
 			
 			trace( rtf.exportXML() );
 			
+			addEventListener( MouseEvent.CLICK, onClickHandler );
+			
+		}
+		
+		protected function onClickHandler(event:MouseEvent):void
+		{
+			Alert.show( "希望每个单身的人都能够相信爱情，一爱再爱不要低下头，最终有情人终成眷属。", function abc( type:uint ):void{ log( type )}, "下一关" );
 		}
 		
 		protected function clickHandler(event:MouseEvent):void
@@ -90,7 +101,7 @@ package app.modules.panel.test
 		
 		protected function linkHandler(event:TextEvent):void
 		{
-			trace( event.text );
+			log( event.text );
 		}
 		
 		override protected function openComplete():void
@@ -99,6 +110,20 @@ package app.modules.panel.test
 			LoadingEffect.show();
 			
 			appStage.addEventListener(MouseEvent.CLICK, clickHandler );
+			
+			appStage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler );
+		}
+		
+		override public function hide():void
+		{
+			super.hide();
+			
+			appStage.removeEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler );
+		}
+		
+		protected function keyboardHandler(event:KeyboardEvent):void
+		{
+			log( event.charCode, event.keyCode );
 		}
 		
 		override protected function get skinName():String
