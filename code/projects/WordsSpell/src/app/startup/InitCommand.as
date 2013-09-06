@@ -3,7 +3,10 @@ package app.startup
 	import flash.events.Event;
 	
 	import app.events.ViewEvent;
+	import app.modules.chat.command.ChatInitCommand;
+	import app.modules.friend.command.FriendInitComand;
 	import app.modules.scene.command.SceneInitCommand;
+	import app.modules.task.command.TaskInitCommand;
 	
 	import victor.framework.core.BaseCommand;
 	import victor.framework.drag.DragManager;
@@ -21,7 +24,10 @@ package app.startup
 		
 		private static var commands:Array = 
 			[
-				SceneInitCommand
+				  SceneInitCommand
+				, TaskInitCommand // 任务系统
+				, ChatInitCommand // 聊天系统
+				, FriendInitComand// 好友系统
 			];
 		
 		public function InitCommand()

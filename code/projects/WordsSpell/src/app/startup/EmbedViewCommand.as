@@ -32,11 +32,6 @@ package app.startup
 			// 主场景
 			addView( "", SceneView, SceneMediator );
 			
-			// 创建帐号，注册信息
-			addView( ViewName.register, RegisterView, RegisterMediator );
-			// 登陆资源加载器
-			addView( ViewName.Preloader, PreloaderView, PreloaderMediator );
-			
 			///////////// add panels ///////////////
 			
 			// 测试面板

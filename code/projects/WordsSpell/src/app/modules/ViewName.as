@@ -20,9 +20,29 @@ package app.modules
 		public static const Test:String = "TestView";
 		
 		/**
+		 * 登陆界面
+		 */
+		public static const Login:String = "LoginView";
+		
+		/**
 		 * 注册创建信息
 		 */
 		public static const register:String = "RegisterView";
+		
+		/**
+		 * 好友系统
+		 */
+		public static const Friend:String = "FriendView";
+		
+		/**
+		 * 聊天系统
+		 */
+		public static const Chat:String = "ChatView";
+		
+		/**
+		 * 任务系统
+		 */
+		public static const Task:String = "TaskView";
 		
 	}
 }
