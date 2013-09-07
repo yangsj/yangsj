@@ -7,9 +7,11 @@ package app.modules.panel.test
 	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.text.TextFormat;
-	import flash.ui.Keyboard;
 	
 	import app.core.Alert;
+	import app.core.components.controls.combo.ComboBox;
+	import app.core.components.controls.combo.ComboData;
+	import app.core.components.controls.combo.ComboItemVo;
 	import app.modules.LoadingEffect;
 	import app.utils.appStage;
 	import app.utils.log;
@@ -84,8 +86,22 @@ package app.modules.panel.test
 			
 			trace( rtf.exportXML() );
 			
-			addEventListener( MouseEvent.CLICK, onClickHandler );
+//			addEventListener( MouseEvent.CLICK, onClickHandler );
 			
+			var comboData:ComboData = new ComboData();
+			for (i = 0; i < 10; i++)
+			{
+				var vo:ComboItemVo = new ComboItemVo();
+				vo.label = "label_" + i;
+				comboData.addItem( vo );
+			}
+			
+			var comboBox:ComboBox = new ComboBox( comboData );
+			addChild( comboBox );
+			
+			var comboBox1:ComboBox = new ComboBox( comboData, 100 );
+			addChild( comboBox1 );
+			comboBox1.x = 200;
 		}
 		
 		protected function onClickHandler(event:MouseEvent):void
