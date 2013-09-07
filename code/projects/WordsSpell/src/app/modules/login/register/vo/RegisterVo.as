@@ -32,7 +32,7 @@ package app.modules.login.register.vo
 		/**
 		 * 年龄
 		 */
-		public var palyerAge:String;
+		public var playerAge:String;
 		/**
 		 * 昵称
 		 */
@@ -41,6 +41,10 @@ package app.modules.login.register.vo
 		 * 密码
 		 */
 		public var password:String;
+		/**
+		 * 密码确认
+		 */
+		public var passwordConfirm:String;
 
 		
 //////// Optional
@@ -55,7 +59,7 @@ package app.modules.login.register.vo
 		/**
 		 * 联系方式
 		 */
-		public var contactWay:String;
+		public var phone:String;
 		/**
 		 * QQ号码
 		 */

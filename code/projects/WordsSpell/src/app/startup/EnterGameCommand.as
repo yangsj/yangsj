@@ -21,8 +21,8 @@ package app.startup
 		
 		override public function execute():void
 		{
-//			dispatch( new SceneEvent( SceneEvent.SHOW ));
-//			dispatch( new ViewEvent( ViewEvent.HIDE_VIEW, ViewName.Preloader ));
+			dispatch( new SceneEvent( SceneEvent.SHOW ));
+			dispatch( new ViewEvent( ViewEvent.HIDE_VIEW, ViewName.Preloader ));
 		}
 		
 	}

@@ -27,7 +27,7 @@ package app.modules
 		/**
 		 * 注册创建信息
 		 */
-		public static const register:String = "RegisterView";
+		public static const Register:String = "RegisterView";
 		
 		/**
 		 * 好友系统

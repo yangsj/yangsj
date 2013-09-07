@@ -32,9 +32,20 @@ package app.core
 		{
 			if ( _instance ) throw new Error("不能重复创建Tips实例！！！");
 			
-			_instance = new Tips();
+			_instance = this;
 			_container = appStage;
 			_txt = creatTF();
+		}
+		
+		/**
+		 * 显示在当前鼠标位置
+		 * @param msg
+		 * @param size
+		 * @param borderColor
+		 */
+		public static function showMouse( msg:String, size:int = 15, borderColor:uint = 0 ):void
+		{
+			show( msg, appStage.mouseX, appStage.mouseY, size, borderColor );
 		}
 
 		/**
@@ -44,7 +55,7 @@ package app.core
 		 * @param offsetY
 		 * @param borderColor
 		 */
-		public static function showCenter( msg:String, size:int = 30, offsetY:int = 0, borderColor:uint = 0, removeOld : Boolean = true):void
+		public static function showCenter( msg:String, size:int = 15, offsetY:int = 0, borderColor:uint = 0, removeOld : Boolean = true):void
 		{
             if (removeOld && line) line.complete()
 			instance.showCenter( msg, size, offsetY, borderColor );
@@ -58,9 +69,9 @@ package app.core
 		 * @param size
 		 * @param borderColor
 		 */
-		public static function show( msg:String, x:int, y:int, size:int = 30, borderColor:uint = 0 ):void
+		public static function show( msg:String, x:int, y:int, size:int = 15, borderColor:uint = 0 ):void
 		{
-			instance.show( msg, x, y, size, borderColor );
+			instance.show( msg, x, y - 50, size, borderColor );
 		}
 
 		/**
@@ -92,7 +103,7 @@ package app.core
 			return _tf;
 		}
 
-		public function showCenter( msg:String, size:int = 30, offsetY:int = 0, borderColor:uint = 0 ):void
+		public function showCenter( msg:String, size:int = 15, offsetY:int = 0, borderColor:uint = 0 ):void
 		{
 			if ( _container && _container.stage )
 			{
@@ -123,7 +134,7 @@ package app.core
 			_container.addChild( mc );
 			line = new TimelineLite();
 			line.append( TweenLite.from( mc, 0.3, { y: mc.y + 40, alpha: 0 }));
-			line.append( TweenLite.to( mc, 1, { y: mc.y - 80, alpha: 0, onComplete: BitmapUtil.disposeBitmapFromTarget, onCompleteParams: [ mc ]}), 2.5 );
+			line.append( TweenLite.to( mc, 0.6, { y: mc.y - 80, alpha: 0, onComplete: BitmapUtil.disposeBitmapFromTarget, onCompleteParams: [ mc ]}), 1 );
 		}
 
 		public static function get instance():Tips
