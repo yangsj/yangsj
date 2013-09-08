@@ -2,6 +2,7 @@ package victor.framework.components
 {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.utils.Dictionary;
 	
 	import app.utils.safetyCall;
 	
@@ -17,24 +18,21 @@ package victor.framework.components
 		public static const FRAME_OVER:String = "over";
 		public static const FRAME_DOWN:String = "down";
 
-		private const RELEASE:String = "release";
-
-
-		public var canRelease:Boolean = false;
-
-		private var callBack:Function;
-		private var list:Array;
+		private var selectdCallBack:Function;
 		private var defaultTarget:MovieClip;
 		private var listManager:Vector.<MovieClip>;
 		private var lastClickTarget:MovieClip;
+		private var dictTarget:Dictionary;
 
 		/**
 		 * 构造函数
-		 * @param callBack 点击回调函数, 传递两个参数[点击的target， 是否可以锁定]
+		 * @param callBack 点击回调函数, 传递参数:[点击的target(MovieClip), keyName]
 		 */
 		public function TabButtonControl( callBack:Function )
 		{
-			this.callBack = callBack;
+			dictTarget = new Dictionary();
+			listManager = new Vector.<MovieClip>();
+			selectdCallBack = callBack;
 		}
 
 		/**
@@ -43,10 +41,10 @@ package victor.framework.components
 		 */
 		public function addMultiTargets( ... targets ):void
 		{
-			if ( targets && targets.length > 0 )
+			if ( targets )
 			{
-				this.list = targets;
-				createInit();
+				for each ( var mc:MovieClip in targets )
+					addTarget( mc );
 			}
 		}
 
@@ -54,14 +52,24 @@ package victor.framework.components
 		 * 单个选择项添加
 		 * @param target 选择项
 		 */
-		public function addTarget( target:MovieClip ):void
+		public function addTarget( target:MovieClip, tabName:* = null ):void
 		{
-			listManager ||= new Vector.<MovieClip>();
-			list ||= new Array();
 			if ( target )
 			{
-				list.push( target );
-				initTarget( target );
+				tabName = tabName ? tabName : listManager.length;
+				
+				target.mouseChildren = false;
+				target.mouseEnabled = true;
+				target.buttonMode = true;
+				target.gotoAndStop( FRAME_OUT );
+				listManager.push( target );
+				addEventForTarget( target );
+				
+				dictTarget[ target ] = tabName;
+			}
+			else
+			{
+				throw new Error("TabButtonControl.addTarget:参数不能为空！！");
 			}
 		}
 
@@ -71,17 +79,22 @@ package victor.framework.components
 		public function dispose():void
 		{
 			for each ( var mc:MovieClip in listManager )
-			{
-				if ( mc )
-				{
-					removeEventForTarget( mc );
-				}
-			}
-			callBack = null;
-			list = null;
+				removeEventForTarget( mc );
+			
+			selectdCallBack = null;
 			defaultTarget = null;
 			listManager = null;
 			lastClickTarget = null;
+		}
+		
+		/**
+		 * 通过添加时的顺序编号选中指定的 tab
+		 * @param index 添加时的顺序编号，编号从0开始。若是值大于最大值将会被转为最大值处理
+		 */
+		public function setTargetByIndex( index:int ):void
+		{
+			this.defaultTarget = listManager[ Math.min( index, listManager.length - 1 ) ];
+			setDefaultTarget( defaultTarget );
 		}
 
 		/**
@@ -95,45 +108,12 @@ package victor.framework.components
 			if ( defaultTarget && listManager )
 			{
 				if ( listManager.indexOf( defaultTarget ) == -1 )
-					initTarget( defaultTarget );
+					addTarget( defaultTarget );
 				defaultTarget.dispatchEvent( new MouseEvent( MouseEvent.CLICK ));
 			}
 		}
-
-		/**
-		 * 释放当前选中的选择项
-		 */
-		public function releaseCurrentSelectedTarget():void
-		{
-			if ( lastClickTarget )
-			{
-				lastClickTarget.gotoAndStop( FRAME_OUT );
-				lastClickTarget.mouseEnabled = true;
-				lastClickTarget[ RELEASE ] = false;
-				lastClickTarget = null;
-			}
-		}
-
-		private function createInit():void
-		{
-			if ( listManager == null )
-				listManager = new Vector.<MovieClip>();
-			for each ( var mc:MovieClip in list )
-			{
-				if ( mc )
-					initTarget( mc );
-			}
-		}
-
-		private function initTarget( target:MovieClip ):void
-		{
-			target.mouseChildren = false;
-			target.mouseEnabled = true;
-			target.buttonMode = true;
-			target.gotoAndStop( FRAME_OUT );
-			listManager.push( target );
-			addEventForTarget( target );
-		}
+		
+////////////////////// private functions 
 
 		private function addEventForTarget( target:MovieClip ):void
 		{
@@ -159,28 +139,22 @@ package victor.framework.components
 		{
 			var type:String = e.type;
 			var mcTarget:MovieClip = e.target as MovieClip;
-			var release:Boolean = mcTarget[ RELEASE ];
 			if ( type == MouseEvent.ROLL_OUT || type == MouseEvent.ROLL_OVER )
 			{
-				if ( release == true || mcTarget.mouseEnabled == false )
-					return;
-				mcTarget.gotoAndStop( type == MouseEvent.ROLL_OUT ? FRAME_OUT : FRAME_OVER );
+				if ( mcTarget.mouseEnabled )
+					mcTarget.gotoAndStop( type == MouseEvent.ROLL_OUT ? FRAME_OUT : FRAME_OVER );
 			}
 			else if ( type == MouseEvent.CLICK )
 			{
-				if ( release && canRelease )
+				if ( lastClickTarget )
 				{
-					releaseCurrentSelectedTarget();
+					lastClickTarget.gotoAndStop( FRAME_OUT );
+					lastClickTarget.mouseEnabled = true;
 				}
-				else
-				{
-					releaseCurrentSelectedTarget();
-					lastClickTarget = mcTarget;
-					lastClickTarget.mouseEnabled = canRelease;
-					mcTarget.gotoAndStop( FRAME_DOWN );
-					mcTarget[ RELEASE ] = true;
-				}
-				safetyCall( callBack, mcTarget, release );
+				lastClickTarget = mcTarget;
+				lastClickTarget.mouseEnabled = false;
+				lastClickTarget.gotoAndStop( FRAME_DOWN );
+				safetyCall( selectdCallBack, lastClickTarget, dictTarget[ lastClickTarget ] );
 			}
 		}
 

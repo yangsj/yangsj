@@ -17,9 +17,10 @@ package victor.framework.core
 	{
 		private static var numCount:uint = 0;
 
-		public static const BACKGROUND:uint = numCount++;// 背景层
-		public static const SCENE:uint = numCount++;// 场景层
+		public static const BACKGROUND:uint = numCount++;//背景层
+		public static const SCENE:uint = numCount++;//场景层
 		public static const MAIN:uint = numCount++;//主uiceng
+		public static const CHAT:uint = numCount++;//聊天层
 		public static const PANEL:uint = numCount++;//面板弹出层
 		public static const ALERT:uint = numCount++;//警告提示层
 		public static const EFFECT:uint = numCount++;//特效播放层

@@ -1,6 +1,8 @@
 package app.modules.scene.view
 {
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.ui.Keyboard;
 	
 	import app.modules.scene.event.SceneEvent;
 	import app.utils.appStage;
@@ -21,12 +23,15 @@ package app.modules.scene.view
 			this.graphics.drawRect(0,0,appStage.stageWidth, appStage.stageHeight);
 			this.graphics.endFill();
 			
-			addEventListener( MouseEvent.CLICK, onClickHandler );
+			appStage.addEventListener( KeyboardEvent.KEY_DOWN, keyHandler );
 		}
 		
-		protected function onClickHandler(event:MouseEvent):void
+		protected function keyHandler(event:KeyboardEvent):void
 		{
-			dispatchEvent( new SceneEvent( SceneEvent.OPEN_TEST ));
+			if ( event.keyCode == Keyboard.D )
+			{
+				dispatchEvent( new SceneEvent( SceneEvent.OPEN_TEST ));
+			}
 		}
 	}
 }

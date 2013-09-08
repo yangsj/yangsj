@@ -1,6 +1,7 @@
 package app.modules.chat.view
 {
 	import victor.framework.core.ViewSprite;
+	import victor.framework.core.ViewStruct;
 	
 	
 	/**
@@ -14,5 +15,11 @@ package app.modules.chat.view
 		{
 			super();
 		}
+		
+		override public function show():void
+		{
+			ViewStruct.addChild( this, ViewStruct.CHAT );
+		}
+		
 	}
 }
