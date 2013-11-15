@@ -1,0 +1,13 @@
+一、Copy simple.config.php文件到当前目录下，并命名为config.php
+
+二、把config.php添加SVN忽略。
+
+三、更改config.php里面的配置内容(文件夹名不能带.号)
+
+四、安装Setup-Subversion-1.6.0.msi,安装完成后重启电脑(不然无法发布)
+
+五、安装WampServer,并配置apache目录指向此目录，重启apache
+
+六、访问配置的站点，进行发布工作
+
+附：version.dat文件放到版本库目录下
