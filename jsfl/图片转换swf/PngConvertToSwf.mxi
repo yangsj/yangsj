@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="PngConvertToSwf" version="1.0" type="flashpanel" requires-restart="false"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="11" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ This is mainly used to Diy panel of the elements。 ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > PNG Convert To SWF'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的Panel]]> 
+	</license-agreement> 
+	<files> 
+		<file source="PngConvertToSwf.swf" destination="$flash/WindowSWF" /> 
+		<file source="SinglePngConvertToSwf.jsfl" destination="$flash/WindowSWF" />
+		<file source="BatchPngConvertToSwf.jsfl" destination="$flash/WindowSWF" />
+	</files> 
+</macromedia-extension>

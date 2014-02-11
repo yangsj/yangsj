@@ -1,0 +1,37 @@
+package  {@package}
+{
+	import flash.utils.getDefinitionByName;
+	
+	import starling.core.Starling;
+	import starling.display.Button;
+	import starling.display.Image;
+	import starling.display.MovieClip;
+	import starling.display.Sprite;
+	import starling.text.TextField;
+	import starling.textures.Texture;
+	
+	/**
+	 * 
+	 * @author 	{@authorName}
+	 *		{@createTime}
+	 */
+	public class {@className} extends Sprite
+	{
+		{@vars}
+		
+		public function {@className}()
+		{
+			super();
+			initVars();
+		}
+		
+		private function initVars():void
+		{
+			var upSkin:Texture = null;
+			var downSkin:Texture = null;
+			var vec:Vector.<Texture>;
+			{@initFunVars}
+		}
+		
+	}
+}

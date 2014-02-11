@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="ReplaceText" version="1.0" type="flashpanel" requires-restart="true"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="10" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ Quickly replace text on the Library - miniCG.com ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > ReplaceText'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的Panel]]> 
+	</license-agreement> 
+	<files> 
+		<file source="ReplaceText.swf" destination="$flash/WindowSWF" /> 
+	</files> 
+</macromedia-extension>

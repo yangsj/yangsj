@@ -1,0 +1,20 @@
+
+
+一、安装：
+
+	运行AnalyzingPanelTool.mxp(或AnalyzingPanelTool.zxp)，按提示步骤安装。
+
+二、功能及作用：
+
+	将一个指定的布局好的元件导成一个供AS使用的类Class。
+
+三、使用：
+
+	1、成功安装后在Flash Professional菜单中，
+	选择“窗口”→“其他面板”→“AnalyzingPanelTool.mxp”，即可打开功能面板。
+	
+	2、至少输入“类名”的名称以及在库中选择需要导出的的元件(即布局)
+
+	3、“不使用指定字体”选项勾选则会是当前文本框字体，不勾选则是可以通过代码的
+	net.jt_tech.diamond.code.text.CharacterStyle这个类的typeName属性指定(这个功
+	能仅对“动画消除锯齿”部分文本框有用)。

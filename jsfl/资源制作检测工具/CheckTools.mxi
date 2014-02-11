@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="CheckTools" version="1.0" type="flashpanel" requires-restart="true"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="11" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ 集成一些重用操作 ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > CheckTools'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的脚本]]> 
+	</license-agreement> 
+	<files> 
+		<file source="CheckTools.swf" destination="$flash/WindowSWF" /> 
+		<file source="CheckCurrentFileInstanceNameRepeat.jsfl" destination="$flash/WindowSWF" />
+		<file source="CheckCurrentFileLinkageError.jsfl" destination="$flash/WindowSWF" />
+		<file source="CheckSelectedFolderLinkageRepeat.jsfl" destination="$flash/WindowSWF" />
+	</files> 
+</macromedia-extension>

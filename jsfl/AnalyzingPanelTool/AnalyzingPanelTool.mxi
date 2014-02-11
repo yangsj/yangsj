@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="AnalyzingPanelTool" version="1.0" type="flashpanel" requires-restart="true"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="10" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ This is mainly used to Diy panel of the elements。 ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > AnalyzingPanelTool'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的Panel]]> 
+	</license-agreement> 
+	<files> 
+		<file source="AnalyzingPanelTool.swf" destination="$flash/WindowSWF" /> 
+		<file source="AnalyzingPanelTool.jsfl" destination="$flash/WindowSWF" />
+	</files> 
+</macromedia-extension>

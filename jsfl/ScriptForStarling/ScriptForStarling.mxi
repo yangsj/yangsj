@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="ScriptForStarling" version="1.0" type="flashpanel" requires-restart="true"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="10" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ This is mainly used to Diy panel of the elements。 ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > ScriptForStarling'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的Panel]]> 
+	</license-agreement> 
+	<files> 
+		<file source="ScriptForStarling.swf" destination="$flash/WindowSWF" /> 
+		<file source="ScriptForStarling.jsfl" destination="$flash/WindowSWF" />
+		<file source="ScriptForStarling_Template.txt" destination="$flash/WindowSWF" />
+		<file source="ScriptForStarling_Template.fla" destination="$flash/WindowSWF" />
+	</files> 
+</macromedia-extension>

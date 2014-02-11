@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<macromedia-extension name="CreateClass" version="1.0" type="flashpanel" requires-restart="true"> 
+		<author name="Victor" /> 
+		<products> 
+			<product name="Flash" version="10" primary="true" /> 
+		</products>
+	<description> 
+		<![CDATA[ 将指定的文件夹 或 文件 库中元件带有连接名称的部分全部导成类文件格式 ]]> 
+	</description> 
+	<ui-access> 
+		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > 元件导成类文件'. ]]> 
+	</ui-access> 
+	<license-agreement> 
+		<![CDATA[这是自己写的脚本]]> 
+	</license-agreement> 
+	<files> 
+		<file source="createClass.swf" destination="$flash/WindowSWF" /> 
+		<file source="CreateClass.jsfl" destination="$flash/WindowSWF" />
+	</files> 
+</macromedia-extension>
