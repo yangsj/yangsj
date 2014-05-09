@@ -1,0 +1,105 @@
+package {@package}
+{
+    import flash.display.Bitmap;
+    import flash.display.DisplayObject;
+    import flash.display.DisplayObjectContainer;
+    import flash.display.InteractiveObject;
+    import flash.display.MovieClip;
+    import flash.display.Shape;
+    import flash.display.SimpleButton;
+    import flash.display.Sprite;
+    import flash.media.Sound;
+    import flash.text.TextField;
+    import flash.utils.describeType;
+    import flash.utils.getDefinitionByName;
+    
+    {@import}
+    
+    /**
+     * 
+     * @author 	{@authorName}
+     *		{@createTime}
+     */
+    public class {@className} extends Sprite
+    {
+        protected var skin:DisplayObjectContainer;
+        
+        {@vars}
+        
+        public function {@className}()
+        {
+            if ( {@boolean} )
+            {
+                skin = (new {@skinName}()) as DisplayObjectContainer;
+            }
+            else
+            {
+                skin = (new (getDefinitionByName( "{@skinName}" ) as Class)()) as DisplayObjectContainer;
+            }
+            if ( skin )
+            {
+                this.addChild( skin );
+            }
+            reflection( skin );
+        }
+        
+        public function destroy():void
+        {
+            disposeReflection( this );
+        }
+        
+        protected function reflection( skin:DisplayObject ):void
+        {
+            var skinContainer:DisplayObjectContainer = skin as DisplayObjectContainer;
+            
+            if ( skinContainer == null ) return;
+            
+            var xml:XML = describeType( this );
+            var variables:XMLList = xml.child( "variable" );
+            var name:String;
+            var tmp:DisplayObject;
+            for each ( var item:XML in variables )
+            {
+                name = item.@name.toString();
+                try
+                {
+                    tmp = skinContainer.getChildByName( name );
+                    if ( tmp )
+                    {
+                        this[ name ] = tmp;
+                    }
+                }
+                catch ( e:Error )
+                {
+                    trace( "[Reflection.reflection]" + name + ":" + e );
+                    continue;
+                }
+            }
+        }
+        
+        protected function disposeReflection( target:Object ):void
+        {
+            if ( target == null )
+            {
+                return;
+            }
+            var xml:XML = describeType( target );
+            var variables:XMLList = xml.child( "variable" );
+            var name:String;
+            for each ( var item:XML in variables )
+            {
+                name = item.@name.toString();
+                try
+                {
+                    target[ name ] = null;
+                }
+                catch ( e:Error )
+                {
+                    trace( "[Reflection.reflection]" + name + ":" + e );
+                    continue;
+                }
+            }
+        }
+
+    }
+}
