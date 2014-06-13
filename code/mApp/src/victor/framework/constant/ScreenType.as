@@ -38,6 +38,11 @@ package victor.framework.constant
 			return ( screenHeight - STANDARD_HEIGHT ) * 0.5;
 		}
 		
+		public static function get scale():Number
+		{
+			return Math.max( scaleX, scaleY );
+		}
+		
 		public static function get scaleX():Number
 		{
 			return screenWidth / STANDARD_WIDTH;

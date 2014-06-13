@@ -19,13 +19,14 @@ package victor.framework.core
 			{
 				var length:int = target.numChildren;
 				var disChild:DisplayObject;
+				var scale:Number = ScreenType.scale;
 				var scaleX:Number = ScreenType.scaleX;
 				var scaleY:Number = ScreenType.scaleY;
 				for ( var i:int = 0; i < length; i++ )
 				{
 					disChild = target.getChildAt( i );
-					disChild.scaleX *= scaleX;
-					disChild.scaleY *= scaleY;
+					disChild.scaleX *= scale;
+					disChild.scaleY *= scale;
 					disChild.x *= scaleX;
 					disChild.y *= scaleY;
 				}

@@ -114,8 +114,10 @@ package victor.app.scene
 
 		private function onStartTime():void
 		{
+			uiSetting.btnGo.visible = false;
 			if ( countCur >= countTotal )
 			{
+				uiSetting.btnGo.visible = true;
 				isRunning = false;
 				return;
 			}
@@ -160,16 +162,17 @@ package victor.app.scene
 			}
 			
 			addChild( sprite );
-
+			
+			var scale:Number = ScreenType.scale;
 			var sx:Number = ScreenType.screenWidth * 0.5;
 			var sy:Number = ScreenType.screenHeight * 0.5;
-			var ex:Number = sx - sprite.width * 0.5;
-			var ey:Number = sy - sprite.height * 0.5;
+			var ex:Number = sx - sprite.width * scale * 0.5;
+			var ey:Number = sy - sprite.height * scale * 0.5;
 			sprite.x = sx;
 			sprite.y = sy;
 			sprite.scaleX = 0.01;
 			sprite.scaleY = 0.01;
-			TweenLite.to( sprite, 0.9, { x: ex, y: ey, scaleX: 1, scaleY: 1, onComplete: function( sprite:Sprite ):void
+			TweenLite.to( sprite, 0.9, { x: ex, y: ey, scaleX:scale, scaleY:scale, onComplete: function( sprite:Sprite ):void
 			{
 				Display.removedFromParent( sprite );
 			}, onCompleteParams:[sprite] });

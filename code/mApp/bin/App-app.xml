@@ -273,7 +273,7 @@
 			    <!--应同时切换 DISABLE_KEYGUARD 和 WAKE_LOCK 权限，才能访问 AIR
 		的 SystemIdleMode API-->
 			    <!--<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>-->
-			    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
+			    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 			    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
 			    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
 			    <!--应同时切换 ACCESS_NETWORK_STATE 和 ACCESS_WIFI_STATE 权限，才能使用 AIR

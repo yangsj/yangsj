@@ -1,5 +1,6 @@
 package victor.app
 {
+	import flash.desktop.NativeApplication;
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
 	
@@ -55,6 +56,10 @@ package victor.app
 			if ( target == uiMain.btnStart )
 			{
 				Instance.getSceneInstance( StartScene ).transitionIn( TransitionType.LEFT_RIGHT );
+			}
+			else if ( target == uiMain.btnExit )
+			{
+				NativeApplication.nativeApplication.exit();
 			}
 		}
 		
