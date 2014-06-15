@@ -1,5 +1,7 @@
 package victor.framework.constant
 {
+	import flash.geom.Rectangle;
+	
 	import victor.framework.utils.appstage;
 
 	/**
@@ -17,6 +19,11 @@ package victor.framework.constant
 		
 		public static const STANDARD_WIDTH:int = 640;
 		public static const STANDARD_HEIGHT:int = 960;
+		
+		public static function get screenRectangle():Rectangle
+		{
+			return new Rectangle(0,0,screenWidth,screenHeight);
+		}
 		
 		public static function get screenWidth():Number
 		{

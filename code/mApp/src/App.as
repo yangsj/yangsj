@@ -4,7 +4,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	
-	import net.hires.debug.Stats;
+//	import net.hires.debug.Stats;
 	
 	import victor.AppEntry;
 	
@@ -26,7 +26,7 @@ package
 			
 			addChild( new AppEntry() );
 			
-			addChild( new Stats() );
+//			addChild( new Stats() );
 		}
 		
 		

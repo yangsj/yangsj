@@ -27,8 +27,8 @@ package victor.framework.core
 					disChild = target.getChildAt( i );
 					disChild.scaleX *= scale;
 					disChild.scaleY *= scale;
-					disChild.x *= scaleX;
-					disChild.y *= scaleY;
+					disChild.x = disChild.x * scaleX;
+					disChild.y = disChild.y * scaleY;
 				}
 			}
 		}

@@ -4,14 +4,13 @@ package victor.app
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
 	
-	import victor.app.components.Button;
-	import victor.app.scene.StartScene;
+	import victor.app.scene.BreathTrainningScene;
+	import victor.app.scene.MemoryTrainningSceme;
 	import victor.framework.constant.TransitionType;
 	import victor.framework.core.AutoLayout;
 	import victor.framework.core.Instance;
 	import victor.framework.core.Scene;
 	import victor.framework.interfaces.IScene;
-	import victor.framework.utils.appstage;
 	
 	/**
 	 * ……
@@ -36,6 +35,11 @@ package victor.app
 			main.transitionIn();
 		}
 		
+		public static function openScene():void
+		{
+			Instance.getSceneInstance( Main ).transitionIn( TransitionType.RIGHT_LEFT );
+		}
+		
 		override public function dispose():void
 		{
 			super.dispose();
@@ -53,9 +57,13 @@ package victor.app
 		private function uiMainClickHandler( event:MouseEvent ):void
 		{
 			var target:InteractiveObject = event.target as InteractiveObject;
-			if ( target == uiMain.btnStart )
+			if ( target == uiMain.btnBreath )
 			{
-				Instance.getSceneInstance( StartScene ).transitionIn( TransitionType.LEFT_RIGHT );
+				Instance.getSceneInstance( BreathTrainningScene ).transitionIn( TransitionType.LEFT_RIGHT );
+			}
+			else if ( target == uiMain.btnMemory )
+			{
+				Instance.getSceneInstance( MemoryTrainningSceme ).transitionIn( TransitionType.LEFT_RIGHT );
 			}
 			else if ( target == uiMain.btnExit )
 			{

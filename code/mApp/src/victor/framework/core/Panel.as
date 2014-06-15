@@ -1,6 +1,8 @@
 package victor.framework.core
 {
+	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	
 	import victor.framework.interfaces.IPanel;
 	
@@ -12,11 +14,23 @@ package victor.framework.core
 	 */
 	public class Panel extends Sprite implements IPanel
 	{
+		protected var targetName:String;
+		protected var target:InteractiveObject;
 
 		public function Panel()
 		{
 			super();
+			onceInit();
+			this.addEventListener(MouseEvent.CLICK, clickedHandler );
 		}
+		
+		protected function clickedHandler(event:MouseEvent):void
+		{
+			target = event.target as InteractiveObject;
+			targetName = target.name;
+		}
+		
+		protected function onceInit():void { }
 		
 		protected function showBefore():void { }
 		
@@ -40,6 +54,7 @@ package victor.framework.core
 		public function dispose():void
 		{
 			hide();
+			this.removeEventListener(MouseEvent.CLICK, clickedHandler );
 		}
 		
 	}
