@@ -21,7 +21,7 @@ package victor
 //			var test:Test = new Test();
 //			test.transitionIn();
 			
-			Main.firstTransition();
+			Main.openScene();
 		}
 		
 	}

@@ -15,7 +15,6 @@ package victor.framework.core
 		
 		public static function getSceneInstance( cls:Class ):IScene
 		{
-			return new cls() as IScene;
 			return getInstance( cls ) as IScene;
 		}
 		
@@ -26,14 +25,13 @@ package victor.framework.core
 				var instance:* = dict[ cls ];
 				if ( instance == null )
 				{
-					trace( "+++++++++++++++创建新的实例++++++++++++++++" );
 					instance = new cls();
 					dict[ cls ] = instance;
 					dict[ instance ] = cls;
 				}
 				return instance;
 			}
-			return new Class();
+			return {};
 		}
 		
 		public static function removeInstance( cls:Class ):*

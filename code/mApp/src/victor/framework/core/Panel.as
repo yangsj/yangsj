@@ -21,7 +21,7 @@ package victor.framework.core
 		{
 			super();
 			onceInit();
-			this.addEventListener(MouseEvent.CLICK, clickedHandler );
+			addEventListener(MouseEvent.CLICK, clickedHandler );
 		}
 		
 		protected function clickedHandler(event:MouseEvent):void
@@ -54,7 +54,7 @@ package victor.framework.core
 		public function dispose():void
 		{
 			hide();
-			this.removeEventListener(MouseEvent.CLICK, clickedHandler );
+			removeEventListener(MouseEvent.CLICK, clickedHandler );
 		}
 		
 	}

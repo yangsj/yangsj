@@ -33,7 +33,7 @@ package victor.framework.utils
 		 * 移除所有子对象
 		 * @param container
 		 */
-		public static function removeAllChildren( container:DisplayObjectContainer ):void
+		public static function removeAllChildren( container:DisplayObjectContainer, isChildren:Boolean = false ):void
 		{
 			if ( container )
 			{
@@ -43,9 +43,11 @@ package victor.framework.utils
 				}
 				else
 				{
+					var dis:DisplayObjectContainer;
 					while ( container.numChildren > 0 )
 					{
-						container.removeChildAt( 0 );
+						dis = container.removeChildAt( 0 ) as DisplayObjectContainer;
+						if ( isChildren ) removeAllChildren( dis, isChildren );
 					}
 				}
 			}

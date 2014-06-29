@@ -7,5 +7,5 @@ package victor.framework.utils
 	 * @author 	yangsj 
 	 * 			2014-6-12
 	 */
-	public var appstage:Stage;
+	public var apps:Stage;
 }

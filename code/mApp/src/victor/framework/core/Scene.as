@@ -8,7 +8,7 @@ package victor.framework.core
 	
 	import victor.framework.constant.TransitionType;
 	import victor.framework.interfaces.IScene;
-	import victor.framework.utils.appstage;
+	import victor.framework.utils.apps;
 
 
 	/**
@@ -32,9 +32,6 @@ package victor.framework.core
 		/* private variables                                                          */
 		/*============================================================================*/
 
-		private var _isTransition:Boolean = true;
-
-
 		private const TRANSITION_TIME:Number = 0.5;
 
 		/*============================================================================*/
@@ -48,33 +45,32 @@ package victor.framework.core
 
 		protected function createUI():void
 		{
-
 		}
 
 		final public function transitionIn( transitionType:int = TransitionType.DEFUALT ):void
 		{
 			ViewStruct.addChild( this, ViewStruct.SCENE );
 
-			if ( isTransition )
+			if ( _curScene )
 			{
 				trace( "------------------TransitionType：" + transitionType );
-				appstage.mouseChildren = false;
+				apps.mouseChildren = false;
 				switch( transitionType )
 				{
 					case TransitionType.LEFT_RIGHT:
-						this.x = -appstage.fullScreenWidth;
+						this.x = -apps.fullScreenWidth;
 						TweenLite.to( this, TRANSITION_TIME, { x: 0, ease: Linear.easeNone, onComplete: complete });
 						break;
 					case TransitionType.RIGHT_LEFT:
-						this.x = appstage.fullScreenWidth;
+						this.x = apps.fullScreenWidth;
 						TweenLite.to( this, TRANSITION_TIME, { x: 0, ease: Linear.easeNone, onComplete: complete });
 						break;
 					case TransitionType.UP_DOWN:
-						this.y = -appstage.fullScreenHeight;
+						this.y = -apps.fullScreenHeight;
 						TweenLite.to( this, TRANSITION_TIME, { y: 0, ease: Linear.easeNone, onComplete: complete });
 						break;
 					case TransitionType.DOWN_UP:
-						this.y = appstage.fullScreenHeight;
+						this.y = apps.fullScreenHeight;
 						TweenLite.to( this, TRANSITION_TIME, { y: 0, ease: Linear.easeNone, onComplete: complete });
 						break;
 					default:
@@ -82,6 +78,7 @@ package victor.framework.core
 						TweenLite.to( this, TRANSITION_TIME, { alpha: 1, ease: Linear.easeNone, onComplete: complete });
 						break;
 				}
+				_curScene.transitionOut( transitionType );
 			}
 			else
 			{
@@ -90,21 +87,8 @@ package victor.framework.core
 			
 			function complete():void
 			{
-				appstage.mouseChildren = true;
+				apps.mouseChildren = true;
 				transitionInComplete();
-			}
-
-			if ( _curScene )
-			{
-				if ( isTransition )
-				{
-					_curScene.transitionOut( transitionType );
-				}
-				else
-				{
-					ViewStruct.removeChild( _curScene as DisplayObject );
-					_curScene.dispose();
-				}
 			}
 			_curScene = this;
 		}
@@ -118,45 +102,41 @@ package victor.framework.core
 			switch( transitionType )
 			{
 				case TransitionType.LEFT_RIGHT:
-					TweenLite.to( this, TRANSITION_TIME, { x: appstage.fullScreenWidth, ease: Linear.easeNone, onComplete: complete });
+					TweenLite.to( this, TRANSITION_TIME, { x: apps.fullScreenWidth, ease: Linear.easeNone, onComplete: complete, onCompleteParams:[this] });
 					break;
 				case TransitionType.RIGHT_LEFT:
-					TweenLite.to( this, TRANSITION_TIME, { x:-appstage.fullScreenWidth, ease: Linear.easeNone, onComplete: complete });
+					TweenLite.to( this, TRANSITION_TIME, { x:-apps.fullScreenWidth, ease: Linear.easeNone, onComplete: complete, onCompleteParams:[this] });
 					break;
 				case TransitionType.UP_DOWN:
-					TweenLite.to( this, TRANSITION_TIME, { y: appstage.fullScreenHeight, ease: Linear.easeNone, onComplete: complete });
+					TweenLite.to( this, TRANSITION_TIME, { y: apps.fullScreenHeight, ease: Linear.easeNone, onComplete: complete, onCompleteParams:[this] });
 					break;
 				case TransitionType.DOWN_UP:
-					TweenLite.to( this, TRANSITION_TIME, { y:-appstage.fullScreenHeight, ease: Linear.easeNone, onComplete: complete });
+					TweenLite.to( this, TRANSITION_TIME, { y:-apps.fullScreenHeight, ease: Linear.easeNone, onComplete: complete, onCompleteParams:[this] });
 					break;
 				default:
-					TweenLite.to( this, TRANSITION_TIME, { alpha: 0, ease: Linear.easeNone, onComplete: complete });
+					TweenLite.to( this, TRANSITION_TIME, { alpha: 0, ease: Linear.easeNone, onComplete: complete, onCompleteParams:[this] });
 					break;
 			}
 			
-			function complete():void
+			function complete( displayObject:DisplayObject ):void
 			{
+				ViewStruct.removeChild( displayObject );
 				transitionOutComplete();
-				dispose();
+				clear();
 			}
 		}
 
 		protected function transitionOutComplete():void
 		{
 		}
+		
+		protected function clear():void
+		{
+		}
 
 		public function dispose():void
 		{
-		}
-
-		public function get isTransition():Boolean
-		{
-			return _isTransition;
-		}
-
-		public function set isTransition( value:Boolean ):void
-		{
-			_isTransition = value;
+			clear();
 		}
 
 

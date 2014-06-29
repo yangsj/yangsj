@@ -5,7 +5,7 @@ package victor.test
 	import flash.text.TextFormat;
 	
 	import victor.framework.core.Scene;
-	import victor.framework.utils.appstage;
+	import victor.framework.utils.apps;
 	
 	
 	/**
@@ -31,7 +31,7 @@ package victor.test
 		override protected function createUI():void
 		{
 			this.graphics.beginFill( 0xffff00 );
-			this.graphics.drawRect(0,0,appstage.fullScreenWidth, appstage.fullScreenHeight );
+			this.graphics.drawRect(0,0,apps.fullScreenWidth, apps.fullScreenHeight );
 			this.graphics.endFill();
 			
 			var txt:TextField = new TextField();

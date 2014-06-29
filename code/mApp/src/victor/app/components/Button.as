@@ -5,7 +5,7 @@ package victor.app.components
 	
 	import victor.framework.interfaces.IDisposable;
 	import victor.framework.utils.Display;
-	import victor.framework.utils.appstage;
+	import victor.framework.utils.apps;
 	import victor.framework.utils.call;
 	
 	
@@ -34,7 +34,7 @@ package victor.app.components
 			
 			startHeight = uiRes.height;
 			
-			scale = appstage.fullScreenHeight / 960;
+			scale = apps.fullScreenHeight / 960;
 			
 			this.mouseEnabled = false;
 		}

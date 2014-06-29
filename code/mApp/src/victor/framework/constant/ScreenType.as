@@ -2,7 +2,7 @@ package victor.framework.constant
 {
 	import flash.geom.Rectangle;
 	
-	import victor.framework.utils.appstage;
+	import victor.framework.utils.apps;
 
 	/**
 	 * ……
@@ -27,12 +27,12 @@ package victor.framework.constant
 		
 		public static function get screenWidth():Number
 		{
-			return appstage.fullScreenWidth;
+			return apps.fullScreenWidth;
 		}
 		
 		public static function get screenHeight():Number
 		{
-			return appstage.fullScreenHeight;
+			return apps.fullScreenHeight;
 		}
 		
 		public static function get offX():Number

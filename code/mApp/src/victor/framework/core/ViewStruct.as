@@ -6,7 +6,7 @@ package victor.framework.core
 	
 	import victor.framework.interfaces.IPanel;
 	import victor.framework.utils.Display;
-	import victor.framework.utils.appstage;
+	import victor.framework.utils.apps;
 	
 	/**
 	 * ……
@@ -55,6 +55,22 @@ package victor.framework.core
 				getContainer( TIPS ).mouseChildren = false;
 			}
 		}
+		
+		/**
+		 * 事件锁定
+		 */
+		public static function lockEvent():void
+		{
+			if ( container ) container.mouseChildren = false;
+		}
+		
+		/**
+		 * 事件解锁
+		 */
+		public static function unlockEvent():void
+		{
+			if ( container ) container.mouseChildren = true;
+		}
 
 		/**
 		 * 添加到场景图层显示列表
@@ -70,18 +86,20 @@ package victor.framework.core
 		 * 添加到面板图层显示列表
 		 * @param panel
 		 */
-		public static function addPanel( panel:IPanel, isPenetrate:Boolean = false ):void
+		public static function addPanel( panel:IPanel, isPenetrate:Boolean = false, alpha:Number = 0.4 ):void
 		{
-			var con:Sprite = getContainer( PANEL ) as Sprite;
-			con.mouseEnabled = !isPenetrate;
-			if ( con != panel.parent )
-				con.addChild( panel as DisplayObject );
-			if ( con.numChildren == 1 )
+			var con:Sprite = panelContainer as Sprite;
+			if ( con && panel && con != panel.parent )
 			{
-				con.graphics.clear();
-				con.graphics.beginFill( 0, 0.01 );
-				con.graphics.drawRect( 0, 0, appstage.stageWidth, appstage.stageHeight );
-				con.graphics.endFill();
+				con.mouseEnabled = !isPenetrate;
+				con.addChild( panel as DisplayObject );
+				if ( con.numChildren == 1 )
+				{
+					con.graphics.clear();
+					con.graphics.beginFill( 0, alpha );
+					con.graphics.drawRect( 0, 0, apps.stageWidth, apps.stageHeight );
+					con.graphics.endFill();
+				}
 			}
 		}
 		
@@ -95,8 +113,7 @@ package victor.framework.core
 			{
 				var con:Sprite = panelContainer as Sprite;
 				con.removeChild( panel as DisplayObject );
-				if ( con.numChildren == 0 )
-					con.graphics.clear();
+				if ( con.numChildren == 0 ) con.graphics.clear();
 			}
 		}
 		
@@ -105,8 +122,12 @@ package victor.framework.core
 		 */
 		public static function removeAllPanel():void
 		{
-			while ( panelContainer.numChildren > 0 )
-				removePanel( panelContainer.getChildAt( 0 ) as IPanel );
+			var con:DisplayObjectContainer = panelContainer;
+			while ( con && con.numChildren > 0 )
+			{
+				var panel:IPanel = con.getChildAt( 0 ) as IPanel;
+				if ( panel ) panel.hide();
+			}
 		}
 
 		/**
@@ -127,7 +148,7 @@ package victor.framework.core
 				{
 					try
 					{
-						var spr:Sprite = container.getChildAt( containerType ) as Sprite;
+						var spr:Sprite = getContainer( containerType ) as Sprite;
 					}
 					catch ( e:Error )
 					{
@@ -135,8 +156,7 @@ package victor.framework.core
 					}
 					if ( spr )
 					{
-						if ( child.parent != spr )
-							spr.addChild( child );
+						if ( child.parent != spr ) spr.addChild( child );
 					}
 				}
 			}
@@ -150,8 +170,7 @@ package victor.framework.core
 		{
 			if ( child )
 			{
-				if ( child.parent == getContainer( PANEL ) )
-					removePanel( child as IPanel );
+				if ( child is IPanel ) ( child as IPanel ).hide();
 				else Display.removedFromParent( child );
 			}
 		}
@@ -171,7 +190,7 @@ package victor.framework.core
 			}
 			if ( sprite )
 			{
-				sprite.removeChildren();
+				Display.removeAllChildren( sprite );
 			}
 			if ( containerType == PANEL )
 			{

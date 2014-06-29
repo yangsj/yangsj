@@ -18,7 +18,7 @@ package victor.app.scene
 	 */
 	public class MemoryTrainningSceme extends Scene
 	{
-		public static const CODE:Vector.<String> = new <String>[	"衣","鹅","山","尸","舞","牛","漆","耙","酒","石",
+		public static const CODE:Vector.<String> = new <String>[	"衣  ","鹅  ","山  ","尸  ","舞  ","牛  ","漆  ","耙  ","酒  ","石  ",
 															"雨衣","鱼儿","雨伞","鱼市","鹦鹉","衣钮","玉器","一把","一脚","恶灵",
 															"鳄鱼","鹅儿","和尚","恶狮","二胡","二楼","耳机","恶霸","二舅","山林",
 															"鲨鱼","沙鸥","闪闪","沙子","珊瑚","山路","山鸡","三八","三角","司令",
@@ -45,9 +45,14 @@ package victor.app.scene
 			super();
 		}
 		
-		override public function dispose():void
+		override protected function clear():void
 		{
 			TweenLite.killDelayedCallsTo( startCd );
+			super.clear();
+		}
+		
+		override public function dispose():void
+		{
 			if ( codePanel )
 			{
 				codePanel.dispose();

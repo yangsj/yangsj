@@ -28,13 +28,6 @@ package victor.app
 			super();
 		}
 		
-		public static function firstTransition():void
-		{
-			var main:IScene = Instance.getSceneInstance( Main );
-			main.isTransition = false;
-			main.transitionIn();
-		}
-		
 		public static function openScene():void
 		{
 			Instance.getSceneInstance( Main ).transitionIn( TransitionType.RIGHT_LEFT );

@@ -30,6 +30,12 @@ package victor.app.scene
 		public function BreathTrainningScene()
 		{
 		}
+		
+		override protected function clear():void
+		{
+			TweenLite.killDelayedCallsTo( onStartTime );
+			super.clear();
+		}
 
 		override public function dispose():void
 		{
