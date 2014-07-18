@@ -43,3 +43,4 @@
 
 22、http://eclipse.tmatesoft.com/svnkit/1.8.x/（FlashBuilder中svn插件）
 
+23、https://bitbucket.org（git资源存放网址，类似github）
