@@ -41,3 +41,5 @@
 
 21、http://wonderfl.net/c/ez3I(在线As开发)
 
+22、http://eclipse.tmatesoft.com/svnkit/1.8.x/（FlashBuilder中svn插件）
+
