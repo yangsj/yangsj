@@ -3,10 +3,9 @@
 	${import_declaration}&#13;
 	&#13;
 	/**&#13;
-	* ……&#13;
-	* @author 	yangsj &#13;
-	* 			${date}&#13;
-	*/&#13;
+	 * @author 	victor &#13;
+	 * 			${date}&#13;
+	 */&#13;
 	${interface_declaration}&#13;
 	{&#13;
 		&#13;
