@@ -56,7 +56,13 @@ package victor.components.scroll
 		// ------ Constructor --------
 
 		/**
-		 * 构造函数。规定：showRect的范围由scrollList的父容器(0,0)算起，scrollList在父容器中从（0,0）位置开始滚动
+		 * 构造函数。规定：showRect的范围由scrollList的父容器(0,0)算起，scrollList在父容器中从（0,0）位置开始滚动。<br>
+		 * 例子：<br><code>
+		 * var scrollPanel:ITouchScrollPanel = new TouchScrollPanel( target, rect );<br>
+		 * scrollPanel.refresh();<br><br>
+		 * // 运行时更新<br>
+		 * scrollPanel.scrollList = sprite;<br>
+		 * scrollPanel.refresh();</code>
 		 * @param scrollList scroll list target
 		 * @param showRect 可视的一个区域，只有width和height两个值有效
 		 * @param barSkin 指定scrollBar资源皮肤，若是使用默认的则可以不指定该值，将isBarSkin指定为true
@@ -84,7 +90,6 @@ package victor.components.scroll
 			removeInitEvent();
 			removeEvent();
 			stopTimer();
-
 
 			// 移除
 			removeSafeFromParent( _shape );
