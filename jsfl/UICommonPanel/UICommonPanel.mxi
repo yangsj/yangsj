@@ -11,12 +11,12 @@
 		<![CDATA[ Access the Renamer Panel by selecting 'Window > Other Panels > UICommonPanel'. ]]> 
 	</ui-access> 
 	<license-agreement> 
-		<![CDATA[这是自己写的Panel]]> 
+		<![CDATA[这是自己写的Panel，将资源导出成类文件使用]]> 
 	</license-agreement> 
 	<files> 
 		<file source="UICommonPanel.swf" destination="$flash/WindowSWF" /> 
-		<file source="UICommonPanel.jsfl" destination="$flash/WindowSWF" />
-		<file source="Class_Template.txt" destination="$flash/WindowSWF" />
-		<file source="UICommonPanel_Template.fla" destination="$flash/WindowSWF" />
+		<file source="UICommonPanel.jsfl" destination="$flash/WindowSWF/UICommonPanel" />
+		<file source="Class_Template.txt" destination="$flash/WindowSWF/UICommonPanel" />
+		<file source="UICommonPanel_Template.fla" destination="$flash/WindowSWF/UICommonPanel" />
 	</files> 
 </macromedia-extension>

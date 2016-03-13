@@ -41,7 +41,7 @@ function main($className, $packageName, $authorName, $isSwc)
 	
 	packageName = $packageName;
 	authorName = $authorName ? $authorName : "null";
-	isSwc = $isSwc ? "true" : "false";
+	isSwc = $isSwc;// ? "true" : "false";
 	
 	arrClass = [];
 	arrInfo = [];
@@ -131,7 +131,7 @@ function loopSelected(selectItem, $className)
 function saveFile(selectItem)
 {
 	//var url = "file:///D|/work/yangsj/yangsj/jsfl/UICommonPanel/Class_Template.txt";
-	var url = fl.configURI+"/WindowSWF/Class_Template.txt";
+	var url = fl.configURI+"/WindowSWF/UICommonPanel/Class_Template.txt";
  	templateStr = FLfile.read(url);
 	
 	// 从已有的模版替换
@@ -294,7 +294,7 @@ function movieClip( item )
 function openTemplateFla()
 {
 	//var url1 = "file:///D|/work/yangsj/yangsj/jsfl/UICommonPanel/UICommonPanel_Template.fla";
-	var url1 = fl.configURI+"/WindowSWF/UICommonPanel_Template.fla";
+	var url1 = fl.configURI+"/WindowSWF/UICommonPanel/UICommonPanel_Template.fla";
 	var url2 = fl.configURI+"/UICommonPanel_Template.fla";
 	FLfile.copy(url1, url2);
 	fl.openDocument( url2 );
