@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">	
+    <!-- 
+    Smart developers always View Source. 
+    
+    This application was built using Adobe Flex, an open source framework
+    for building rich Internet applications that get delivered via the
+    Flash Player or to desktops via Adobe AIR. 
+    
+    Learn more about Flex at http://flex.org 
+    // -->
+    <head>
+        <title></title>         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Include CSS to eliminate any default margins/padding and set the height of the html element and 
+		     the body element to 100%, because Firefox, or any Gecko based browser, interprets percentage as 
+			 the percentage of the height of its parent container, which has to be set explicitly.  Initially, 
+			 don't display flashContent div so it won't show if JavaScript disabled.
+		-->
+        <style type="text/css" media="screen"> 
+			html, body	{ height:100%; }
+			body { margin:0; padding:0; overflow:auto; text-align:center; 
+			       background-color: #ffffff; }   
+			#flashContent { display:none; }
+        </style>
+		
+		<!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
+        <!-- BEGIN Browser History required section -->
+        <link rel="stylesheet" type="text/css" href="history/history.css" />
+        <script type="text/javascript" src="history/history.js"></script>
+        <!-- END Browser History required section -->  
+		<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="swfobject.js"></script>
+        <script type="text/javascript">
+      
+        </script>
+        <script type="text/javascript">
+            var time_out_id = -1;
+			TIME_OUT = 3000000000;
+			TIME_OUT_MSG = 'blabla....';
+			$(this).ready(function(e)
+			{
+				//setTimeoutForApp();
+			})
+			
+			$(this).mousemove(function(e){
+				//if ( time_out_id == -2 ) return;
+				//setTimeoutForApp();
+			});
+			
+			function setTimeoutForApp()
+			{
+				if ( time_out_id != -1 ) clearTimeout(time_out_id)
+				time_out_id = setTimeout('popTimeOut()', TIME_OUT);
+			}
+			
+			function popTimeOut()
+			{
+				clearTimeout(time_out_id);
+				time_out_id = -2;
+				dialog("???????","iframe:refresh.html","900px","560px","text");
+			}
+           	function getHashValue(s)
+			{
+				var url = document.location.href;
+				var parameters = url.substr(url.indexOf("?") + 1);
+				var parameterItems = parameters.split("&");
+				var parameterName;
+				var parameterVar;
+				for (var i in parameterItems)
+				{
+					parameterName = parameterItems[i].split("=")[0];
+					parameterVar = parameterItems[i].split("=")[1];
+					if ( parameterName == s )
+					return(parameterVar ? parameterVar : null);
+				}
+				return '58269';
+			}
+			
+			function send_feed($id, $data)
+			{
+				var s = '';
+				for ( var i in $data )
+				{
+					s += i + ' : ' + $data[i] + '\r';
+				}
+				return false
+			}
+			
+			function ep_goto(type, opts)
+			{
+					console.log(type);
+					console.log(opts.user_id);
+				if (type == 'add_friend')
+				{
+					if (typeof opts.user_id === "undefined") {
+						return false;
+					}
+					top.location.href = "http://www.renren.com/profile.do?id=" + opts.user_id;
+					
+				}
+				return false;
+
+			}
+
+			function refreshWindow()
+			{
+				document.location.reload();
+			}
+        
+            <!-- For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. --> 
+            var swfVersionStr = "10.0.0";
+            <!-- To use express install, set to playerProductInstall.swf, otherwise the empty string. -->
+            var xiSwfUrlStr = "playerProductInstall.swf";
+            var flashvars = {
+                'debug':true,
+				'debugLevel':"all",
+				'gver':"_1_5",
+				'ver':1,
+				'lang':"en",
+				'clearCache':true,
+				'cacheDate':"2010-12-07 13:00:00",
+				'serverDate':new Date().valueOf(),
+				'protocol' : 'http',
+				'host' : '192.168.1.242',
+				'port' : '80',
+				'folder' : 'el_game/',
+				'gateway' : 'ep_server.php',
+				'encode' : true,
+				'name':'empressplan',
+				'userid':getHashValue('jt_uid')
+            };
+            var params = {};
+            params.quality = "high";
+            params.bgcolor = "#ffffff";
+            params.allowscriptaccess = "sameDomain";
+            params.allowfullscreen = "true";
+           
+            params.wmode = "transparent";
+            var attributes = {};
+            attributes.id = "BlueWhale";
+            attributes.name = "BlueWhale";
+            attributes.align = "middle";
+            swfobject.embedSWF(
+				"PuremvcApp.swf?v="+getHashValue('v')+"&t=" + (new Date().valueOf()), "flashContent", 
+                "760", "600", 
+                swfVersionStr, xiSwfUrlStr, 
+                flashvars, params, attributes);
+			<!-- JavaScript enabled so display the flashContent div in case it is not replaced with a swf object. -->
+			swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        </script>
+    </head>
+    <body>
+        <!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough 
+			 JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
+			 when JavaScript is disabled.
+		-->
+        <div id="flashContent">
+        	<p>
+	        	To view this page ensure that Adobe Flash Player version 
+				10.0.0 or greater is installed. 
+			</p>
+			<script type="text/javascript"> 
+				var pageHost = ((document.location.protocol == "https:") ? "https://" :	"http://"); 
+				document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+								+ pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+			</script> 
+        </div>
+	   	
+       	<noscript>
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="760" height="600" id="PuremvcApp">
+                <param name="movie" value="PuremvcApp.swf" />
+                <param name="quality" value="high" />
+                <param name="bgcolor" value="#ffffff" />
+                <param name="allowScriptAccess" value="sameDomain" />
+                <param name="allowFullScreen" value="true" />
+                <!--[if !IE]>-->
+                <object type="application/x-shockwave-flash" data="PuremvcApp.swf" width="760" height="600">
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#ffffff" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="allowFullScreen" value="true" />
+                <!--<![endif]-->
+                <!--[if gte IE 6]>-->
+                	<p> 
+                		Either scripts and active content are not permitted to run or Adobe Flash Player version
+                		10.0.0 or greater is not installed.
+                	</p>
+                <!--<![endif]-->
+                    <a href="http://www.adobe.com/go/getflashplayer">
+                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
+                    </a>
+                <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
+            </object>
+	    </noscript>		
+   </body>
+</html>
