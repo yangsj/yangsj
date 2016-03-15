@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data>
+			
+	<!-- 配置说明：（可二选一） -->
+ 
+	<!-- 给flash传入一个config配置文件地址 -->
+ 
+	<!-- 给flash传入path0 - path3四个变量 -->
+	
+	
+ 	<path0 path="E:/myResources/ActionScript3.0/Projects/tlsLoader/bin-debug/"/> 
+	<!-- 资源目录 -->
+ 	<path1 path="http://www.itnode.cn:801/niuniu/index.php/index/"/> 
+	<!-- 数据1 -->
+ 	<path2 path="http://www.itnode.cn:801/niuniu/index.php/game/farm/"/> 
+	<!-- 数据2 -->
+ 	<path3 path="http://www.itnode.cn:801/niuniu/index.php/game/tiger/"/> 
+	<!-- 数据3 -->
+		
+</data>

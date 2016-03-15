@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+	<!-- 
+	type:
+	"0" 指定当前窗口中的当前帧。
+	"1" 指定一个新窗口。
+	"2" 指定当前帧的父级。
+	"3" 指定当前窗口中的顶级帧。
+	-->
+	<item id="12"  city="北京"	addr="http://www.beijing.com" type="1"/>
+	<item id="10" city="四川" 	addr="http://www.sichuan.com" type="1" />
+	<item id="2"  city="上海" 	addr="http://www.shanghai.com" type="1" />
+	<item id="7"  city="广西"	addr="http://www.guangxi.com" type="1" />
+	<item id="3"  city="广东" 	addr="http://www.guangdong.com" type="1" />
+	<item id="4"  city="河南" 	addr="http://www.henan.com" type="1" />
+	<item id="5"  city="安徽"	addr="http://www.anhui.com" type="1" />
+	<item id="6"  city="江苏" 	addr="http://www.jiangsu.com" type="1" />
+	<item id="8"  city="福建" 	addr="http://www.fujian.com" type="1" />
+	<item id="9"  city="湖北"	addr="http://www.hubei.com" type="1" />
+	<item id="11" city="新疆" 	addr="http://www.xinjiang.com" type="1" />
+
+</data>

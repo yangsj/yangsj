@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+	<!-- 
+	type:
+	"0" 指定当前窗口中的当前帧。
+	"1" 指定一个新窗口。
+	"2" 指定当前帧的父级。
+	"3" 指定当前窗口中的顶级帧。
+	-->
+	<item id="01" city="北京" spell="BEIJING"	addr="http://www.beijing.com" type="1"/>
+	<item id="02" city="上海" spell="SHAGNHAI"	addr="http://www.shanghai.com" type="1" />
+	<item id="03" city="广东" spell="GUANGDONG"	addr="http://www.guangdong.com" type="1" />
+	<item id="04" city="河南" spell="HENAN"		addr="http://www.henan.com" type="1" />
+	<item id="05" city="安徽" spell="ANHUI"		addr="http://www.anhui.com" type="1" />
+	<item id="06" city="江苏" spell="JIANGSU"	addr="http://www.jiangsu.com" type="1" />
+	<item id="07" city="广西" spell="GUANGXI"	addr="http://www.guangxi.com" type="1" />
+	<item id="08" city="福建" spell="FUJIAN"	addr="http://www.fujian.com" type="1" />
+	<item id="09" city="湖北" spell="HUBEI"		addr="http://www.hubei.com" type="1" />
+	<item id="10" city="四川" spell="SICHUAN"	addr="http://www.sichuan.com" type="1" />
+	<item id="11" city="新疆" spell="XINJIANG"	addr="http://www.xinjiang.com" type="1" />
+	<item id="12" city="湖南" spell="HUNAN"		addr="http://www.hunan.com" type="1" />
+	<item id="13" city="云南" spell="YUNNAN"	addr="http://www.yunnan.com" type="1" />
+	<!-- <item id="14" city="重庆" spell="CHONGQING"	addr="http://www.chongqing.com" type="1" />-->
+
+</data>
