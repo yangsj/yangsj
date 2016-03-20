@@ -1,0 +1,86 @@
+1302-1770-4311-3522-8740-9018
+
+1302-1137-5272-7062-6169-0796
+
+1302-1594-8007-3801-8889-3525
+
+1302-1940-7311-6099-0229-1480
+
+1302-1873-6932-6527-1772-8594
+
+1302-1095-0481-9811-6942-0778
+
+1302-1509-4409-5911-7026-3409
+
+1302-1435-1496-4815-2145-1165
+
+1302-1783-7343-0367-5023-0864
+
+1302-1620-2361-0135-8694-7446
+
+
+
+
+
+
+Adobe Flash Professional CS5 官方下载：（迅雷鼠标右键）
+
+http://trials2.stage.adobe.com/AdobeProducts/FLPR/11/win32/FlashPro_11_LS3.exe
+
+http://trials2.stage.adobe.com/AdobeProducts/FLPR/11/win32/FlashPro_11_LS3.7z
+
+
+以下介绍两种破解方法：
+
+（1）利用amtlib.dll替换法激活Adobe Flash Professional CS5
+
+AdobeCS5amtlib.dll.rar 下载地址：http://ishare.iask.sina.com.cn/f/8818686.html
+
+
+使用方法：
+
+安装Adobe Flash Professional CS5之前请断开网络连接!
+安装软件时不要输入序列号，选择试用软件，
+安装完毕后，输入大师版序列号：
+
+1325-1558-5864-4422-1094-1126
+1325-1958-5864-4422-1094-1178
+1330-1927-7762-6383-0202-0414
+
+确定后关闭软件，
+建议备份原始amtlib.dll文件，
+将附件中的amtlib.dll文件覆盖到安装目录。
+利用amtlib.dll替换法激活方法同样适用于Adobe CS5其他版本！
+
+
+（2）破解补丁破解：
+
+1.首先下载Adobe Flash 注册机：
+
+Flash_Professional_CS5_keygen 下载地址：http://ishare.iask.sina.com.cn/f/9036954.html
+2.断掉网络，安装Adobe Flash Professional CS5,用注册机算出的序列号进行安装！ 
+3.安装完毕后，点击注册机中的 patch，即可完成注册和激活！
+——对于注册机，破解补丁类的程序，杀毒软件经常会误报，我在卡巴斯基下检测没有报毒！可以放心下载使用！
+
+本空间所有源软件及补丁插件均从网络上收集整理，仅提供于个人学习、研究意图之用，切不可用于盗版、盈利或者其它违法行为，软件版权属原作者或开发公司所有，因由此软件所引起的任何后果、纠纷、诉讼及连带责任等均与本人无关，请在安装后的24小时内予以删除。如喜欢此软件请购买正版。
+       本空间所提供资源，版权归该下载资源的合法拥有者所有。
+
+
+
+安装之前先断网，安装的时候选试用选项安装，然后打开软件输入序列号，序列号网上很多，随便找几个看看，然后退出flash CS5
+用记事本编辑“C:\Windows\System32\Drivers\etc\”目录下的 hosts 文件, 在末尾加上: 
+127.0.0.1 activate.adobe.com 
+127.0.0.1 practivate.adobe.com 
+127.0.0.1 ereg.adobe.com 
+127.0.0.1 activate.wip3.adobe.com 
+127.0.0.1 wip3.adobe.com 
+127.0.0.1 3dns-3.adobe.com 
+127.0.0.1 3dns-2.adobe.com 
+127.0.0.1 adobe-dns.adobe.com 
+127.0.0.1 adobe-dns-2.adobe.com 
+127.0.0.1 adobe-dns-3.adobe.com 
+127.0.0.1 ereg.wip3.adobe.com 
+127.0.0.1 activate-sea.adobe.com 
+127.0.0.1 wwis-dubc1-vip60.adobe.com 
+127.0.0.1 activate-sjc0.adobe.com 
+以防止其连接 Adobe 的激活验证服务器。

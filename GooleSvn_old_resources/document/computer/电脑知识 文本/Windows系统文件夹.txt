@@ -1,0 +1,53 @@
+Win2000/XP 
+
+
+
+Win2000/XP的系统文件夹。在系统安装完成后，默认会生成三个文件夹：“WinNT”(对XP而言则是Windows)、“Documents and Settings”和“Program Files”。与Windows9X/Me相比，在系统安装目录(Winnt或Windows)中的很多文件夹的作用都是相同的。由于很多系统必需的文件存放到了“Documents and Settings”下，所以我们也将它作为系统文件夹来介绍。同“Win9X/Me”一样，我们仍然只介绍重要的常见的文件夹。 
+
+　　1.安装目录下与Win9X/Me不同的文件夹 
+　　与Win9X/Me相同文件夹的作用不再说了。此处仅介绍与Win9X/Me不同的文件夹。 
+
+　　Connection Wizard：存放“Internet连接向导”用到的文件。 
+
+　　Driver Cache：该文件夹一般还会有i386文件夹，其中存放的是会用到的驱动程序压缩文件(该文件一般有几十兆之多)。 
+
+　　Ime：输入法信息存放该文件夹中。 
+
+　　Prefetch：预读取文件夹。为了加快文件的访问速度，在WinXP中使用了预读取技术，它会将访问过的文件在该文件夹下生成新的信息(扩展名为PF的文件)。 
+
+　　Repair：第一次安装Win2000/XP时系统自动在这里保存AUTOEXEC.BAT，CONFIG.SYS等相关的系统文件。 
+
+　　Resources：存放相关桌面主题的文件夹。 
+
+　　System和System32：尽管这两个文件夹在Win9X/Me中也有，但是，Win2000/XP中几乎所有的系统文件都放在System32下，而system下只存放一些16位的驱动程序及一些软件的共享运行库。 
+
+　　Temp：在Win2000/XP中这个文件夹已经基本不起作用，因为每个用户都有自己专门的临时文件夹(放在“Documents and Settings”下)。 
+
+　　2.“Documents and Settings”文件夹 
+　　默认情况下，此文件夹中会有Administrator、All users、Default User、LocalService、NetworkService，以及用不同用户名建立的文件夹(如果系统中有多个用户)，除了LocalService 、NetworkServiceviwl(它们是WinXP中的“服务管理”程序所创建的，提供给那些作为服务的程序用。如安装Foxmail Server搭建邮件服务器时，这两个文件夹是系统必需的，不要随意修改(默认是隐含属性) )。其他的都为用户配置文件夹，而且其中的文件夹结构也大体相同。 
+
+　　1)以“All users”为例说明用户配置文件所包含的主要内容(下面提到的某些文件夹可能是隐含属性，需要先设置让系统显示所有文件才能看到)： 
+
+　　①Application Data：通用应用程序数据文件夹。此处存放着已经安装的一些应用程序的专用数据，这里面的内容是软件安装时自动生成的。例如在All users的Application Data文件夹下，就可能有MicrosoftWordStartup文件夹(如果安装过Office，此处存放的是Word启动时要自动打开的文档)。 
+
+　　②“开始”菜单文件夹：存放开始菜单中的部分程序组和快捷方式。 
+
+　　③桌面文件夹：存放些该登录用户的部分桌面项目。 
+
+　　提示：某个用户“开始”菜单、桌面上的项目包括对应的用户名文件夹下的上述两个文件夹和All Users下面的这两个文件夹的内容。 
+
+　　④Templates：模板文件夹，其中可能有Word、Excel等的模板文件，是用于在点击右键选择“新建”时的参考模板。 
+
+　　⑤共享文档：当然就是你允许共享的那些东东的存放之处了。下面有“共享图像”和“共享音乐”两个文件夹。 
+
+　　2)针对不同的用户，在用户名文件夹下还会有： 
+
+　　Local Settings：是“本地设置”文件夹，存放着应用程序的数据、历史纪录和临时文件夹，如History、Temp和Temporary Internet Files等(作用和Win9X/Me中相同)。 
+
+　　Application Data：不同用户文件夹下面的Application Data文件夹中的内容也不同，如Application DataMicrosoftInternet ExplorerQuick Launch存放“开始”菜单右边“快速启动”工具栏中的快捷方式，Application DataMicrosoftAddress Book则是OE的通讯簿，等等。 
+
+　　此外，用户文件夹下也有NetHood、PrintHood、Sendto、收藏夹、桌面等文件夹。 
+
+　　3)如果处于局域网中，当用属于域或工作组的账户登录系统后，在“Documents and Settings”中会有“All Users.windows”(对WinXP)或“All Users.Winnt”(对Win2000)文件夹；而如果用覆盖方式重新安装过系统，且在安装过程中又设置了与以前相同的用户名，在安装程序在创建用户信息时发现同名的文件夹已经存在，便会自动用“用户名.计算机名”的命名方式来创建新的用户配置信息文件夹。 
+
+　　另外在“Program Files”(应用程序文件夹)下也会有系统运行必需的一些文件。针对各人安装系统后所装软件的不同，该文件夹的内容会有很大差异，其中都会有“Common Files”(存放软件会用到的公用库文件)、“Internet Explorer”(IE浏览器不在安装目录下)、“Windows Media Player”(媒体播放程序)等。

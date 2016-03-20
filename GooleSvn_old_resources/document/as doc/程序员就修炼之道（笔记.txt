@@ -1,0 +1,38 @@
+
+
+
+1、 关心你的技艺(Care About Your Craft)。
+
+2、 思考！你的工作(Think！About Your Work)。
+
+3、 提供各种选择，不要找蹩脚的借口(Provide Options, Don't Make Lame Excuses)。
+
+4、 不要容忍破窗户(Don't Live with Broken Windows)。
+
+5、 做变化的催化剂(Be a Catalyst for Change)。
+
+6、 记住大图景(Remember the Big Picture)。
+
+7、 使质量成为需求问题(Make Quality a Requirements lssue)。
+
+8、 定期为你的知识资产投资(Invest Regularly in Your Knowledge Portfolio)。
+
+9、 批判地分析你读到的和听到的(Critically Analyze What You Read and Hear)。
+
+10、你说什么和你怎么说同样重要(It's Both What You Say and the Way You Say It)。
+
+11、不要重复你自己(DRY---Don't Repeat Yourself)。
+
+12、让复用变得容易(Make It Easy to Reuse)。
+
+13、消除无关事物之间的影响(Eliminate Effects Between Unrelated Things)。
+
+14、不存在最终决策(There Are No Final Decisions)。
+
+15、用曳光弹找到目标(Use Trace Bullets to Find the Target)。
+
+16、为了学习而制作原型(Prototype to Learn)。
+
+17、靠近问题领域编程(Program Close to the Problem domain)。
+
+18、估算，以避免发生意外(Estimate to Avoid Surprises)。

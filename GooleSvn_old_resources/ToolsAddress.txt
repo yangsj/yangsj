@@ -1,0 +1,18 @@
+
+1、http://help.adobe.com/zh_CN/FlashPlatform/reference/actionscript/3/（as3在线API）
+
+2、http://help.adobe.com/zh_CN/flash/cs/extend/index.html(Flash CS 拓展Jsfl在线)
+
+3、http://markdownpad.com/ （文档编辑工具）
+
+4、http://www.riawind.com/tools.html（开发工具下载）
+
+5、http://fdt.powerflasher.com/buy-download/(FDT开发工具）
+
+6、https://prerelease.adobe.com/callout/?callid=59A4F95D908A4D2FB9F302729FD0D87F(ActionScript开发调试工具下载安装地址）
+
+7、http://code.google.com/p/tortoisegit/downloads/list(tortoiseGit工具下载安装地址）
+
+8、https://github.com/DragonBones/ (动画编辑工具)
+
+9、http://flexformatter.googlecode.com/svn/trunk/FlexFormatter/FlexPrettyPrintCommandUpdateSite（fb代码格式整理工具）

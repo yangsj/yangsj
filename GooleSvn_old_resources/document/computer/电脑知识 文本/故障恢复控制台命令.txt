@@ -1,0 +1,371 @@
+xp故障恢复控制台和它的命令 
+Bootcfg 
+bootcfg 命令启动配置和故障恢复（对于大多数计算机，即 boot.ini 文件）。 
+含有下列参数的 bootcfg 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 bootcfg 命令。 
+用法： 
+bootcfg /default 设置默认引导项。 
+bootcfg /add 向引导列表中添加 Windows 安装。 
+bootcfg /rebuild 重复全部 Windows 安装过程并允许用户选择要添加的内容。 
+注意：使用 bootcfg /rebuild 之前，应先通过 bootcfg /copy 命令备份 boot.ini 文件。 
+bootcfg /scan 扫描用于 Windows 安装的所有磁盘并显示结果。 
+注意：这些结果被静态存储，并用于本次会话。如果在本次会话期间磁盘配置发生变化，为获得更新的扫描，必须先重新启动计算机，然后再次扫描磁盘。 
+bootcfg /list 列出引导列表中已有的条目。 
+bootcfg /disableredirect 在启动引导程序中禁用重定向。 
+bootcfg /redirect [ PortBaudRrate] |[ useBiosSettings] 
+在启动引导程序中通过指定配置启用重定向。 
+范例： 
+bootcfg /redirect com1 115200 
+bootcfg /redirect useBiosSettings 
+hkdsk 
+创建并显示磁盘的状态报告。Chkdsk 命令还可列出并纠正磁盘上的错误。 
+含有下列参数的 chkdsk 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 chkdsk 命令。 
+vol [drive:] [ chkdsk [drive:] [/p] [/r] 
+参数 无 
+如果不带任何参数，chkdsk 将显示当前驱动器中的磁盘状态。 
+drive: 指定要 chkdsk 检查的驱动器。 
+
+/p 即使驱动器不在 chkdsk 的检查范围内，也执行彻底检查。该参数不对驱动器做任何更改。 
+
+/r 找到坏扇区并恢复可读取的信息。隐含着 /p 参数。 
+注意 
+Chkdsk 命令需要 Autochk.exe 文件。如果不能在启动目录（默认为 \%systemroot%\System32）中找到该文件，将试着在 Windows 安装 CD 中找到它。如果有多引导系统的计算机，必须保证是在包含 Windows 的驱动器上使用该命令。 
+Diskpart 
+创建和删除硬盘驱动器上的分区。diskpart 命令仅在使用故障恢复控制台时才可用。 
+diskpart [ /add |/delete] [device_name |drive_name |partition_name] [size] 
+参数 无 
+如果不带任何参数，diskpart 命令将启动 diskpart 的 Windows 字符模式版本。 
+/add 
+创建新的分区。 
+/delete 
+删除现有分区。 
+device_name 
+要创建或删除分区的设备。设备名称可从 map 命令的输出获得。例如，设备名称： 
+\Device\HardDisk0 
+drive_name 
+以驱动器号表示的待删除分区。仅与 /delete 同时使用。以下是驱动器名称的范例： 
+D: 
+partition_name 
+以分区名称表示的待删除分区。可代替 drive_name 使用。仅与 /delete 同时使用。以下是分区名称的范例： 
+\Device\HardDisk0\Partition1 
+大小 
+要创建的分区大小，以兆字节 (MB)表示。仅与 /add 同时使用。 
+范例 
+下例将删除分区： 
+
+diskpart /delete \ Device\ HardDisk0\ Partition3 
+diskpart /delete F: 
+下例将在硬盘上添加一个 20 MB 的分区： 
+diskpart /add \ Device\ HardDisk0 20 
+Fixboot 
+向系统分区写入新的分区引导扇区。只有在使用故障恢复控制台时，才能使用 fixboot 命令。 
+fixboot [drive] 
+参数 驱动器 
+将要写入引导扇区的驱动器。它将替代默认的驱动器（即用户登录的系统分区）。例如，驱动器：D: 
+范例 
+下列命令范例向驱动器 D: 的系统分区写入新的分区引导扇区： 
+fixboot d: 
+注意: 如果不带任何参数，fixboot 命令将向用户登录的系统分区写入新的分区引导扇区。 
+Fixmbr 
+修复启动磁盘的 主启动记录。fixmbr 命令仅在使用故障恢复控制台时才可用。 
+fixmbr [ device_name] 
+参数 
+device_name 
+要写入新的主引导记录的设备（驱动器）。设备名称可从 map 命令的输出获得。例如，设备名称： 
+\Device\HardDisk0 
+范例 
+下列命令示例向指定设备写入一个新的主引导记录： 
+fixmbr \Device\HardDisk0 
+注意 
+如果不指定 device_name，新的主引导记录将被写入引导设备，即装载主系统的驱动器。 如果系统检测到无效或非标准分区表标记，将提示用户是否继续执行该命令。除非您访问驱动器有问题，否则不要继续进行。向系统分区写入新的主引导记录可能破坏分区表并导致分区无法访问。 
+Format 
+将指定的驱动器格式化为指定的文件系统。含有下列参数的 format 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 format 命令。 
+format [ drive:] [ /fs:file-system] 
+参数 
+drive: 
+指定要格式化的驱动器。不能从故障恢复控制台格式化软盘。 
+/q 
+对驱动器进行快速格式化。不扫描驱动器看是否有坏区域，因此只应对以前格式化过的驱动器使用该参数。 
+/fs:file-system 
+指定要使用的文件系统：FAT、FAT32 或 NTFS 。如果未指定文件系统，将使用现有的文件系统格式。 
+Map 
+显示驱动器号与物理设备名称的映射。该信息在运行 fixboot 和 fixmbr 命令时非常有用。 
+map 命令仅在使用故障恢复控制台时才可用。 
+Map [ arc] 
+参数 
+arc 
+指示 map 命令显示高级 RISC 计算 (ARC)设备名称而不是设备名称。以下是 ARC 设备名称的范例： 
+multi(0)disk(0)rdisk(0)partition(1) 
+等价的设备名称是： 
+\Device\HardDisk0\Partition1 
+范例 
+下例将物理设备名映射为使用 ARC 设备名称的驱动器号： 
+map arc 
+注意 
+如果不使用 arc 参数，则 map 命令显示设备名称。 
+
+map 命令还显示文件系统的类型和每个磁盘的大小（MB）。 
+[ Last edited by 老骥 on 2003-11-2 at 11:17 ] 
+Attrib 
+
+更改单个文件或目录的属性。该命令设置或删除指派给文件或目录的只读、系统、存档、隐藏以及压缩属性。 
+含有下列参数的 attrib 命令仅当使用故障恢复控制台时才可用。含有不同参数的 attrib 
+命令可在命令提示符中使用。 
+attrib [ +r|-r] [ +s|-s] [ +h|-h] [ +c|-c] [ [ drive:] [ path] filename] 
+参数 
++r 设置只读属性。 
+
+-r 清除只读属性。 
+
++s 设置系统属性。 
+
+-s 清除系统属性。 
+
++h 设置隐藏属性。 
+
+-h 清除隐藏属性。 
+
++c 设置压缩属性。 
+
+-c 清除压缩属性。 
+[ [ drive:] [ path] filename] 
+指定要处理的目录或文件的位置和名称。可以一次只更改一个文件，也可以更改整个目录。 
+注意：可以用一个命令更改一个文件或目录的多个属性。 
+Batch 
+执行在文本文件中指定的命令。batch 命令仅在使用故障恢复控制台时才可用。故障恢复控制台可以从安装 CD 中启动。 
+batch input_file [ output_file] 
+参数 
+input_file 
+指定包含要执行的命令列表的文本文件。Input_file 可以由驱动器号和冒号、目录名、文件名或它们的组合构成。 
+output_file 
+如果指定，则在命名文件中存储命令输出。如果没有指定，输出将显示在屏幕上。 
+范例 
+下例将执行批处理文件 C:\Jobs\Find.txt 并将输出存储在文件 C:\Jobs\Results.txt 中： 
+batch c:\jobs\find.txt c:\jobs\results.txt 
+注意：批处理文件不能包含嵌套的 batch 命令。 
+Chdir（Cd） 
+显示当前目录的名称，或更改当前的文件夹。 
+含有下列参数的 chdir 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 chdir 命令。 
+chdir [drive:] [path] [ ..] 
+或者 
+cd [drive:] [ path] [ ..] 
+参数 无 
+如果不带任何参数，chdir 将显示当前驱动器和文件夹的名称。只与驱动器号一起使用（例如 cd C:），chdir 将显示指定驱动器上的当前目录。 
+[ drive:] [ path] 
+指定要改到的驱动器（如果不是当前驱动器）和目录。 
+[ ..] 
+指明要改到父文件夹。在 chdir 和两个句点之间插入一个空格。 
+注意 
+chdir 将空格视作分隔符。用引号将包含空格的目录名扩起来。例如： 
+cd "driver cache" 
+Chdir 只适用于当前 Windows 安装的系统目录、可移动媒体、硬盘分区的根目录或本地安装源。 
+Copy 
+将单个文件复制到其他位置。含有下列参数的 copy 命令仅在使用故障恢复控制台时才可用。 
+可在命令提示符下使用带不同参数的 copy 命令。 
+copy source [ destination] 
+参数 
+source 
+指定要被复制的文件的位置和名称。Source 可由驱动器号和冒号、目录名、文件名或组合所组成。 
+destination 
+指定要复制到其中的文件或文件集的位置和名称。Destination 可以由驱动器号和冒号、文件夹名、文件名及组合而组成。 
+注意 
+源可以是可移动媒体、当前 Windows 安装的系统目录中的任何目录、驱动器的根目录、本地安装源或 Cmdcons 目录。 
+
+目标可以是除可移动媒体以外的任何与源相同的位置。如果没有指定目标，则默认为当前目录。 
+
+Windows 安装 CD 中的压缩文件在复制过程中解压缩。 
+
+Copy 不支持通配符。 
+
+Delete（Del） 
+删除单个文件。含有下列参数的 delete 或 del 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 delete 或 del 命令。 
+delete [ drive:] [ path] filename 
+或者 
+del [ drive:] [ path] filename 
+参数 
+[ drive:] [ path] filename指定要删除的文件的位置和名称。 
+注意 
+Delete 只适用于当前 Windows 安装的系统目录、可移动媒体、硬盘分区的根目录或本地安装源。 
+Dir 
+显示目录中的文件和子目录列表。含有下列参数的 dir 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 dir 命令。 
+dir [ drive:] [ path] [ filename] 
+参数 
+[ drive:] [ path] 
+指定要查看列表的驱动器和目录。 
+[ filename] 
+指定要查看列表的特定文件或一组文件。可以使用多个文件名。文件名可以用空格、逗号或分号隔开。可以在 filename 参数中使用通配符（? 和 *）显示一组文件。 
+Dir 还列出磁盘的卷标和序列号，以及所列文件的数目，累计大小和磁盘上剩余的可用空间（以字节计）。对于每个文件和子目录而言，dir 列出文件的扩展名、文件字节数、文件的最后修改日期和时间以及下列文件属性（如果可用）： 
+缩写 属性 
+
+d 目录 
+
+h 隐藏文件 
+
+s 系统文件 
+
+e 加密 
+
+r 只读 
+
+a 存档文件 
+
+c 已压缩 
+
+p 重新分析点 
+注意： 
+Dir 仅适用于当前 Windows 安装的系统目录、可移动媒体、硬盘分区的根目录或本地安装源。 
+Expand 
+从压缩文件中提取文件。通过该命令可从 .cab 文件或压缩文件中提取驱动程序文件。 
+含有下列参数的 expand 命令仅在使用故障恢复控制台时才可用。可在命令提示符下使用带有不同参数的 expand 命令。 
+expand source [ /F:filespec}] [ destination] [ /d] [ /y] 
+参数 
+source 
+指定要展开的文件。如果源文件只包含一个文件，请使用该选项。source 可由驱动器号和冒号、目录名、文件名或组合所组成。不能使用通配符。 
+/f:size 
+如果源文件包含多个文件，指定要提取的文件的名称。可以对要提取的文件使用通配符。 
+destination 
+指定提取文件或每个单独文件的目标目录和（或）文件名。 
+/d 
+列出 CAB 文件中包含的文件而不展开或提取。 
+/y 
+在展开或提取文件时不出现覆盖提示。 
+范例 
+下例将从安装 CD 上的驱动程序 CAB 文件中提取 Msgame.sys 文件并将其复制到 C:\Windows\System\Drivers： 
+expand d:\i386\driver.cab\f:msgame.sys c:\windows\system\drivers 
+下例将展开压缩文件 Access.cp_： 
+expand d:\i386\acces.cp_c:\windows\system32\access.cpl 
+下例将列出安装 CD 上的驱动程序 CAB 文件中的所有文件。 
+expand /d d:\i386\driver.cab 
+要点 
+驱动程序 CAB 文件包含成千上万的文件，其中包括由 Windows 提供的大部分驱动程序。将所有文件从 CAB 文件展开到硬盘上需要花较长的时间和大量的磁盘空间。建议 仅从该文件中提取需要的文件。 注意 
+如果没有指定目标，文件将被复制到当前目录。 
+
+不能将软盘驱动器或 CD-ROM 等可移动媒体指定为目标。 
+Mkdir（md） 
+创建目录或子目录。含有下列参数的 mkdir 命令仅在使用故障恢复控制台时可用。可在命令提示符下使用带不同参数的 mkdir 命令。 mkdir [ drive:] path 
+或者 
+md [ drive:] path 
+参数 
+drive: 
+指定要创建新目录的驱动器。 
+path 
+指定新目录的名称和位置。不能使用通配符。 
+注意 
+kdir 仅适用于当前 Windows 安装的系统目录、可移动媒体、硬盘分区的根目录或本地安装源。 
+
+Rename（Ren） 
+更改单个文件的名称。含有下列参数的 rename 命令仅在使用故障恢复控制台时可用。可在命令提示符下使用带不同参数的 rename 命令。 
+rename [ drive:] [ path] filename1 filename2 
+或者 
+ren [ drive:] [ path] filename1 filename2 
+参数 
+drive:] [ path] filename1 
+指定要重新命名的文件的位置和名称。不能使用通配符。 
+filename2 
+为文件指定新的名称。重新命名文件时不能指定新的驱动器或路径。Rmdir（Rd） 
+删除目录。含有下列参数的 rmdir 命令仅在使用故障恢复控制台时可用。可在命令提示符下使用带不同参数的 mdir 命令。 
+rmdir [ drive:] path 
+或者 
+rd [ drive:] path 
+参数 
+[ drive:] path 
+指定要删除的目录的位置和名称。不能使用通配符。 
+注意 
+目录必须为空否则命令失败。 
+
+Rmdir 仅适用于当前 Windows 安装的系统目录、可移动媒体、硬盘分区的根目录或本地安装源。 
+Type 
+显示文本文件的内容。使用 type 或 more 命令查看文本文件而不修改文件。含有下述参数的 type 命令仅在使用故障恢复控制台时可用。可在命令提示符下使用带不同参数的 type 命令。 
+type [ drive:] [ path] filename 
+或者 
+more [ drive:] [ path] filename 
+参数 
+[ drive:] path] filename 
+指定要查看的文件的位置和名称。 
+如果使用 NTFS 驱动器而且文件名包含空格，则必须用引号（"）将文件名引起来。 
+More 
+显示文本文件的内容。使用 more 或 type 命令查看文本文件而不修改文件。含有下列参数的 more 命令仅在使用故障恢复控制台时可用。可在命令提示符下使用带不同参数的 more 命令。 
+more [ drive:] [ path] filename 
+或者 
+type [ drive:] [ path] filename 
+参数 
+[ drive:] path] filename 
+指定要查看的文件的位置和名称。 
+如果使用 NTFS 驱动器，而且文件名包含空格，则必须用引号（"）将文件名引起来。 
+Cls 
+清除屏幕。 
+清除后的屏幕只显示命令提示符和插入点。 
+Disable 
+禁用 Windows XP 、Windows 2000 或 Windows NT 4.0 系统服务或设备驱动程序。disable 命令仅在使用故障恢复控制台时才可用。 
+disable {service_name] |[ device_driver_name} 
+参数 
+service_name 
+要禁用的系统服务名称。 
+device_driver_nam 
+要禁用的设备驱动程序名称。 
+范例 
+下例将禁用 Eventlog 服务： 
+disable eventlog 
+注意 
+disable 命令将指定的服务或驱动程序的启动类型设为 SERVICE_DISABLED 。 
+
+使用 disable 命令禁用系统服务或设备驱动程序时，该系统服务或设备驱动程序上次启动类型的名称将显示在屏幕上。应该记下该名称，以便在需要时使用 enable 命令将启动类型恢复为上次的设置 。 
+
+共有五种启动类型。前三种类型是：SERVICE_AUTO_START 、SERVICE_DISABLED 和SERVICE_DEMAND_START 。对应的标准启动类型：自动、禁用和手动，通常使用“计算机管理”管理工具中的“服务”进行配置。后两种类型是：SERVICE_BOOT_START 和 SERVICE_SYSTEM_START，通常用于配置加载设备驱动程序的方式。例如，在启动计算机时或启动 Windows 时加载。 
+
+Enable 
+启用 Windows XP 、Windows 2000 或 Windows NT 4.0 系统服务或设备驱动程序。enable 命令仅在使用故障恢复控制台时才可用。 
+enable {service_name |device_driver_name}[ startup_type] 
+参数 
+service_name 
+要启用的系统服务的名称。 
+device_driver_name 
+要启用的设备驱动程序的名称。 
+startup_type 
+要为服务或设备驱动程序指派的启动类型。有效的启动类型包括： 
+SERVICE_BOOT_START 
+
+SERVICE_SYSTEM_START 
+
+SERVICE_AUTO_START 
+
+SERVICE_DEMAND_START 
+
+范例 
+下例将 Eventlog 服务的启动类型设为自动或 SERVICE_AUTO_START： 
+enable eventlog service_auto_start 
+注意 
+
+如果不指派启动类型，enable 命令将列出在 service_name 中指定的服务或设备驱动程序的当前启动类型。 
+
+使用 enable 命令更改启动类型时，上次启动类型的名称将显示在屏幕上。应该记下该名称，以便在需要时将启动类型恢复为上次的设置。 
+
+Exit 
+
+关闭故障恢复控制台并重新启动计算机。exit 命令仅在使用“故障恢复控制台”时才可用。 
+exit 
+参数 无 
+Help 
+提供有关故障恢复控制台命令的联机信息。 
+help [ commandname] 
+参数 无 
+列出故障恢复控制台中提供的命令。 
+commandname 
+提供有关命令信息，包括命令使用的参数。 
+注意 
+有两种方法可以获得命令的联机帮助。可以指定 help 命令后的命令名称，或者可以在命令提示符中键入该命令名称和 /?。开关。例如，键入下列命令可以获得有关extract 命令的信息： 
+
+help extract 
+
+extract /? 
+Listsvc 
+列出计算机上可以使用的服务和驱动程序。listsvc 命令仅在使用故障恢复控制台时才可用。 
+listsvc 
+参数 无 
+Logon 
+登录到 Windows 安装。logon 命令仅在使用故障恢复控制台时才可用。 
+logon 
+参数 无 
+注意 
+logon 命令将列出所有检测到的 Windows 安装，需要安装的本地管理员密码才能登录。 
+
+

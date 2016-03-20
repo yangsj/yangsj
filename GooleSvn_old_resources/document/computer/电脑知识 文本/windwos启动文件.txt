@@ -1,0 +1,315 @@
+   
+Windows启动文件（一）
+Boot.ini System partition root Boot 
+Bootsect.dos System partition root Boot (optional) 
+Ntdetect.com System partition root Boot 
+Ntbootdd.sys System partition root Boot (optional) 
+Ntoskrnl.exe systemroot\System32 Kernel load 
+Hal.dll systemroot\System32 Kernel load 
+System systemroot\System32\Config Kernel initialization 
+Device drivers (*.sys) systemroot\System32\Drivers Kernel initialization 
+
+
+NTLDR
+　　NTLDR全称是NT Loader，是系统加载程序
+NTLDR文件是win nt/win200/WinXP的引导文件，当此文件丢失时启动系统会提示"NTLDR is missing..."并要求按任意键重新启动，不能正确进入系统 。所以应该在系统正常的时候给予备份。 
+NTLDR文件是做什么的？我们如何来修复NTLDR文件类型的故障呢？ 
+NTLDR文件的是一个隐藏的，只读的系统文件，位置在系统盘的根目录，用来装载操作系统。 
+一般情况系统的引导过程是这样的： 代码 
+1、电源自检程序开始运行 
+2、主引导记录被装入内存，并且程序开始执行 
+3、活动分区的引导扇区被装入内存 
+4、NTLDR从引导扇区被装入并初始化 
+5、将处理器的实模式改为32位平滑内存模式 
+6、NTLDR开始运行适当的小文件系统驱动程序。 
+小文件系统驱动程序是建立在NTLDR内部的，它能读FAT或NTFS。 
+7、NTLDR读boot.ini文件 
+8、NTLDR装载所选操作系统 *如果NT/XP被选择,， 
+NTLDR运行Ntdetect.com 对于其他的操作系统， 
+NTLDR装载并运行Bootsect.dos然后向它传递控制。 
+windows NT过程结束。 
+9.Ntdetect.com 搜索计算机硬件并将列表传送给NTLDR，以便将这些信息写进HKE Y_LOCAL_MACHINEHARDWARE中。 
+10.然后NTLDR装载Ntoskrnl.exe，Hal.dll和系统信息集合。 
+11.Ntldr搜索系统信息集合，并装载设备驱动配置以便设备在启动时开始工作 
+12.Ntldr把控制权交给Ntoskrnl.exe，这时,启动程序结束,装载阶段开始
+WindowsXP出现此故障的解决办法 
+当此文件丢失时，我们可以从安装光盘上进行提取，方法是： 
+1、进入系统故障恢复控制台。 
+2、转到C盘。 
+3、输入"copy X：\I386\NTLDR c:\"（说明：X为光驱盘符）并回车，如果系统提示要否覆盖则按下"Y"，之后输入exit命令退出控制台重新启动即可。 
+今天刚遇到的一种情况：使用新硬盘安装系统时，在进行格式化未完成时突然重启，再启动时就出现NTLDR IS MISSING这个提示，换了一个新的硬盘后才没有这个提示。
+Windows 2003 server出现此故障的解决办法 
+1. 用Windows 2003的安装盘启动电脑，进入Windows 2003 Server的安装界面；　
+2. 界面提示“要修复Windows 2003 server的安装，请按R”，按R键继续；3. 屏幕出现故障恢复控制台提示“C:\Winnt，要登录到哪个Windows 2003安装（要取消，请按Enter）？”，在此键入“1”，然后按Enter键；　
+4. 键入管理员密码，然后按Enter键；　
+5. 键入Copy H:\WIN2003\ENT\I386\Ntldr c:\，按ENTER键（注：我使 用的光盘是Windows 2003二合一光盘，如果是其他的安装盘，可以使用搜索命令查找一下ntldr文件的位置，一般在i386目录下。“h:”为 我的光盘驱动器号）,如果系统提示您是否覆盖文件，键入Y，然后按Enter键。 
+最近一段时间我出现了这种情况，每次开机，都出现NTLDR is missing，press any key to restart，后面还有一句忘了，出现这种情况后，我重启开机按F10进入选择启动项，选择硬盘启动，year进如了，呵呵，如过你出现这种情况，也可 以试试这种方法。
+
+
+boot.ini
+　　Windows XP主要依赖Boot.ini文件来确定计算机在重启（引导）过程中显示的可供选取的操作系统类别。Boot.ini在缺省状态下被设定为隐含和系统文件属性, 并且被标识为只读文件。 
+您近来是否不断对Boot.ini文件进行修改？为确保在Windows Explorer中看到Boot.ini文件 older Options（文件夹选项）并在View（查看）菜单上选择Show hidden files and folders（显示隐含文件和文件夹）命令的繁冗操作是否已令您感到厌倦？更有甚者, 您是否曾在对该文件进行编辑前忘记过先行取消其所具备的只读属性？ 
+您可借助命令行工具Bootcfg.exe对Boot.ini文件执行编辑操作。您可针对系统等待时间（Windows在选择缺省操作系统前所等候的时间）进行修改, 并在现有基础上添加新的供选项目。 
+如需启动Bootcfg.exe工具, 请依次执行下列操作步骤： 
+依次点击Start（开始）和Run（运行）, 并在Run（运行）对话框内输入cmd。 
+在命令行状态下输入bootcfg.exe。 
+执行bootcfg.exe /?命令以查看相关参数功能。 
+来自微软中国 
+http://www.microsoft.com/china/windowsxp/expertzone/tips/february/banez1.asp 
+当我们在电脑中安装了多系统（如Windows 98和Windows XP）之后，每次启动计算机时都会出现一个系统引导菜单，在此选择需要进入的系统后回车即可。这个引导程序名为Boot.ini，在安装Windows 2000（XP）时程序自动被安装，使用它我们可以轻松对电脑中的多系统进行引导，还可以通过该引导文件，设置个性化的启动菜单。 
+-------------------------------------------------------------------------------- 
+当我们在电脑中安装了多系统（如Windows 98和Windows XP）之后，每次启动计算机时都会出现一个系统引导菜单，在此选择需要进入的系统后回车即可。这个引导程序名为Boot.ini，在安装Windows 2000（XP）时程序自动被安装，使用它我们可以轻松对电脑中的多系统进行引导，还可以通过该引导文件，设置个性化的启动菜单。 
+Boot.ini文件位于C盘根目录下，是一个隐藏文件，在“运行”中输入“c:\boot.ini”即可启动该文件（如图1）。 
+图1 
+1.自定义延迟时间 
+延迟时间是系统启动引导菜单后在设定的延迟时间内用户没有进行任何操作时，进入默认的操作系 统。系统默认的延迟时间为30秒。如果感觉默认的延迟时间过长，可以输入自己需要的延时时间，如10秒。设置时，首先打开Boot.ini文件（注意要去 掉该文件的隐藏、只读属性），随后在[boot loader]字段下找到“timeout＝”语句，将其中的30，改为10即可。我们还可以在“系统配置实用程序”中对其进行修改。在“开始/运行”中 键入“Msconfig”命令，在弹出的“系统配置实用程序”中单击“Boot.ini”标签（如图2），在“Boot.ini”界面中的“超时XX秒” 项中输入需要的延时时间即可。 
+图2 
+2.自定义显示内容 
+在多系统启动时，有一个操作系统选择列表，这些列表显示的是电脑中所有操作系统的名称，如： Microsoft Windows XP Professional。我们可以对这些显示内容进行修改，加载一些个性化的设置。打开“boot.ini”文件，找到[operating systems]字段，该字段是显示当前操作系统列表，其格式为multi(0)disk(0)rdisk(0)partition(3)\ WINDOWS="Microsoft Windows XP Professional" /fastdetect。后面引号中的部分就是系统启动时显示的内容，只要将引号中的这些内容更改为自己需要的文字即可（如图1）。 
+3.定义默认启动系统 
+安装了多系统后，Boot.ini会将其中一个系统设置为默认启动系统，如Windows XP，在超过延迟时间后将自动引导默认的系统启动。我们可以根据需要将默认的启动系统更改为其它的系统（如Windows 98）。更改时首先右键单击“我的电脑”，选择“属性”，在系统属性对话框中单击“高级”选项，随后在下面的“启动和故障恢复”项中选择“设置”按钮，弹 出一个“启动和故障恢复”对话框（如图3）。单击“系统启动”项中的默认操作系统下拉菜单，选择一个需要的系统，单击“确定”即可。 
+图3 
+4.加载启动参数，更改启动画面 
+Boot.ini在引导多系统启动时提供了很多的参数命令，这些启动参数可以得到不同的启动效 果。Boot.ini在默认的情况下加载的是/fastdetect参数，表示启动时不检查串行口和并行口。其实我们可以更改为其它参数，更改时首先在 “Boot.ini”中选择需要更改的系统列表，随后将该系统中的参数/fastdetect改为相应的参数值即可。以后再启动该系统就会加载一些设置信 息或画面。我们以可以在“系统配置实用程序”中对一些参数进行设置，切换到“Boot.ini”选项，先选中需要更改的系统，随后在“启动选项”下端勾选 需要的启动参数即可。在此对几个常用参数加以说明。 
+/SAFEBOOT：安全启动，只启动HKLM\System\ CurrentControlSetControl\SafeBoot中的驱动程序和服务，其后可跟三个参数Minimal、Network或 Dsrepair。Minimal和Network允许在网络连接下启动系统。而Dsrepair要求系统从备份设备中调入活动目录的设置。还有一个选项 是Minimal（AlternateShell），它让系统调入由HKLM\System\CurrentControlSetSafeBoot\ AlternateShell指定的SHELL程序，而不使用默认的Explorer。 
+/NOGUIBOOT:不加载VGA驱动程序，也就不会显示启动过程和失败时的蓝屏信息。 
+/BOOTLOG：将日志写入Nnbtlog.txt文件。 
+/BASEVIDEO：使用标准VGA方式启动，这种方式主要用于显示驱动程序失效时。 
+/SOS：在调入驱动程序名时显示它的名称，因驱动问题而无法启动时使用比较好。 
+通过以上设置我们就可以轻松设置启动菜单了 
+来自PCHOME 
+http://article.pchome.net/2004/02/06/16308.htm 
+boot.ini文件丢失怎么办？ 
+问：我的电脑安装的是Windows 2000专业版，在启动时显示“boot．ini非法”，然后从Winnt下启动已经有好几周了，但是在Windows 2000的“系统特性”的“高级”里，“启动和故障恢复”不能点击，提示“无法打开C:＼boot.ini文件。无法更改操作系统及超时设置。”，我的机 器装的是两块昆腾火球10代硬盘，一块硬盘装的是这个Windows 2000，另一块硬盘装的是Win98，都是单独安装的，近来出现的这个问题，如何解决？ 
+答：这是由于您的安装了Windows 98的那块硬盘上的C盘上boot.ini文件丢失造成的，对于此文件的丢失，您可以采用自己动手自建文件的方法来解决。您可以在C盘根目录下新建一个记事本文件，打开后输入以下语句： 
+[boot loader] 
+timeout=30 
+default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS 
+[operating systems] 
+multi(1)disk(1)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP Professional" /fastdetect 
+然后把此文件保存为boot.ini文件即可。
+概要
+本文介绍了 Boot.ini 文件的作用和典型内容。 
+更多信息
+Windows（特别是 Ntldr）使用 Boot.ini 文件来确定在启动（引导）过程中要显示哪些操作系统选项。默认情况下，Boot.ini 标记为只读系统文件，并且通常情况下不需要任何手动修改。 
+如果您需要更改此文件的内容，请使用“控制面板”中的“系统”工具： 1. 单击开始按钮，单击控制面板，然后双击系统。 
+2. 单击高级选项卡，然后单击“启动和故障恢复”下的设置。 
+通常，Boot.ini 文件包含以下数据： 
+[boot loader]
+timeout=30
+default=scsi(0)disk(0)rdisk(0)partition(1)\winnt
+[operating systems]
+scsi(0)disk(0)rdisk(0)partition(1)\winnt = "Windows NT" /NODEBUG C:\ = "Previous Operating System on C:\" 
+下面的列表描述了 Boot.ini 文件中数据的含义： ? “timeout”指定在选择默认的操作系统之前 Windows 等待的时间 
+? “default”指定默认的操作系统。 
+? “scsi(0)”表示主控制器（通常也是唯一的控制器）负责此设备。如果有两个 SCSI 控制器并且磁盘与第二个控制器相关联，则第二个控制器称为“scsi(1)”。
+如果系统使用 IDE、增强的 IDE (EIDE) 或增强的小型设备接口 (ESDI) 驱动器，或者如果系统使用没有内置 BIOS 的 SCSI 适配器，请将“scsi”替换为“multi”。 
+? “disk(0)”指要使用的 SCSI 逻辑单元 (LUN)。它可以是独立的磁盘，但是大多数 SCSI 设置对每个 SCSI ID 只有一个 LUN。 
+? “rdisk(0)”指物理磁盘 1 
+? 本例中的“partition(1)”是计算机中第一个驱动器上的唯一分区。如果有两个分区（C 和 D），则分区 C 为 partition(1)，分区 D 为 partition(2)。 
+? 包含多重引导方式的参数（如果有的话）要求检查 Winnt 文件夹以从指定的 SCSI 控制器的磁盘和分区进行引导。 
+? “/NODEBUG”指定没有监视任何调试信息。调试信息仅对程序开发人员有用。 
+? 您可以添加 /SOS 选项以在加载驱动程序时显示驱动程序名。默认情况下，OS Loader 屏幕仅显示进度点。 
+? “Previous Operating System on C:\”表示“上一个操作系统”是 MS-DOS，因为“C:\”是 MS-DOS 路径。 
+开机boot.ini非法的解决方法 
+有的用户在失误操作后 开机时显示文件boot.ini非法，从c:\windows启动 境 薭oot.ini文件后仍旧显示，怎么办？ 
+虽然对计算机没有影响而且开机一切都正常 但是看上去就不好了!!!! 
+C:\boot.ini 
+是系统启动配置文件，如果你有多个操作系统它可以让你 
+选择启动哪一个系统。 
+因为boot文件坏了，只能从C盘启动。 
+你可以用WINXP系统盘恢复 
+修改Boot.ini文件 
+Windows XP主要依赖Boot.ini文件来确定计算机在重启（引导）过程中显示的可供选取的操作系统类别。Boot.ini在缺省状态下被设定为隐含和系统文件属性, 并且被标识为只读文件。 
+您近来是否不断对Boot.ini文件进行修改？为确保在Windows Explorer中看到Boot.ini文件而开启Folder Options（文件夹选项）并在View（查看）菜单上选择Show hidden files and folders（显示隐含文件和文件夹）命令的繁冗操作是否已令您感到厌倦？更有甚者, 您是否曾在对该文件进行编辑前忘记过先行取消其所具备的只读属性？ 
+您可借助命令行工具Bootcfg.exe对Boot.ini文件执行编辑操作。您可针对系统等待时间（Windows在选择缺省操作系统前所等候的时间）进行修改, 并在现有基础上添加新的供选项目。 
+如需启动Bootcfg.exe工具, 请依次执行下列操作步骤： 
+依次点击Start（开始）和Run（运行）, 并在Run（运行）对话框内输入cmd。 
+在命令行状态下输入bootcfg.exe。 
+执行bootcfg.exe /?命令以查看相关参数功能。 
+当我们在电脑中安装了多系统（如Windows 98和Windows XP）之后，每次启动计算机时都会出现一个系统引导菜单，在此选择需要进入的系统后回车即可。这个引导程序名为Boot.ini，在安装Windows 2000（XP）时程序自动被安装，使用它我们可以轻松对电脑中的多系统进行引导，还可以通过该引导文件，设置个性化的启动菜单。 
+当我们在电脑中安装了多系统（如Windows 98和Windows XP）之后，每次启动计算机时都会出现一个系统引导菜单，在此选择需要进入的系统后回车即可。这个引导程序名为Boot.ini，在安装Windows 2000（XP）时程序自动被安装，使用它我们可以轻松对电脑中的多系统进行引导，还可以通过该引导文件，设置个性化的启动菜单。 
+Boot.ini文件位于C盘根目录下，是一个隐藏文件，在“运行”中输入“c:\boot.ini”即可启动该文件 
+1.自定义延迟时间 
+延迟时间是系统启动引导菜单后在设定的延迟时间内用户没有进行任何操作时，进入默认的操作系 统。系统默认的延迟时间为30秒。如果感觉默认的延迟时间过长，可以输入自己需要的延时时间，如10秒。设置时，首先打开Boot.ini文件（注意要去 掉该文件的隐藏、只读属性），随后在[boot loader]字段下找到“timeout＝”语句，将其中的30，改为10即可。我们还可以在“系统配置实用程序”中对其进行修改。在“开始/运行”中 键入“Msconfig”命令，在弹出的“系统配置实用程序”中单击“Boot.ini”标签（如图2），在“Boot.ini”界面中的“超时XX秒” 项中输入需要的延时时间即可。 
+2.自定义显示内容 
+在多系统启动时，有一个操作系统选择列表，这些列表显示的是电脑中所有操作系统的名称，如： Microsoft Windows XP Professional。我们可以对这些显示内容进行修改，加载一些个性化的设置。打开“boot.ini”文件，找到[operating systems]字段，该字段是显示当前操作系统列表，其格式为multi(0)disk(0)rdisk(0)partition(3)\ WINDOWS="Microsoft Windows XP Professional" /fastdetect。后面引号中的部分就是系统启动时显示的内容，只要将引号中的这些内容更改为自己需要的文字即可（如图1）。 
+3.定义默认启动系统 
+安装了多系统后，Boot.ini会将其中一个系统设置为默认启动系统，如Windows XP，在超过延迟时间后将自动引导默认的系统启动。我们可以根据需要将默认的启动系统更改为其它的系统（如Windows 98）。更改时首先右键单击“我的电脑”，选择“属性”，在系统属性对话框中单击“高级”选项，随后在下面的“启动和故障恢复”项中选择“设置”按钮，弹 出一个“启动和故障恢复”对话框（如图3）。单击“系统启动”项中的默认操作系统下拉菜单，选择一个需要的系统，单击“确定”即可。 
+4.加载启动参数，更改启动画面 
+Boot.ini在引导多系统启动时提供了很多的参数命令，这些启动参数可以得到不同的启动效 果。Boot.ini在默认的情况下加载的是/fastdetect参数，表示启动时不检查串行口和并行口。其实我们可以更改为其它参数，更改时首先在 “Boot.ini”中选择需要更改的系统列表，随后将该系统中的参数/fastdetect改为相应的参数值即可。以后再启动该系统就会加载一些设置信 息或画面。我们以可以在“系统配置实用程序”中对一些参数进行设置，切换到“Boot.ini”选项，先选中需要更改的系统，随后在“启动选项”下端勾选 需要的启动参数即可。在此对几个常用参数加以说明。 
+/SAFEBOOT：安全启动，只启动HKLM\System\ CurrentControlSetControl\SafeBoot中的驱动程序和服务，其后可跟三个参数Minimal、Network或 Dsrepair。Minimal和Network允许在网络连接下启动系统。而Dsrepair要求系统从备份设备中调入活动目录的设置。还有一个选项 是Minimal（AlternateShell），它让系统调入由HKLM\System\CurrentControlSetSafeBoot\ AlternateShell指定的SHELL程序，而不使用默认的Explorer。 
+/NOGUIBOOT:不加载VGA驱动程序，也就不会显示启动过程和失败时的蓝屏信息。 
+/BOOTLOG：将日志写入Nnbtlog.txt文件。 
+/BASEVIDEO：使用标准VGA方式启动，这种方式主要用于显示驱动程序失效时。 
+/SOS：在调入驱动程序名时显示它的名称，因驱动问题而无法启动时使用比较好。 
+通过以上设置我们就可以轻松设置启动菜单了 
+boot.ini文件丢失怎么办？ 
+问：我的电脑安装的是Windows 2000专业版，在启动时显示“boot．ini非法”，然后从Winnt下启动已经有好几周了，但是在Windows 2000的“系统特性”的“高级”里，“启动和故障恢复”不能点击，提示“无法打开C:＼boot.ini文件。无法更改操作系统及超时设置。”，我的机 器装的是两块昆腾火球10代硬盘，一块硬盘装的是这个Windows 2000，另一块硬盘装的是Win98，都是单独安装的，近来出现的这个问题，如何解决？ 
+答：这是由于您的安装了Windows 98的那块硬盘上的C盘上boot.ini文件丢失造成的，对于此文件的丢失，您可以采用自己动手自建文件的方法来解决。您可以在C盘根目录下新建一个记事本文件，打开后输入以下语句： 
+[boot loader] 
+timeout=30 
+default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS 
+[operating systems] 
+multi(1)disk(1)rdisk(0)partition(1)\WINDOWS="Microsoft Windows 2000 Professional" /fastdetect 
+C:\ = "Microsoft Windows" 
+然后把此文件保存为boot.ini就可以了。 
+这样你就可以不用看到开机开机boot.ini非法了 
+如果还不行最简单的方法，直接在别人的C盘里拷boot.ini到你的C盘里，重启就行了。如果在别人机子里找不到文件，可以用运行，输入boot.ini，将出现的记事本另存到你的U盘里就好了。 
+要是还不行就 
+[boot loader] 
+timeout=30 
+default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS 
+[operating systems] 
+multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP Professional" /fastdetect
+
+bootsect.dos
+访问引导扇区文件mulit(0)disk(0)rdisk(0)partition(1)\BOOTSECT.DOS时出现I/O错误
+
+其实只要改一个文件就可以了，那就是boot.ini。 
+
+1、boot.ini的位置 
+
+boot.ini位于c:\下。你可以用开始->运行->c:\boot.ini，来打开它。 
+
+2、boot.ini的内容说明。如下： 
+
+[boot loader] 
+
+timeout=30 
+
+default=multi(0)disk(0)rdisk(0)partition(1)\WINNT 
+
+[operating systems] 
+
+multi(0)disk(0)rdisk(0)partition(1)\WINNT="Windows 2000 Professional" /fastdetect 
+
+multi(0)disk(0)rdisk(0)partition(2)\WINNT="Windows XP Professional " /fastdetect 
+
+timeout=30是指默认的等待（选择的）时间，单位是秒。如果修改30为0那OS启动程序引导OS时，会直接引导进默认的操作系统。 
+
+default=multi(0)disk(0)rdisk(0)partition(1)\WINNT 
+
+是指默认的操作系统是multi(0)disk(0)rdisk(0)partition(1)分区（即C区）上的WINNT。multi(0)disk (0)rdisk(0)partition(1)是C区，依此类推：multi(0)disk(0)rdisk(0)partition(2)则是指D 区，multi(0)disk(0)rdisk(0)partition(3)是指E区。 
+
+[operating systems] 
+
+multi(0)disk(0)rdisk(0)partition(1)\[color=blue]WINNT="Windows 2000 Professional" /fastdetect 
+
+multi(0)disk(0)rdisk(0)partition(2)\WINDOWS="Windows XP Professional " /fastdetect[/color][/color] 
+
+是启动菜单的菜单项目，由两个部分构成：前部分代表OS所在的分区，后部分则代表此OS的文字描述，你可以自己修改此文字描述，注意：上段文字加粗部分 WINNT的名称一定要与default=multi(0)disk(0)rdisk(0)partition(1)\WINNT中的名称一至。例如：你 要希望用windows xp（XP安装在D区）作为默认的OS菜单，就把default=multi(0)disk(0)rdisk(0)partition(1)\WINNT 改为default=multi(0)disk(0)rdisk(0)partition(2)\WINDOWS。 
+
+3、修改方法： 
+
+如果你有windows 98/windows 2000/windows xp三个OS，那boot.ini文件可能是如下（根据安装的不同分区有所不同） 
+
+[boot loader] 
+
+timeout=30 
+
+default=multi(0)disk(0)rdisk(0)partition(1)\WINNT 
+
+[operating systems] 
+
+multi(0)disk(0)rdisk(0)partition(1)\windows="Windows 98" 
+
+multi(0)disk(0)rdisk(0)partition(2)\WINNT="Windows 2000 Professional " /fastdetect 
+
+multi(0)disk(0)rdisk(0)partition(3)\windows="Windows XP Professional " /fastdetect 
+
+如果你已经删除win98的系统目录，需要在启动菜单中也删除它，直接把multi(0)disk(0)rdisk(0)partition(1)\windows="Windows 98" 这一句删除即可，同理，你可以删除其它不再用的OS启动菜单。
+
+2 用运用软件优化大师修改一下也可以使用。就是在体统优化里选择默认启动os为windows xp。
+
+
+NTDETECT.COM
+　　NTDETECT.COM
+既Ntdetect.com
+是电脑中的系统引导文件，可执行文件。
+文件名称为全大写英文字母。
+文件目录：
+C:\
+既C盘根目录下。
+============================================================================
+Ntdetect.com功能与用途：
+Ntdetect.com 会收集如下类型的硬件信息： 
+& 系统固件信息，例如时间和日期等 
+& 总线适配器的类型 
+& 显卡适配器的类型 
+& 键盘 
+& 通信端口 
+& 磁盘 
+& 软盘 
+& 输入设备，例如鼠标 
+& 并口 
+& 安装在ISA槽中的ISA设备 
+完成信息的检测之后，Windows XP会在屏幕上显示那个著名的Windows XP商标，并显示一个滚动的，告诉用户Windows 的启动进程
+============================================================================
+计算机启动时 Ntdetect 失败
+症状：
+启动运行 Windows 的计算机时，启动过程可能失败，并且您可能收到以下错误信息： 
+NTDetect Failed
+原因：
+如果 Ntdetect.com 文件丢失或损坏，就会出现此问题。 
+解决方案：
+Windows NT 4.0
+要解决 Windows NT 4.0 中的这一问题，请使用紧急修复磁盘 (ERD) 来恢复引导文件： 1. 使用 Windows NT 4.0 安装磁盘 1 启动计算机。 
+2. 出现提示时，插入 Windows NT 4.0 安装磁盘 2。 
+3. 显示 Windows NT Server 安装屏幕时，按 R 键开始修复过程。 
+4. 使用箭头键从修复选项中选择检查启动环境，按 Enter 键，然后取消选择所有其他修复选项。 
+5. 选择继续，按 Enter 键，然后根据指示检测大容量存储设备。 
+6. 出现提示时，插入 ERD。 
+7. 出现提示时，插入 Windows NT Server 4.0 安装光盘。 
+8. 修复过程完成后，从软盘驱动器中取出 ERD，然后按 Enter 键以重新启动计算机。 
+Windows 2000
+要解决 Windows 2000 中的此问题，请按照下列步骤操作： 1. 从 Windows 2000 安装光盘启动计算机。 
+2. 在“欢迎使用安装程序”菜单上，选择 R 键进行修复。 
+3. 选择手动修复。 
+4. 从修复选项中只选择启动环境。 
+5. 出现提示时，插入紧急修复磁盘 (ERD)。如果没有 ERD，也可以继续。 
+6. 修复过程完成后，从软盘驱动器中取出 ERD，然后按 Enter 键以重新启动计算机。 
+============================================================================
+这篇文章中的信息适用于：
+? Microsoft Windows 2000 Server 
+? Microsoft Windows 2000 Advanced Server 
+? Microsoft Windows 2000 Professional Edition 
+? Microsoft Windows 2000 Datacenter Server 
+? Microsoft Windows NT Workstation 4.0 开发员版
+
+
+bootfont.bin
+　　BOOTFONT.BIN是汉化引导菜单用的，删除后引导菜单会变成英文的 
+系统盘根目录下，是系统文件,被设置为隐藏的,在文件夹选项中设置一下可以让它显示出来! 
+[boot loader] 
+timeout=5 
+default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS 
+[operating systems] 
+multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP Professional" /noexecute=optin /fastdetect 
+一.预启动 
+首先计算机通电进行自检,并由BIOS(即基本输入输出系统)完成基本硬件配置,然后读取硬盘的MBR(主引导记录)检查硬盘分区表以确定引导分区,并将引导分区上的操作系统引导扇区调入内存中执行,此处即执行NTLDR(操作系统加载器)文件。 
+* Windows2000/XP支持多重启动。它在安装时会首先将已存在的其它操作系统引导扇区保存为BOOTSECT.DOS文件(位于活动分区根目录 下),并修改系统引导扇区,以便系统启动时加载NTLDR文件,从而达到多重启动的目的。而Windows98则不具备这个功能，因此如果先装好 Windows2000/XP后再装Windows98会破坏掉Windows2000/XP的引导记录，导致2000/XP不能启动。 
+二.启动 
+1.首先进行出始化,NTLDR会把处理器从实模式转换为32位保护模式,根据实验它还包含“Windows系统选择菜单”和“Windows高级选项菜单”（就是按F8后那个）中显示的内容. 
+2.读取BOOT.INI文件。该文件位于活动分区根目录下,它的作用是使系统在启动过程中出 现选择菜单,由用户选择希望启动的操作系统。如果选择启动 Windows2000/XP,NTLDR会继续引导进行以下过程;如果选择为非Windows2000/XP系统,NTLDR则会读取系统引导扇区副本 BOTSECT.DOS转入启动相应系统。 
+* 其中[BOOT LOADER]即操作系统加载器,指定系统选择菜单默认等待时间和默认引导的操作系统。可手工修改或在控制面板中修改，为了保险起见，建议在控制面板中修 改。依次选择控制面板-〉系统-〉高级->启动和故障恢复，即可更改相关设置。(在WindowsXP中还有另一种方法，即运行msconfig （系统配置实用程序）。 
+[OPERATING SYSTEMS]段指定操作系统列表,由双引号括起来的部分就是列表所显示的内容,可任意修改,使其更加个性化。 
+* 形如MULTI(0)DISK(0)RDISK(0)PARTITION(1)格式的语句被称为ARC路径,它的格式为: 
+MULTI()??指定磁盘控制器(若为SCSI控制器,则此处应替换为SCSI()) 
+DISK()??指定SCSI设备编号(对于MULTI该处值始终为0) 
+RDISK()??指定IDE设备编号(对于SCSI,此处被忽略) 
+PARTITION()??指定分区编号。除分区编号由1开始外,其余编号均从0开始。 
+参数/FASTDETECT表示禁用串行鼠标检测,是系统默认值。还有几个常见参数: MAXMEM??指定Windows2000/XP可用内存容量; BASEVIDEO??使用标准VGA显示驱动程序;NOGUIBOOT??启动过程中不显示图形屏幕;SOS??加载设备驱动程序时显示其名称。 
+* 在操作系统选择菜单中的中文字体由位于活动分区根目录下的BOOTFONT.BIN文件提供。 
+3.系统加载NTDETECT.COM文件。由它来检测机器硬件,如并行端口,显示适配器等等,并将收集到的硬件列表返回NTLDR用于以后在注册表中注册保存。 
+4.如果Windows2000/XP有多个硬件配置文件,此时会出现选择菜单,等待用户确定要使用的硬件配置文件,否则直接跳过此步,启用默认配置。 
+* 硬件配置文件是指保存计算机特定硬件配置的系统文件。可以创建多个不同的硬件配置文件以满足计算机在不同场合的应用。可以依次选择控制面板-〉系统->硬件-〉硬件配置文件作出修改。 
+三.装载内核 
+引导过程开始装载Windows2000/XP内核NTOSKRNL.EXE。这个文件位于Windows2000/XP安装文件夹下的SYSTEM32文件夹中。随后,硬件抽象层(HAL)被引导进程加载,完成本步骤。 
+* 硬件抽象层(HAL):隐藏特定平台的硬件接口细节,为操作系统提供虚拟硬件平台,使其具有硬件无关性,可在多种平台上进行移植。 
+四.初始化内核 
+内核完成初始化,NTLDR将控制权转交Windows2000/XP内核,后者开始装载并初始化设备驱动程序,以及启动WIN32子系统和WINDOWS2000/XP服务。 
+五.用户登录 
+开始登录进程。由WIN32子系统启动WINLOGON.EXE,并由它启动LOCAL SECURITY AUTHORITY(LSASS.EXE)显示登录对话框。用户登录后,WINDOWS2000/XP会继续配置网络设备和用户环境。最后,伴随着微软之 声和我们熟悉的个性化桌面,WINDOWS2000/XP漫长的启动过程终于完成 
+
+类
