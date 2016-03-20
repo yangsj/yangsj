@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application>
+	<resources>
+		<item src="assets/scene_background.swf" />
+		<item src="assets/button_status.swf" />
+	</resources>
+
+	<remove_effects_exciting frameRate="24" des="兴奋（极速）状态下钻石移除特效动画" >
+		<!-- 属性说明："id"=编号 / "className"=图片在库中的连接名 / "frame"=当前图片连续播放的次数 -->
+		<asset id="1" className="removed_effect_exciting.RemovedEffectExciting_0001" frame="1"/>
+		<asset id="2" className="removed_effect_exciting.RemovedEffectExciting_0002" frame="1"/>
+		<asset id="3" className="removed_effect_exciting.RemovedEffectExciting_0003" frame="1"/>
+		<asset id="4" className="removed_effect_exciting.RemovedEffectExciting_0004" frame="1"/>
+		<asset id="5" className="removed_effect_exciting.RemovedEffectExciting_0005" frame="1"/>
+		<asset id="6" className="removed_effect_exciting.RemovedEffectExciting_0006" frame="1"/>
+		<asset id="7" className="removed_effect_exciting.RemovedEffectExciting_0007" frame="1"/>
+		<asset id="8" className="removed_effect_exciting.RemovedEffectExciting_0008" frame="1"/>
+		<asset id="9" className="removed_effect_exciting.RemovedEffectExciting_0009" frame="1"/>
+	</remove_effects_exciting>
+
+	<removed_effect_general frameRate="24" des="普通状态下钻石移除特效动画" >
+		<!-- 属性说明："id"=编号 / "className"=图片在库中的连接名 / "frame"=当前图片连续播放的次数 -->
+		<asset id="1" className="removed_effect_general.RemovedEffectGeneral_0001" frame="1"/>
+		<asset id="2" className="removed_effect_general.RemovedEffectGeneral_0002" frame="1"/>
+		<asset id="3" className="removed_effect_general.RemovedEffectGeneral_0003" frame="1"/>
+		<asset id="4" className="removed_effect_general.RemovedEffectGeneral_0004" frame="1"/>
+		<asset id="5" className="removed_effect_general.RemovedEffectGeneral_0005" frame="1"/>
+		<asset id="6" className="removed_effect_general.RemovedEffectGeneral_0006" frame="1"/>
+		<asset id="7" className="removed_effect_general.RemovedEffectGeneral_0007" frame="1"/>
+		<asset id="8" className="removed_effect_general.RemovedEffectGeneral_0008" frame="1"/>
+		<asset id="9" className="removed_effect_general.RemovedEffectGeneral_0009" frame="1"/>
+	</removed_effect_general>
+
+
+</application>

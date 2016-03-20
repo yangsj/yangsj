@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="AppMain"/>
+    <classEntry path="jtrace"/>
+    <classEntry path="gem.view.dispel.DispelView"/>
+    <classEntry path="gem.view.dispel.DispelType"/>
+    <classEntry path="gem.view.dispel.Gem"/>
+    <classEntry path="gem.view.dispel.vo.MoveItemVO"/>
+    <classEntry path="gem.view.dispel.vo.AddNewItemVO"/>
+    <classEntry path="gem.view.dispel.DispelGemsSeek"/>
+    <classEntry path="gem.view.dispel.DispelInfoView"/>
+    <classEntry path="gem.view.dispel.DispelGamePauseView"/>
+    <classEntry path="manager.ResourceManager"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
