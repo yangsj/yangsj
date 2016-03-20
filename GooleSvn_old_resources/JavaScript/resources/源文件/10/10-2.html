@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>背景颜色</title>
+<script language=JavaScript>
+
+var red=0;
+var green=0;
+var blue=0;
+var index=0;
+var hexbase= new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
+var convert = new Array()
+for (x=0; x<16; x++)
+{
+   for (y=0; y<16; y++)
+   {
+      convert[index]=hexbase[x]+hexbase[y];
+      index++;
+	}
+}
+function AddColor(id,num)
+{
+   if (id==0)
+   {
+     if ((red+num)<=255)
+      {
+       red+=num;
+	   }
+	 display()
+   }
+
+  if (id==1) 
+	{
+	  if ((green+num)<=255)
+	   { 
+	     green+=num;
+		}
+	 display()
+	 }
+  if (id==2)    
+	{
+	 if ((blue+num)<=255)
+	 { 
+	  blue+=num;
+	 }
+	 display()
+   }        
+}
+
+function ReduceColor(id,num)
+{
+  if (id==0)
+  {
+    if ((red-num)>=0)
+	 { 
+	  red-=num;
+	 }
+    display()
+   }
+   if (id==1)
+   {
+    if ((green-num)>=0)
+	  {
+	  green-=num;
+	  }
+	display()
+	}
+   if (id==2)
+   {
+	 if ((blue-num)>=0)
+	   {
+	     blue-=num;
+	   }
+	 display()
+	 }
+}
+
+function display()
+{
+   redx=convert[red]
+   greenx=convert[green]
+   bluex=convert[blue]
+   var rgb="#"+redx+greenx+bluex;
+   document.bgColor =rgb;
+}
+
+</script>
+</head>
+<body >
+<form name="color">
+  <table>
+    <tr align="center"> 
+	   <td><input name="red-" type="button" value="-50" onClick="ReduceColor(0,50)"></td>
+       <td><input name="red-" type="button" value="-10" onClick="ReduceColor(0,10)"></td>
+       <td><input name="red-" type="button" value=" -1" onClick="ReduceColor(0,1)"></td>
+       <td width="40"><font color="#FF0000" size=5><b>红</b></font></td>
+       <td><input name="red+" type="button" value=" +1" onClick="AddColor(0,1)"></td>
+       <td><input name="red+" type="button" value="+10" onClick="AddColor(0,10)"></td>
+       <td><input name="red+" type="button" value="+50" onClick="AddColor(0,50)"></td>
+    </tr>
+    <tr align="center"> 
+       <td><input name="green-" type="button" value="-50" onClick="ReduceColor(1,50)"></td>
+       <td><input name="green-" type="button" value="-10" onClick="ReduceColor(1,10)"></td>
+       <td><input name="green-" type="button" value=" -1" onClick="ReduceColor(1,1)"></td>
+	   <td width="40"><font color="#008000" size=5><b>绿</b></font></td>
+       <td><input name="green+" type="button" value=" +1" onClick="AddColor(1,1)"></td>
+       <td><input name="green+" type="button" value="+10" onClick="AddColor(1,10)"></td>
+       <td><input name="green+" type="button" value="+50" onClick="AddColor(1,50)"></td>
+    </tr>
+    <tr align="center"> 
+       <td><input name="blue-" type="button" value="-50" onClick="ReduceColor(2,50)"></td>
+       <td><input name="blue-" type="button" value="-10" onClick="ReduceColor(2,10)"></td>
+       <td><input name="blue-" type="button" value=" -1" onClick="ReduceColor(2,1)"></td>
+       <td width="40"><font color="#0000FF" size=5><b>蓝</b></font></td>
+       <td><input name="blue+" type="button" value=" +1" onClick="AddColor(2,1)"></td> 
+       <td><input name="blue+" type="button" value="+10" onClick="AddColor(2,10)"></td>
+	   <td><input name="blue+" type="button" value="+50" onClick="AddColor(2,50)"></td>
+    </tr>
+ </table>
+  <p>&nbsp;</p>
+</form>
+</body>
+</html>
+

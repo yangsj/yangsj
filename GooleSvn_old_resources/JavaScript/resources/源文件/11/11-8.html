@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>用户登录</title>
+<script language="javascript">
+function denglu()
+{
+var use=document.form1.username.value;             //提取用户名值
+var pass=document.form1.password.value;            //提取密码框的值
+var username=new Array("www","eee", "rrr","ttt","fff","aaa", "bbb","ccc","ddd"); 
+var password=new Array("www","eee", "rrr","ttt","fff","aaa", "bbb","ccc","ddd"); 
+var status=0
+for (i=0;i<username.length;i++)
+{
+if(use==username[i]&&pass==password[i])                  //判断用户名和密码值是否与预设的值相同
+{
+  status=1}
+}
+if(status==1)					//判断用户名和密码值是否与预设的值相同
+{
+alert("用户名和密码正确，进入首页");				//密码正确，进入index页面
+document.form1.action="index.html"
+  }
+  else
+  {
+  alert("用户名和密码不正确，请重新输入")			//密码不正确，弹出提示框
+  }   
+}
+</script>
+</head>
+<body>
+<form  method="get" name="form1" onSubmit="denglu()"> 
+  <p>用户名：<input name="username" type="text" /></p>
+  <p>密&nbsp;码： <input name="password" type="password" /></p>
+  <p>
+    <input type="submit" name="Submit" value="提交" />
+    <input type="reset" name="Submit2" value="重置" />
+  </p>
+</form>
+(默认的用户名和密码相同为："www","eee", "rrr","ttt","fff","aaa", "bbb","ccc","ddd"）
+</body>
+</html>
+

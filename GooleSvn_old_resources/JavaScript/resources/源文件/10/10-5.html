@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>document.all</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+<body>
+
+<h1 id="id1" align="center" style="font-size: larger;">document.all</h1>
+<form name="form1">
+<br />
+<input type="button" value="字体较大"onclick="document.all['id1'].style.fontSize='xx-large';" />
+<input type="button" value="字体较小"onclick="document.all['id1'].style.fontSize='xx-small';" />
+<input type="button" value="红"onclick="document.all['id1'].style.color='red';" />
+<input type="button" value="蓝"onclick="document.all['id1'].style.color='blue';" />
+<input type="button" value="绿"onclick="document.all['id1'].style.color='green';" />
+<br /><br />
+<input type="text" name="Text1" id="userText" size="30" />
+<input type="button" value="显示输入文字"onclick="document.all['id1'].innerText=document.form1.Text1.value;" />
+</form>
+</body>
+</html>
+

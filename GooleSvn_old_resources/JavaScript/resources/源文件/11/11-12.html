@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>radio</title>
+</head>
+
+<body>
+<form  name="form1" onSubmit="check()" >
+  <p>你居住的地区是：</p>
+  <p>
+<input type=radio name="from" value="北京市" > 北京市 <br>
+<input type=radio name="from" value="天津市" > 天津市 <br>
+<input type=radio name="from" value="上海市" > 上海市 <br>
+</p>
+  <p><input type="submit" name="Submit" value="提交" />
+      <input name="" type="reset" value="重置" />
+  </p>
+</form>
+<script language="javascript">
+ function check()
+ {
+var j=0;
+for (j=0;j<document.form1.from.length;j++)
+{
+if(document.form1.from[j].checked==true)        //判断该单选按钮是否被选中
+{
+var rvalue=document.form1.from[j].value
+alert("你居住的地区是:"+rvalue);
+ }
+}
+}
+</script>
+</body>
+</html>
+
+
+

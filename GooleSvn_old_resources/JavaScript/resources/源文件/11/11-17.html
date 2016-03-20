@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>控制输入框</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script language=javascript>
+function check1()
+{
+if ((event.keyCode > 32 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97)) event.returnValue = false;
+}
+function check2()
+{
+if (event.keyCode==34 || event.keyCode==39) event.returnValue = false;
+}
+function check3()
+{
+if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;
+}
+function check4()
+{
+if (event.keyCode <65 || event.keyCode > 91) event.returnValue = false;
+}
+
+</script>
+</head>
+
+<body>
+<form onSubmit="return false;">
+  <p>这里不允许输入如下字符: (像 !@#$%^&* 等)<br>
+    <textarea rows=2 cols=20 name=comments onKeypress="check1()"></textarea>
+</p>
+<p>这里不能输入引号:<br>
+<input type=text name=txtEmail onKeypress="check2()">
+</p>
+<p>这里只能输入数字:<br>
+<input type=text name=txtPostalCode onKeypress="check3()">
+</p>
+<p>这里只能输入大写英文:<br>
+<input type="text" name="english" onKeypress="check4()"/>
+</p>
+</form>
+</body>
+</html>

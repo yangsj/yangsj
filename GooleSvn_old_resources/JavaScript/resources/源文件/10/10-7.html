@@ -1,0 +1,26 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>link对象的常用属性</title>
+</head>
+<body>
+<a href="http://www.abcd.com:8080/search.html?q=javascript&m=links" target="_blank">链接一
+</a><BR />
+<a href="http://www.javascript.com:80/index.html?username=1234" target="_self">链接二
+</a><BR />
+<script language="JavaScript">
+var i
+for(i=0;i<document.links.length;i++)
+{
+document.write("<p>链接地址"+i+"："+document.links[i].href+"<br>");
+document.write("URL中的路径名："+document.links[i].pathname+"<br>");
+document.write("端口："+document.links[i].port+"<br>");
+document.write("目标："+document.links[i].target+"<br>");
+document.write("查询部分："+document.links[i].search+"</p>");
+}
+</script>
+</body>
+</html>
+
+
+

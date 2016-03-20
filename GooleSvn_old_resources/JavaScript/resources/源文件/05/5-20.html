@@ -1,0 +1,19 @@
+<HTML>
+ <HEAD>
+   <TITLE>用for...in语句输出数组中的值</TITLE>
+    <SCRIPT Language="JavaScript">
+     var myarray=new Array();                        //用于存放求阶乘的结果
+     for (var i=0;i<10;i++)                              //循环开始位置
+	    {            
+		 myarray[i]=i*10;                              //给数组元素赋值
+		}
+	 for (i in myarray)     
+	    {
+		 document.write("数组中第",i,"个元素是：");      //输出数组元素位置
+		 document.write(myarray[i]+"<br>");             //输出数组中第i个元素的值
+		}
+     </SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

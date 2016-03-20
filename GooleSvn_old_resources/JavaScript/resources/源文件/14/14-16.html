@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>删除文本</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false"; 
+xmlDoc.load("14-1.xml");                              //加载14-1.xml文件
+alert(xmlDoc.xml); 
+var x=xmlDoc.getElementsByTagName("province_name");
+for (var i=0;i<x.length;i++)
+{
+x[i].childNodes[0].deleteData(2,1);                  // 删除文本节点的第一个字符
+}
+alert(xmlDoc.xml);                                  //弹出提示框，显示文档内容 
+</script>
+</head>
+<body>
+</body>
+</html>
+
+
+

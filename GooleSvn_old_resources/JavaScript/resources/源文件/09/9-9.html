@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>移动窗口</title>
+<script language="JavaScript">
+function up(){
+    window.moveBy(0, -15);
+}
+function down(){
+    window.moveBy(0, 15);
+}
+function left(){
+    window.moveBy(-15, 0);
+}
+function right(){
+    window.moveBy(15, 0);
+}
+function zsj(){
+    window.moveTo(0, 0);
+}
+</script>
+</head>
+<body >
+<input type="button" value="向上" onclick="up();"/>
+<input type="button" value="向下" onclick="down();" />
+<input type="button" value="向左" onclick="left();"/>
+<input type="button" value="向右" onclick="right();"/>
+<input type="button"  value="左上角" onclick="zsj();"/>
+</body>
+</html>

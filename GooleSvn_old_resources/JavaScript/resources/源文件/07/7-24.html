@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Array对象的length属性的使用</title> 
+<script language="JavaScript">
+    { 
+	  var myArray = new Array();
+      myArray[100] = "element";
+      document.write("myArray数组的长度为: "+myArray.length+"<br>");	
+	  var myArray=[1,3,5,7,9];
+	  document.write("myArray数组赋值后的长度为: "+myArray.length+"<br>"); 
+      document.write("myArray数组的元素为: "); 	 
+	  for (i=0;i<myArray.length;i++)  
+	    { 
+		    document.write(" "+myArray[i]);  
+	    }
+	   document.write("<br>"); 
+	   myArray.length = 0;
+	  document.write("myArray= "+myArray);  
+	 }
+</script>
+</head>
+<body>
+</body>
+</html>

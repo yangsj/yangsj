@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script type="text/javascript">
+var i=1
+function fieldSize()
+  {  
+   document.form1.text1.size=i
+   i=i+1;
+   if(i<=60)
+   {
+    var size=setTimeout("fieldSize()",100)
+   }
+  
+ }
+</script>
+</head>
+<body onLoad="fieldSize()">
+<form name="form1">
+  <p>文本框大小逐渐变大</p>
+  <p>
+    <input type="text"  name="text1" value="点击按钮显示文本框大小" size="1" />
+  </p>
+</form>
+</body>
+</html>

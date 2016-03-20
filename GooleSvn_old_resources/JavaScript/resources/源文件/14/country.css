@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+country {
+	font-family: "黑体";
+	font-size: 24px;
+	font-weight: bold;
+	color: #0000FF;
+}
+province {
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+}
+province_name {
+	font-family: "宋体";
+	font-size: 18px;
+	color: #000000;
+}
+province_city {
+	font-family: "方正黄草简体";
+	font-size: 18px;
+	color: #FF0000;
+}
+
+

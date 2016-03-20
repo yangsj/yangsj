@@ -1,0 +1,44 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>进入首页</title>
+<script language="javascript">
+function check()
+{
+  var username=document.form1.username.value
+  var username1=document.form1.username1.value
+  var password=document.form1.password.value
+  var password1=document.form1.password1.value
+  if(username==username1&&password==password1)
+  {
+   alert("用户名和密码正确，进入首页");
+   document.form1.action="11-15.html"
+  }
+  else
+  {
+  alert("用户名和密码不正确，请重新输入")
+  }   
+}
+</script>
+</head>
+<body>
+<form  method="get" name="form1" onsubmit="check()">
+<p>用户名：<input type="text" name="username" >
+</p>
+<p>密码：<input name="password" type="password" />
+</p>
+<input name="username1" type="hidden" value="abcde" />
+<input name="password1" type="hidden" value="12345" />
+ <p>
+<input type="submit" name="Submit" value="进入页面" />
+<input type="reset" name="Submit2" value="重置" />
+</p>
+</form>
+(用户名为：abcde 密码为12345）
+</body>
+</html>
+
+
+
+
+

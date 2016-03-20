@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>设置和显示日期</title> 
+</head>
+<body>
+<script language="JavaScript">
+today = new Date( );           
+exam = new Date( );        
+exam.setMonth(11);        // 设置月份为11月
+exam.setDate(15);         //设置具体为15日
+
+if (today.getTime() < exam.getTime( )) {
+    difference = exam.getTime() - today.getTime( );
+    difference = Math.floor(difference / (1000 * 60 * 60 * 24));
+    document.write("距离期末考试还有"+ difference +"天！");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>xml</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false";
+xmlDoc.load("14-1.xml"); 								 //加载14-1.xml文件	
+var i=0;
+var x=xmlDoc.getElementsByTagName("province");		 //访问文档上的province标签
+for (i=0;i<x.length;i++)                                  //循环访问节点列表
+{
+    var y=x[i].childNodes                                //节点下的子节点集合
+     document.write("<p>省份名称："+y[0].childNodes[0].nodeValue+"<br>")//输出第一个节点的值
+	 document.write("省会城市："+y[1].childNodes[0].nodeValue+"</p>")  // 输出第二个子节点的值
+
+ }
+</script>
+</head>
+<body>
+</body>
+</html>
+

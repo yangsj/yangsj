@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312"?>
+<?xml-stylesheet type="text/css" href="country.css"?>
+<country>省会城市	 
+<province id="0001"> 
+  <province_name>黑龙江</province_name>
+	 <province_city>哈尔滨</province_city>	
+</province>
+<province id="0002">					
+	 <province_name>吉林省</province_name>
+	 <province_city>长春</province_city>	
+</province>	
+<province id="0003">
+  <province_name>辽宁省</province_name>
+	 <province_city>沈阳</province_city>	
+</province>
+<province id="0004">
+  <province_name>山东省</province_name>
+	 <province_city>济南</province_city>	
+</province>
+
+</country>

@@ -1,0 +1,19 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>location</title>
+<script language="javascript">
+function tz()
+ {
+  window.location=document.form1.address.value;    //设置location属性为文本框中输入的网址
+ }
+</script>
+</head>
+<body>
+<form method="get" name="form1" >
+  <input name="address" type="text" size="50">
+  <input name="tiaozhuan" type="button" onClick="tz()" value="跳转到网页">
+</form>
+</body>
+</html>
+

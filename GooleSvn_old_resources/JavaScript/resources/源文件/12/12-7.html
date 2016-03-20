@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>统计用户来访次数和时间</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script language="JavaScript">
+<!-- Begin
+function start()
+       			   //存取用户姓名
+{
+ var text=""
+  var VisitorName = getCookie('VisitorName') 
+  var lasttime= getCookie('time')  
+   var isnMonth = new                                   //设置表示月份的数组
+  Array("1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月");
+  var isnDay = new                                      //设置表示星期的数组
+  Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六","星期日");
+  var today=new Date() ;                                 //创建一个Date对象
+  var Year=today.getYear();
+  var day=today.getDate();//表示时间的字符串
+  var cookietime=Year+"年"+isnMonth[today.getMonth()]+day+"日"+isnDay[today.getDay()]
+  today.setTime(today.getTime()+365 * 24 * 60 * 60 * 1000)  //设置cookie的有效时间
+  setCookie("time",cookietime,today);              
+  if (VisitorName=="") 
+  {
+    VisitorName=prompt("您的尊姓大名：");
+	setCookie ('VisitorName', VisitorName, today);
+    document.write("您好!"+VisitorName+"首次光临本站,请多提宝贵意见")	
+   }
+  else
+  {
+ text+="您好!"+VisitorName+ "您是第"+Count()+"次访问本站,请多提宝贵意见.<br>上次访问时间为："+lasttime
+ document.write(text)
+  }
+}
+
+function Count()       //统计用户访问次数
+{  
+var now = new Date()                                    //创建一个date对象
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)     //设置Cookie的有效日期
+var visits = getCookie("counter")                          //查找counter的cookie的值
+if (!visits){
+        visits = 1
+}else{
+        visits = parseInt(visits) + 1
+}
+setCookie("counter", visits, now)                         //更改cookie的值
+return visits
+}
+
+function getCookie(name)                           //输出特定Cookie值的函数
+{
+if (document.cookie.length>0)
+  {
+  start=document.cookie.indexOf(name+"=")          //查找是否存在name
+  if (start!=-1)                                     //判断是否存在
+    { 
+    start=start+name.length+1 
+    end=document.cookie.indexOf(";",start)          //查找cookie的name属性的value值
+    if (end==-1)                                  //表示未找到；
+    end=document.cookie.length                   // value值的介绍位置为cookie字符串的末尾
+    return decodeURI(document.cookie.substring(start,end))    //返回cookie的值
+    } 
+  }
+return ""
+}
+
+function setCookie(name, value, expires, path, domain, secure)   //写入Cookie函数
+{
+var curCookie = name + "=" + encodeURI(value) 
++((expires) ? "; expires=" + expires.toGMTString() : "") 
++((path) ? "; path=" + path : "")
+ +((domain) ? "; domain=" + domain : "")
+ +((secure) ? "; secure" : "")
+document.cookie = curCookie
+}
+</script>
+</head>
+
+<body  onLoad="start()">
+
+</body>
+</html>
+
+

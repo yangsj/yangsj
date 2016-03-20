@@ -1,0 +1,56 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>link对象</title>
+<script language="JavaScript">
+function target1(i)
+{
+  if (i=="0")
+  {
+   document.links[0].href="10-1.html";
+   if(confirm("是否在新窗口中打开页面"))
+    {
+     document.links[0].target="_blank"
+    }
+   else 
+   {
+    document.links[0].target="_self"
+   }
+  }
+  if (i=="1")
+  {
+   document.links[1].href="10-2.html";
+   if(confirm("是否在新窗口中打开页面"))
+    {
+     document.links[1].target="_blank"
+    }
+   else 
+   {
+    document.links[1].target="_self"
+   }
+  }
+  if (i=="2")
+  {
+   document.links[2].href="10-3.html";
+   if(confirm("是否在新窗口中打开页面"))
+    {
+     document.links[2].target="_blank"
+    }
+   else 
+   {
+    document.links[2].target="_self"
+   }
+  }
+}
+
+</script>
+</head>
+<body>
+<a href="#"  onClick="target1(0)"onMouseOver="window.status='根据title属性设置标题';return true;" >10-1.html</a><br >
+<a href="#"  onClick="target1(1)" onMouseOver="window.status='自定义文档的背景颜色';return true;">10-2.html</a><br >
+<a href="#"  onClick="target1(2)" onMouseOver="window.status='随机改变文本和超链接的颜色';return true;" >10-3.html</a><br >
+</body>
+</html>
+
+
+

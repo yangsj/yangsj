@@ -1,0 +1,28 @@
+<HTML>
+ <HEAD>
+   <TITLE>使用函数创建对象</TITLE>
+   <SCRIPT Language="JavaScript">
+  function student(name,sex,height)			//定义函数
+  {
+   this.name=name;					//定义属性
+   this.sex=sex;
+   this.height=height;
+   }
+   var student1= new student ("王维","男","180");	//创建对象实例1
+	   document.write("姓名: ",student1.name,"<br>");
+	   document.write("性别: ",student1.sex,"<br>");
+	   document.write("身高: ",student1.height,"<br>");
+   var student1= new student ("齐喜源","男","176");	//创建对象实例2
+	   document.write("姓名: ",student1.name,"<br>");
+	   document.write("性别: ",student1.sex,"<br>");
+	   document.write("身高: ",student1.height,"<br>");
+    var student1= new student ("李婷","女","166");	//创建对象实例3
+	   document.write("姓名: ",student1.name,"<br>");
+	   document.write("性别: ",student1.sex,"<br>");
+	   document.write("身高: ",student1.height,"<br>");
+
+</SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

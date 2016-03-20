@@ -1,0 +1,34 @@
+<html>
+<head><title>函数调用</title></head>
+
+<body>
+<script  language="javascript">
+var  msg="全局变量";
+var  sum;
+function  square(x,y)
+{
+var sum;
+sum=x*x+y*y;
+return  sum;
+}
+function  show()
+{
+var msg="局部变量";
+alert(msg);
+}
+
+
+sum=square(2,3);
+alert("x和y的平方和sum="+sum);
+
+show();
+
+</script>
+</body>
+</html>
+
+
+
+
+
+

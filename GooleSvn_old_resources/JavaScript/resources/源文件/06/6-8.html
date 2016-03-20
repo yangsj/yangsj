@@ -1,0 +1,25 @@
+<HTML>
+ <HEAD>
+   <TITLE>函数的嵌套</TITLE>
+    <SCRIPT Language="JavaScript">
+      {         
+	 function funcA()  //定义函数funcA()
+         {
+            var stringA="这是在函数funcA()中定义的变量stringA";
+            funcB();   //在函数funcA()中调用函数funcB();
+              function funcB()    //在函数funcA()中定义函数funcB();
+	      {
+	         var stringB="这是在函数funcB()中定义的变量stringB";
+                 document.write("在函数funcB()中输出：<br>");
+                 document.write(stringA);
+                 document.write("<br>");
+		        document.write(stringB);
+	      }
+         }
+          funcA(); //调用函数funcA();
+      }
+	</SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

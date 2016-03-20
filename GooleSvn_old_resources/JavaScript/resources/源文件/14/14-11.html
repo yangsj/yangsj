@@ -1,0 +1,25 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>创建元素节点</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false";
+xmlDoc.load("14-1.xml"); 								 //加载14-1.xml文件	
+var x=xmlDoc.getElementsByTagName("province");    //访问文档province节点
+var newElement,newtext
+for (i=0;i<x.length;i++)                               //遍历province标签，添加元素节点
+  {
+    newElement=xmlDoc.createElement("title");     //创建一个新的元素节点
+    newtext=xmlDoc.createTextNode("省份和省会城市");       //创建一个新的文本节点
+    newElement.appendChild(newtext);                //将文本节点添加到元素节点中
+    x[i].appendChild(newElement);                    //将新创建的元素节点追加到x[i]元素中
+}
+	                 
+alert(xmlDoc.xml);  
+</script>
+</head>
+<body>
+</body>
+</html>
+

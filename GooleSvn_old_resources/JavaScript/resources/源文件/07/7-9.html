@@ -1,0 +1,23 @@
+<HTML>
+ <HEAD>
+   <TITLE>字符串处理方法</TITLE>
+    <SCRIPT Language="JavaScript">
+    { 
+	  var str=new String("字符串处理方法");
+	  document.write("str字符串为:",str.valueOf(),"<br>");
+	  document.write("str字符串中第4个字符为:"+str.charAt(3)+"<br>");
+//起始位置从0开始计算,因此要得到第4个字符要使用charAt(3)
+	  document.write("str字符串中第4个字符的Unicode码为:"+str.charCodeAt(3)+"<br>");
+	  document.write("Unicode码为69的字符是:"+String.fromCharCode(69)+"<br>");
+	  document.write("str.concat('语法')的结果为:"+str.concat("语法")+"<br>");
+	  document.write("str.indexOf('串')的运行结果为:"+str.indexOf("串")+"<br>");
+	  document.write("str.lastIndexOf('符')的运行结果为:"+str.lastIndexOf("符")+"<br>");
+	  document.write("str.slice(1,3)的运行结果为:"+str.slice(1,3)+"<br>");
+	  document.write("str.substr(1,4)的结果为:"+str.substr(1,4)+"<br>");
+	  document.write("str.substring(1,3)的运行结果为:"+str.substring(1,2)+"<br>");
+	  document.write("str.toLowerCase()的运行结果为:"+str.toLowerCase()+"<br>");
+	  document.write("str.toUpperCase()的运行结果为:"+str.toUpperCase()+"<br>");
+	 }
+	</SCRIPT>
+ </BODY>
+</HTML>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cookie</title>
+<script language="javascript">
+document.cookie="username1="+encodeURI("用户名1");		//创建一个Cookie
+document.cookie="username2="+encodeURI("用户名2");	//创建一个Cookie
+document.cookie="username3="+encodeURI("用户名3");	//创建一个Cookie
+if (document.cookie.length>0)
+ {
+  start=document.cookie.indexOf("username2=")				//查找是否存在name
+  if (start!=-1)										//判断是否存在
+    { 
+    start=start+10 
+    end=document.cookie.indexOf(";",start)				//查找cookie的name属性的value值
+   if (end==-1)									//表示为找到；
+  {
+   end=document.cookie.length	
+   }				// value值的介绍位置为cookie字符串的末尾
+   document.write(decodeURI(document.cookie.substring(start,end)))		//返回cookie的值
+    } 
+	}
+</script>
+
+
+</head>
+
+<body>
+</body>
+</html>

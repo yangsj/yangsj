@@ -1,0 +1,49 @@
+<html>
+<head><title>函数参数调用</title></head>
+
+
+<script  language="JavaScript">
+var a=2;
+var b=4;
+var c=6;
+var m;
+function  nn(x,y)
+{
+var sum;
+
+x=x*x;
+y=y*y;
+sum=x+y;
+
+return sum;
+}
+document.write("变量初始状态为:","a＝",a,"  b=",b,"  c=",c);
+
+m=nn(2,2);
+document.write("<br>2的平方加上2的平方和结果为sum=",m);
+
+m=nn(a,b);
+document.write("<br>a的平方加上b的平方和结果为sum=",m);
+
+
+m=nn(a,c);
+document.write("<br>a的平方加上c的平方和结果为sum=",m);
+
+document.write("<br>调用函数结束变量状态为:","a＝",a,"  b=",b,"  c=",c);
+
+
+
+</script>
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

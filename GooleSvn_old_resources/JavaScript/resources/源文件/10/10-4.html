@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>document.all</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+<body>
+<h1>输出文档中所有document.all[]对象</h1>
+<hr />
+<p>输出文档中所有document.all[]对象</p>
+<form name="form1" method="post" action="">
+  <label>
+  <input type="text" name="textfield" id="textfield">
+  </label>
+</form>
+<p><img src="图片1.jpg" width="186" height="126"></p>
+<p>    <a href="#">超链接1</a>
+</p>
+<hr />
+<script type="text/javascript">
+<!--
+var i,len;
+len = document.all.length;
+document.write('document.all.length='+len+"<br />");
+for (i = 0; i < len; i++)
+{
+document.write("document.all["+i+"]="+document.all[i].tagName+"<br />");
+}
+//-->
+</script>
+
+</body>
+</html>

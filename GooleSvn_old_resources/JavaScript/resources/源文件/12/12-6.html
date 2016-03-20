@@ -1,0 +1,66 @@
+<html>
+<head>
+<script type="text/javascript">
+function getCookie(name)                           //输出特定Cookie值的函数
+{
+if (document.cookie.length>0)
+  {
+  start=document.cookie.indexOf(name+"=")          //查找是否存在name
+  if (start!=-1)                                     //判断是否存在
+    { 
+    start=start+name.length+1 
+    end=document.cookie.indexOf(";",start)          //查找cookie的name属性的value值
+    if (end==-1)                                  //表示未找到；
+    end=document.cookie.length                   // value值的介绍位置为cookie字符串的末尾
+    return decodeURI(document.cookie.substring(start,end))    //返回cookie的值
+    } 
+  }
+return ""
+}
+
+function setCookie(name, value, expires, path, domain, secure)   //写入Cookie函数
+{
+var curCookie = name + "=" + encodeURI(value) 
++((expires) ? "; expires=" + expires.toGMTString() : "") 
++((path) ? "; path=" + path : "")
+ +((domain) ? "; domain=" + domain : "")
+ +((secure) ? "; secure" : "")
+document.cookie = curCookie
+}
+
+function userlogin()
+{
+var login=getCookie('login')                       //查询Cookie中是否存在username
+if (login!=null && login!="")                    //判断是否login是否为空
+   {
+    alert("欢迎光临本站")        //在页面上写上欢迎信息
+	window.location.href='12-1.html'
+   }
+}
+
+function logincheck(){
+    if(document.form1.username.value=="www" && document.form1.pass.value=="1234")
+   {
+      var login=true;
+   	  var now=new Date();
+      now.setDate(now.getDate() + 30);
+      setCookie('login',login,now)             //写入Cookie
+    }
+}
+userlogin()
+</script>
+</head>
+<body>
+<form name="form1" method="post" onSubmit="logincheck()">
+<p>用户名：
+    <input name="username" type="text" id="username" />
+</p>
+<p>密&nbsp;&nbsp;码：
+    <input name="pass" type="password" id="pass" />
+<p>
+    <input name="submit" type="submit" value="提交" /> 
+    <input name="reset" type="reset" value="重置" />
+  </p>
+</form>
+</body>
+</html>

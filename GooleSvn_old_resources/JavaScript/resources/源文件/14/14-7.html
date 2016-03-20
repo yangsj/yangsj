@@ -1,0 +1,44 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>数据显示</title>
+<head>
+<script language="JavaScript">
+function movenext()
+{                                     //下一条记录
+if (city.recordset.absoluteposition<city.recordset.recordcount) 
+city.recordset.movenext();
+}
+function moveprevious()
+{                                 //上一条记录
+if (city.recordset.absoluteposition > 1)
+city.recordset.moveprevious();
+}
+function xmlfirst(){                                       //第一条记录
+city.recordset.movefirst();
+}
+function xmlmlast(){                                     //最后一条记录
+city.recordset.movelast();
+}
+</script>
+</head>
+<body>
+<p>
+<xml ID="city" src="14-3.xml">
+</xml>
+<table>
+ <tr>
+   <td>省份名称:<span  datasrc=#city datafld="province_name"></span></td>
+ </tr>
+ <tr>
+   <td>省会城市:<span  datasrc=#city datafld="province_city"></span></td>
+ </tr>
+</table>
+<p>
+<input type=button value="第一条记录" onClick="xmlfirst()">
+<input type=button value="上一个" onClick="moveprevious()">
+<input type=button value="下一个" onClick="movenext()">
+<input type=button value="最后一条记录" onClick="xmlmlast()">
+</p>
+</body>
+</html>

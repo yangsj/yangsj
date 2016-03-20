@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>radio</title>
+</head>
+
+<body>
+<form  name="form1">
+  <p>您最喜欢什么水果：</p>
+  <p>
+    <input type="radio" name="like" value="苹果" checked/> 苹果
+    <input type="radio" name="like" value="香蕉" /> 香蕉
+    <input type="radio" name="like" value="桔子" /> 桔子
+    <input type="radio" name="like" value="樱桃" />樱桃
+    <input type="radio" name="like" value="橙子" />橙子
+</p>
+  <p><input type="submit" name="Submit" value="提交" />
+      <input name="reset" type="reset" value="重置" />
+  </p>
+</form>
+<script language="javascript">
+  // 输出单选按钮组一共有多少个单选按钮
+document.write("单选按钮组一共有："+document.form1.like.length+"个选项<br>")
+document.write("选项分别为:<br>");
+var i=0
+var len=document.form1.like.length
+for(i=0;i<len;i++)
+{
+var radiovalue=document.form1.like[i].value    //获得单选按钮的值
+document.write("选项："+i+radiovalue);
+document.write("<br>");
+}
+</script>
+</body>
+</html>
+
+
+

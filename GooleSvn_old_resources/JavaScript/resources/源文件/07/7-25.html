@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Array对象方法的使用</title> 
+<script language="JavaScript">
+var new1=new Array("个","十","百");
+	  var new2=new Array("千","万");
+	  document.write("数组new1为: "+new1.valueOf()+"<br>");
+	  document.write("数组new2为: "+new2.toString()+"<br>");
+	  var new3=new1.concat(new2)
+	  document.write("合并数组new1和new2后的数组new3为:<br> "+new3+"<br>");
+	  document.write("合并后的数组new3调用join()方法的结果为:<br> "+new3.join("/")+"<br>");
+	  new3.splice(0,1,"x","y");
+	  document.write("对上面的数组再次调用splice(0,1,'x','y')方法的结果为: <br>"+new3+"<br>");
+	  var arr4=new3.slice(1);
+	  document.write("对上面的数组调用slice(1)方法的结果为:<br> "+arr4+"<br>");
+	
+</script>
+</head>
+<body>
+</body>
+</html>

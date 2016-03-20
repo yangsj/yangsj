@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Blur事件的应用</title>
+<script language="javascript">
+function checkIt( )
+{　if(document.fm.tx.value=="")
+　　　　{　alert("请输入您的姓名")　　}
+　  else　{　alert("您已经输入")　　}
+}
+</script>
+</head>
+<body>
+<form name=fm> 请输入姓名: <br>
+<input type=text name=tx size=20 onBlur="checkIt( ) ">
+</form> 
+</body>
+</html>

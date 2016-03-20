@@ -1,0 +1,22 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>创建元素节点</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false";
+xmlDoc.load("14-1.xml"); 								 //加载14-1.xml文件	
+ alert(xmlDoc.xml);  
+var x=xmlDoc.getElementsByTagName("province");    //访问文档province节点
+
+for (i=0;i<x.length;i++)                               //遍历province标签，添加元素节点
+  {
+     x[i].appendChild(x[i].firstChild);              //将第一个子元素添加到节点列表的最后
+}	                 
+alert(xmlDoc.xml);  
+</script>
+</head>
+<body>
+</body>
+</html>
+

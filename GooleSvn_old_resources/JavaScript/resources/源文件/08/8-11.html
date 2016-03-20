@@ -1,0 +1,13 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<form>
+  <input id="b1" type="button" value="按钮1"
+         onclick="alert(this.form.b2.value);"><!--这里的this表示事件指向的目标元素-->
+  <input id="b2" type="button" value="按钮2"
+         onclick="alert(form.b1.value);">
+</form>
+</body>
+</html>

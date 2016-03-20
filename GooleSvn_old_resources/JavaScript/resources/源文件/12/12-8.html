@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cookie</title>
+</head>
+
+<body>
+<script languague="javascript1.2">
+<!--
+function getCookie(name)                           //输出特定Cookie值的函数
+{
+if (document.cookie.length>0)
+  {
+  start=document.cookie.indexOf(name+"=")          //查找是否存在name
+  if (start!=-1)                                     //判断是否存在
+    { 
+    start=start+name.length+1 
+    end=document.cookie.indexOf(";",start)          //查找cookie的name属性的value值
+    if (end==-1)                                  //表示未找到；
+    end=document.cookie.length                   // value值的介绍位置为cookie字符串的末尾
+    return decodeURI(document.cookie.substring(start,end))    //返回cookie的值
+    } 
+  }
+return ""
+}
+
+function setCookie(name, value, expires, path, domain, secure)   //写入Cookie函数
+{
+var curCookie = name + "=" + encodeURI(value) 
++((expires) ? "; expires=" + expires.toGMTString() : "") 
++((path) ? "; path=" + path : "")
+ +((domain) ? "; domain=" + domain : "")
+ +((secure) ? "; secure" : "")
+document.cookie = curCookie
+}
+
+function setHome(myhome)
+{
+        var today = new Date();
+        var expires = new Date();
+         expires.setTime(today.getTime() + 1000*60*60*24*365);
+        if (document.homeform.setgo.checked)
+		{
+            setCookie("home",myhome,expires);
+        }
+        switch (myhome)
+		{
+                case "dizhi1":
+                        window.location="12-1.html";
+                        break;
+                case "dizhi2":
+                        window.location="12-2.html";
+                        break;
+                case "dizhi3":
+                        window.location="12-3.html";
+                        break;
+                case "dizhi4":
+                        window.location="12-4.html";
+                        break;
+        }
+
+    }
+   var pHome =getCookie("home");
+   if (pHome)
+  {
+        switch (pHome)
+		{
+                case "dizhi1":
+                        window.location="12-1.html";
+                        break;
+                case "dizhi2":
+                        window.location="12-2.html";
+                        break;
+                case "dizhi3":
+                        window.location="12-3.html";
+                        break;
+                case "dizhi4":
+                        window.location="12-4.html";
+                        break;
+        }
+}
+//-->
+</script>
+<a href="javascript:setHome('dizhi1')">网址一</a>
+<a href="javascript:setHome('dizhi2')">网址二</a>
+<a href="javascript:setHome('dizhi3')">网址三</a>
+<a href="javascript:setHome('dizhi4')">网址四</a>
+ <form name="homeform" method="post">
+     <input type="checkbox" name="setgo" value="1">下次直接进入这个分站...
+  </form>
+
+</body>
+</html>
+

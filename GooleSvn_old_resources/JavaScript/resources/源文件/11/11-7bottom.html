@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>文本框中的内容在另一个文本框中显示</title>
+<script language="javascript">
+<!--
+function copy() {
+ 
+ window.parent.mainFrame.document.write(document.from1.t1.value);
+}
+//-->
+</script>
+</head>
+<body>
+<form name="from1">
+  <br>
+文本框1：
+<input type="text" name="t1" size="50" value=""onChange="copy();">
+</form>
+</body>
+</html>
+

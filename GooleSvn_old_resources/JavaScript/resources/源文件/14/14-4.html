@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>使用JavaSript代码显示XML文档</title>
+<script language="javascript">
+var xml= new ActiveXObject("Microsoft.XMLDOM")
+xml.async=false
+xml.load("14-3.xml")
+var xsl=new ActiveXObject("Microsoft.XMLDOM")
+xsl.async=false
+xsl.load("14-3.xsl")
+document.write(xml.transformNode(xsl))
+</script>
+</head>
+
+<body>
+</body>
+</html>

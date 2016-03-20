@@ -1,0 +1,16 @@
+<table border="1">
+    <tbody>
+        <tr>
+            <th>产品</th>
+            <th>价格</th>
+        </tr>
+        <tr>
+            <td>电视</td>
+            <td>￥2300</td>
+        </tr>    
+        <tr>
+            <td>手机</td>
+            <td>￥1760</td>
+        </tr>    
+    </tbody>
+</table>

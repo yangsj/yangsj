@@ -1,0 +1,31 @@
+<HTML>
+ <HEAD>
+   <TITLE>在构造函数外定义对象的方法</TITLE>
+    <SCRIPT Language="JavaScript">
+     function person(name,sex,math,english)	//定义函数 
+	     {
+		     this.name=name;				//定义属性
+			this.sex=sex;
+			this.math=math;
+			this.english=english;
+			this.sum=sum;					/*将后面要定义的函数sum()的名称赋值给该成员,从而定义了student对象的方法sum*/
+	     }
+		function sum()						//定义方法
+		 {
+		return((this.math+this.english));
+		 }
+	     var st1=new person("刘小启","女",88,95);	//创建对象实例
+var sumscore= st1.sum();				//调用st1对象的方法求出平均成绩
+	     document.write("删除math属性和sum方法前对象的属性和方法有:<br>");
+	     for (var i in st1)
+	     document.write(st1[i]+"<br>");
+	     delete st1.math; 					//删除st1对象的math属性
+	     delete st1.sum; 					//删除st1对象的sum方法
+	     document.write("删除math属性和sum方法后对象的属性和方法有:<br>");
+	     for (var i in st1)
+	     document.write(st1[i]+"<br>");
+</SCRIPT>
+   </HEAD>
+ <BODY>   
+ </BODY>
+</HTML>

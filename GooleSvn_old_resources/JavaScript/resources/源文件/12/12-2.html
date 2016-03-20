@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cookie</title>
+<script language="javascript">
+function savecookie()
+{
+var i=0;
+for (i=0;i<document.form1.time1.length;i++)
+{
+if(document.form1.time1[i].checked==true)             //判断该单选按钮是否被选中
+{
+var timevalue=document.form1.time1[i].value           //将单选框的取值赋给变量timevalue
+ }
+}
+if(document.form1.username.value!="")                //判断文本框是否为空
+{
+   if(document.form1.pass.value!="")
+   {
+    i=true;
+   } 
+   else
+    {
+       alert("请输入密码!")
+    }
+}
+ else
+ {
+  alert("请输入用户名!")
+ }
+if(i==true)                //判断文本框是否为空
+{
+var cookiestring=document.form1.username.value+"//"+document.form1.pass.value
+var time=new Date();                                //创建一个date对象
+if (timevalue=="1"){time.setDate(time.getDate()+1);}     //根据单选框的取值，设置不同的有效日期
+if (timevalue=="10"){time.setDate(time.getDate()+30);} 
+if (timevalue=="30"){time.setDate(time.getDate()+30);}
+if (timevalue=="365"){time.setDate(time.getDate()+365);}
+var i=false;
+document.cookie=encodeURI("value="+cookiestring)+"; expires="+time.toUTCString();                         //创建Cookie
+document.write("保存的Cookie信息:"+document.cookie); //输出Cookie
+ }
+ }
+</script>
+</head>
+<body>
+<form name="form1" method="post" onSubmit="savecookie()">
+<p>用户名：
+    <input name="username" type="text" id="username" />
+</p>
+<p>密&nbsp;&nbsp;码：
+    <input name="pass" type="password" id="pass" />
+<p>
+    <label>
+    <input type="radio" name="time1" value="1" checked>一天
+	<input type="radio" name="time1" value="10">十天
+	<input type="radio" name="time1" value="30">一个月
+	<input type="radio" name="time1" value="365">一年
+    </label>
+  </p>
+  <p>
+    <input name="submit" type="submit" value="提交" /> 
+    <input name="reset" type="reset" value="重置" />
+  </p>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="gb2312"?>
+<scores>                                               
+	<wangli>                                         
+		 <state>wangli</state>
+		 <state>87</state>
+	</wangli>
+	<zhangyan>                                         
+		 <state>zhangyan</state>
+		 <state>67</state>
+	</zhangyan>
+    <zhaobo>                                         
+		 <state>zhaobo</state>
+		 <state>90</state>
+	</zhaobo>                                        
+</scores>

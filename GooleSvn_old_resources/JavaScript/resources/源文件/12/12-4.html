@@ -1,0 +1,22 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cookie</title>
+<script language="javascript">
+document.cookie="username1="+encodeURI("用户名1");		//创建一个Cookie
+document.cookie="username2="+encodeURI("用户名2");		//创建一个Cookie
+document.cookie="username3="+encodeURI("用户名3");		//创建一个Cookie
+  var cookies=document.cookie.split(";");                    //将cookie字符串分开
+  for (var i=0;i<=cookies.length;i++)                        //输出cookie的值
+  {
+    var cookie=cookies[i].split("=");                  //将cookie的值分开
+    var cName=cookie[0];                           //cookie的名称
+    var cValue=decodeURI(cookie[1]);                           //cookie的值
+	document.write(cName+"="+cValue+"<br>");  //输出值
+}
+</script>
+</head>
+<body>
+</body>
+</html>
+

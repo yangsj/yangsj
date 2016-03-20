@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>有提醒功能的日历</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY>
+<SCRIPT language=JavaScript>
+<!--
+//写入cookie
+function setCookie(name, value, expires, path, domain, secure)	//写入Cookie函数
+{
+var curCookie = name + "=" + encodeURI(value) 
++((expires) ? "; expires=" + expires.toGMTString() : "") 
++((path) ? "; path=" + path : "")
++((domain) ? "; domain=" + domain : "")
+                +((secure) ? "; secure" : "")
+document.cookie = curCookie
+}
+//读取cookie
+function getCookie(name)							//输出特定Cookie值的函数
+{
+if (document.cookie.length>0)
+  {
+  start=document.cookie.indexOf(name+"=")				//查找是否存在name
+  if (start!=-1)										//判断是否存在
+    { 
+    start=start+name.length+1 
+    end=document.cookie.indexOf(";",start) 				//查找cookie的name属性的value值
+    if (end==-1)									//表示未找到；
+    end=document.cookie.length						// value值的介绍位置为cookie字符串的末尾
+    return decodeURI(document.cookie.substring(start,end))	//返回cookie的值
+    } 
+  }
+return ""
+}
+
+//初始化cookie
+function initCookie(monthName)
+ {
+	var text = ""
+	for (var i = 1; i <= 31; ++i) 
+{
+		text += "^" + i + "^"
+}
+	var now = new Date()
+    now.setTime(now.getTime() + 1000 * 60 * 60 * 24 * 31)   //设置cookie的有效日期
+	setCookie(monthName + "Calendar", text, now)         //写入cookie
+}
+
+//获取提示信息
+function getmessage(num, monthName) 
+{
+	var prefix = "^" + num + "^"
+	var totalCookie = getCookie(monthName + "Calendar")
+	var startIndex = totalCookie.indexOf(prefix, 0)
+	var startData = totalCookie.indexOf("^", startIndex + 1) + 1
+	if (num == 31)
+		var endData = totalCookie.length
+	else
+		var endData = totalCookie.indexOf("^", startData)
+		return totalCookie.substring(startData, endData)
+}
+
+//设置提示信息
+function setmessage(num, monthName, newValue) 
+{
+	var prefix = "^" + num + "^"
+	var totalCookie = getCookie(monthName + "Calendar")
+	var startIndex = totalCookie.indexOf(prefix, 0)
+	var startData = totalCookie.indexOf("^", startIndex + 1) + 1
+		if (num == 31)
+		var endData = totalCookie.length
+	else
+		var endData = totalCookie.indexOf("^", startData)
+	var now = new Date()
+		now.setTime(now.getTime() + 1000 * 60 * 60 * 24 * 31)//设置有效时间
+
+	setCookie(monthName + "Calendar", totalCookie.substring(0, startData) + newValue + totalCookie.substring(endData, totalCookie.length), now)
+}
+
+//输入提示信息
+function getInput(num, monthName) 
+{
+	if (!getCookie(monthName + "Calendar")) 
+      {
+		initCookie(monthName)
+} 
+	var newValue = prompt("今天要提醒的事为:", getmessage(num, monthName))
+	if (newValue) 
+    {
+		setmessage(num, monthName, newValue)
+    }
+}
+
+
+//判断是否为闰年的函数
+function leapYear(year)
+ {
+	if (year % 4 == 0) 
+		return true 
+	return false
+}
+
+//获取某年某月多少天
+function getDays(month, year) 
+{
+	var ar = new Array(12)
+	ar[0] = 31 							// 一月
+	ar[1] = (leapYear(year)) ? 29 : 28 	//二月
+	ar[2] = 31 							// 三月
+	ar[3] = 30 							// 四月
+	ar[4] = 31 							//五月
+	ar[5] = 30 							// 六月
+	ar[6] = 31 							// 七月
+	ar[7] = 31 							// 八月
+	ar[8] = 30 							// 九月
+	ar[9] = 31 							// 十月
+	ar[10] = 30							// 十一月
+	ar[11] = 31 						//十二月
+	return ar[month]
+}
+//设置日历
+function setCal()
+ {
+	var now = new Date()				//当前时间日期
+	var year = now.getYear()				//年
+	var month = now.getMonth()			//月
+	var date = now.getDate()
+	now = null
+	var firstDayInstance=new Date(year, month, 1) 
+	var firstDay=firstDayInstance.getDay()       //这个月的第一天是星期几
+	firstDayInstance = null
+	var days = getDays(month, year)
+	drawCal(firstDay + 1, days, date, month,year)
+}
+//在页面上输出日历
+function drawCal(firstDay, lastDate, date, monthName, year) 
+{
+	var text = "" 
+	text += '<CENTER><TABLE BORDER=1><th colspan=7 align="center" valign="center" height=40><font color=midnightblue >' +year  + '年 ' +monthName +'月</FONT></TH>'
+	var weekDay = new Array(7)
+	weekDay[0] = "星期日"
+	weekDay[1] = "星期一"
+	weekDay[2] = "星期二"
+	weekDay[3] = "星期三"
+	weekDay[4] = "星期四"
+	weekDay[5] = "星期五"
+	weekDay[6] = "星期六"
+	text += '<tr align="center" valign="center">'
+	for (var dayNum=0; dayNum<7; ++dayNum) {
+		text += '<td align="center" valign="center" width=50 height=30><font color="blue">'+ weekDay[dayNum] + '</font></td>'
+	}
+	text += '</tr>'
+	var digit = 1
+	var curCell = 1
+	for (var row = 1; row <= Math.ceil((lastDate + firstDay - 1) / 7); ++row)	//判断多少行
+	 {
+		text += '<TR align="center" valign="top">'
+		for (var col = 1; col <= 7; ++col)
+		 {
+			if (digit>lastDate)
+				break
+			if (curCell<firstDay)
+			 {
+				text += '<TD>&nbsp;</TD>';
+				curCell++
+			}
+			 else
+			 {
+				text += '<TD><A HREF="javascript:getInput(' + digit + ', \'' + monthName + '\')" >' + digit + '</A></TD>'			
+				digit++
+			}
+		}
+		text += '</TR>'
+	}
+	text += '</TABLE></CENTER>'
+	document.write(text) 
+}
+setCal()
+// -->
+</SCRIPT>
+</BODY>
+</HTML>
+

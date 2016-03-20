@@ -1,0 +1,30 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>images对象属性</title>
+</head>
+<body>
+
+<p>
+  <input name="" type="button" onClick="da()" value="放大">
+  <input name="" type="button" onClick="xiao()" value="缩小">
+</p>
+<p><img src="images1.jpg" alt="image图片"  border="2"height="100" width="100">
+  <script language="javascript">
+function da()
+{ 
+var w=parseInt(document.images[0].width)
+var h=parseInt(document.images[0].height)
+document.images[0].width=w+10
+document.images[0].height=h+10
+}
+function xiao()
+{ 
+var w=parseInt(document.images[0].width)
+var h=parseInt(document.images[0].height)
+document.images[0].width=w-10
+document.images[0].height=h-10
+}
+</script>
+</p>
+</html>

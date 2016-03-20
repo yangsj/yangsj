@@ -1,0 +1,22 @@
+<html>
+<head>
+<title></title>
+<script>
+function checkIt( )
+{　if (document.fm.tx.value=="")
+　　　　{　alert("您没有输入姓名！")
+　　　　　 document.fm.tx.focus()
+　　　　　 return false
+　　　　}
+　else　 {　return true　}
+}
+</script>
+</head>
+<body>
+<form name="fm" method="post" action="mailto:someone@somewhere.com" enctype="text/plain" onSubmit="return checkIt( )">
+请输入您的姓名: 
+<input type=text name=tx size=20 > 
+<input type=submit value="提交">
+</form>
+</body>
+</html>

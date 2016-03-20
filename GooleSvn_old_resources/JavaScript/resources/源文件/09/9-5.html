@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>confirm方法</title>
+<script language="javascript">
+function confirm1()                          //编写提交确认函数confirm1
+{　 if ( confirm ("您确定要提交答案吗？ ") ) //对确认框返回值进行判断
+　　     {alert("谢谢您的参与");　}          //【确定】按钮执行语句
+    else{ alert("请重新选择")}              //【取消】按钮执行语句
+}
+</script> 
+
+</head>
+
+<body>
+<form id="form1" name="form1" method="post"  onsubmit="confirm1()">
+  <p>问卷调查</p>
+  <p>您最喜欢的明星：</p>
+  <p>
+    <input type="radio" name="radio1" value="刘德华" />刘德华
+    <input type="radio" name="radio1" value="张学友" />张学友
+    <input type="radio" name="radio1" value="王菲" />王菲
+    <input type="radio" name="radio1" value="贝克汉姆" />贝克汉姆  </p>
+    <p>
+      <input type="submit" name="Submit" value="提交" />      
+      <input type="reset" name="Submit2" value="重置" />
+    </p>
+</form>
+
+</body>
+</html>

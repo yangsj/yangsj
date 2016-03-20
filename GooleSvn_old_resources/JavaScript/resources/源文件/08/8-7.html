@@ -1,0 +1,17 @@
+<html>
+<head>
+<title></title>
+<script language="JavaScript">
+function testMouse(oObject) 
+{ 
+if(oObject.contains(event.toElement)) 
+{ 
+alert("鼠标移入。"); 
+} 
+}  
+</script>
+</head>
+<body> 
+<p align="center"><button id="oButton" onmouseover="testMouse(this)">鼠标感应按钮</button></p>
+</body>
+</html>

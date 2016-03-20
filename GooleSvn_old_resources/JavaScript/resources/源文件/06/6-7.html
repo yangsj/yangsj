@@ -1,0 +1,36 @@
+<HTML>
+ <HEAD>
+   <TITLE>值传递和地址传递</TITLE>
+    <SCRIPT Language="JavaScript">
+	  var x=new Array(1,2,3);
+	  var y=5;
+	  document.write("调用函数前:<br>");
+	  document.write("基本类型变量y的值为:",y,"<br>");
+	  document.write("数组x的值为:");
+	  for(i=0;i<x.length;i++)
+		    document.write(x[i]," ");
+	  document.write("<br>");
+	  example(x,y);  //调用函数
+	  document.write("调用函数后:<br>");
+	  document.write("基本类型变量y的值为:",y,"<br>");
+	  document.write("数组x的值为:");
+	  for(i=0;i<x.length;i++)
+		    document.write(x[i]," ");
+      function example(a,b)   //定义函数
+       {
+	       a[0]=10;
+		  a[1]=20;
+		  a[2]=30;
+		  b=50;
+		  document.write("函数中:<br>");
+		  document.write("基本类型变量y的值为:",b,"<br>");
+		  document.write("数组x的值为:");
+          for(i=0;i<a.length;i++)
+		    document.write(a[i]," ");
+		  document.write("<br>");
+		}
+    </SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

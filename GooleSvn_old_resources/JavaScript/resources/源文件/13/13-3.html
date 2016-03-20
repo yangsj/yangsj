@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>图片切换</title>
+<script LANGUAGE="JavaScript">   
+<!--  
+var i=1;
+function  openwin()  { 
+var newwin=window.open("", "newwindow",  "height=200, width=300")
+switch(i){
+case 1:
+newwin.location.href="guanggao1.html"
+break;
+case 2:
+newwin.location.href="guanggao2.html"
+break;
+case 3:
+newwin.location.href="guanggao3.html"
+break;
+case 4:
+newwin.location.href="guanggao4.html"
+break;
+}
+i++;
+if(i>4){ i=1;}
+
+setTimeout("openwin()",5000);
+} 
+
+//--> 
+</script> 
+</head> 
+<body  onload="setTimeout('openwin()',500);">
+弹出一个小窗口，5秒钟后切换到下一个页面，循环显示。
+</body> 
+</html>  
+

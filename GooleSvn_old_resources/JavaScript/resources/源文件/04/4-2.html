@@ -1,0 +1,26 @@
+<HTML>
+ <HEAD>
+   <TITLE>基本数据类型转换</TITLE>
+   <SCRIPT Language="JavaScript">
+     var aa="11";
+     var bb="22";
+	 document.write("变量的初始情况：aa='11'  bb='22'");
+
+	 var result=Number(aa)+Number(bb);
+	 document.write("<br>number(aa)+number(bb)-------数值的运算结果为：",result);
+
+	 var st=String(aa);
+	 result=st+22;
+	 document.write("<br>string(aa)+22--------字符串aa与数字的运算结果为：",result);
+
+	 var bo=Boolean(aa);
+	 result=bo+bb;
+	 document.write("<br>boolean(aa)+bb--------布尔值与字符串bb的运算结果为：",result);
+	 result=bo+22;
+	 document.write("<br>boolean(aa)+22--------布尔值与数值的运算结果为：",result);
+	 document
+	</SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>创建元素节点</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false";
+xmlDoc.load("14-1.xml"); 
+								 //加载14-1.xml文件	
+var x=xmlDoc.documentElement    //访问文档上根节点
+var newElement,newtext
+    var newElement=xmlDoc.createElement("province");     //创建一个新的元素节点
+	x.appendChild(newElement); 
+	
+	var newatt=xmlDoc.createAttribute("id");
+     newatt.value="0005";
+	 newElement.setAttributeNode(newatt);
+
+    var newElement1=xmlDoc.createElement("province_name");
+	var newtext1=xmlDoc.createTextNode("浙江省");       //创建一个新的文本节点
+    newElement1.appendChild(newtext1); 
+	newElement.appendChild(newElement1);  
+	
+	var newElement2=xmlDoc.createElement("province_city");  //将文本节点添加到元素节点 
+	var newtext2=xmlDoc.createTextNode("杭州市");       //创建一个新的文本节点
+    newElement2.appendChild(newtext2); 
+	newElement.appendChild(newElement2); //将新创建的元素节点追加到元素中
+	  
+	                 
+alert(xmlDoc.xml);  
+</script>
+</head>
+<body>
+</body>
+</html>
+

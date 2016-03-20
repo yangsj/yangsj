@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>下拉列表选项</title>
+<Script language="javascript">
+
+   function createOptions(){
+      
+      sel1 = document.form1.select1;
+      sel2 = document.form1.select2;
+      var num	= sel1.selectedIndex;
+      if (num > 1) {
+         var option = new Option(sel1.options[num].text);
+         var item	= sel2.options.length;
+	      sel2.options[item] = option;
+	   }
+   }
+
+   function delOptions() {
+      var num	= document.form1.select2.selectedIndex;
+      if (num>1) 	
+         document.form1.select2.options[num] = null;
+   }
+   
+</script>
+</head>
+
+<body>
+<form name="form1">
+  <table width="35%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="15%" rowspan="2">
+<select name="select1" size="20" 
+   ondblclick="createOptions()">
+      <option>可选择项目 </option>
+      <option>--------------- </option>
+  <option value="哈尔滨" selected="selected">哈尔滨</option>
+  <option value="长春">长春</option>
+  <option value="沈阳">沈阳</option>
+  <option value="北京">北京</option>
+  <option value="天津">天津</option>
+  <option value="大连">大连</option>
+  <option value="青岛">青岛</option>
+  <option value="烟台">烟台</option>
+  <option value="威海">威海</option>
+  <option value="郑州">郑州</option>
+  <option value="南京">南京</option>
+  <option value="上海">上海</option>
+  <option value="深圳">深圳</option>
+  <option value="广州">广州</option>
+
+    </select></td>
+    <td width="6%" height="61"><input type="button" value="选择" onclick="createOptions()" /></td>
+    <td width="79%" rowspan="2"><select name="select2" size="20">
+      <option>选择项目 </option>
+      <option>--------------- </option>
+    </select></td>
+  </tr>
+  <tr>
+    <td><input type="button" value="删除" onclick="delOptions()" /></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>下拉列表</title>
+
+</head>
+<body>
+<form name="form1" >
+请选择你喜爱的颜色 (可选多项): <br>
+<select name="color"  >
+<option value="白色"> 白色</option>
+<option value="绿色"> 绿色</option>
+<option value="红色" selected> 红色</option> 
+<option value="黄色"> 黄色</option>
+<option value="蓝色"> 蓝色</option>
+<option value="不在上列"> 不在上列</option>
+</select>
+<input type="button" value="显示" onClick="show() ">
+<input type="reset" value="清除">
+</form>
+<script language="javascript">
+<!--
+var len=document.form1.color.length						//获取表单中color单选按钮的个数
+// 输出单选按钮组一共有多少个单选按钮
+document.write("单选按钮组一共有："+len+"个选项<br>")
+document.write("选项分别为:<br>");
+var i=0
+for(i=0;i<len;i++)										//循环输出表单中的选项
+{	
+document.write("选项："+i+document.form1.color.options[i].value	+"<br>");
+}
+
+//-->
+</script>
+</body>
+</html>
+
+
+
+

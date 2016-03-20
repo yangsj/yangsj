@@ -1,0 +1,20 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>创建元素节点</title>
+<script language="javascript">
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");    //创建一个XML DOM对象
+xmlDoc.async="false";
+xmlDoc.load("14-1.xml"); 								 //加载14-1.xml文件	
+var x=xmlDoc.documentElement;
+var newElement=xmlDoc.createElement("zhixiashi");            //创建一个新的new元素       
+var newtext=xmlDoc.createTextNode("北京市");               //创建一个文本元素
+newElement.appendChild(newtext);                    //将文本元素添加到new元素中
+x.insertBefore(newElement, x.childNodes[2]); //插入第三个节点前插入new元素
+alert(xmlDoc.xml);                                   //弹出提示框，显示文档内容 
+</script>
+</head>
+<body>
+</body>
+</html>
+

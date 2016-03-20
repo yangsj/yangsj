@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cookie</title>
+<SCRIPT language=javascript>
+<!--//
+function setCookie(name, value, expires, path, domain, secure)			//函数：写入cookie
+{
+var curCookie = name + "=" + encodeURI(value) 
++((expires) ? "; expires=" + expires.toGMTString() : "")
+ +((path) ? "; path=" + path : "") 
++((domain) ? "; domain=" + domain : "") 
++((secure) ? "; secure" : "")
+document.cookie = curCookie
+}
+function savecookie()
+{
+var cookiestring=document.form1.cookiestring.value;            //提取表单的要保存的cookie信息的值
+var time=document.form1.time.value;           					  //提取表单的密码的值
+time=parseInt(time)
+var now=new Date(); 											 //创建Date对象
+now.setDate(now.getDate()+time);    							  //设置有效期限为一年
+setCookie("cookiestring",cookiestring,now);  			                   //调用函数保存用户名的值
+ 			                    //调用函数保存密码的值
+document.write(decodeURI(document.cookie))       			                    //输出cookie的值
+} 
+</SCRIPT>
+</head>
+<body>
+<form name="form1" method="post" onSubmit="savecookie()">
+  <p>Cookie信息：
+    <input name="cookiestring" type="text" size="50" />
+  </p>
+    <p>有效日期：
+      <input name="time" type="text" value="30" size="10" />
+  （输入整数天数)</p>
+    <p>
+    <input name="submit" type="submit" value="提交" /> 
+    <input name="reset" type="reset" value="重置" />
+    </p>
+</form>
+</body>
+</html>
+

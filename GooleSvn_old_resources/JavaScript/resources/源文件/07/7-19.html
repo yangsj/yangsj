@@ -1,0 +1,19 @@
+<html>
+<head>
+<title></title> 
+<script language="JavaScript">
+d = new Date();  //取得当前日期和时间
+document.write("今天是: " + d.toLocaleDateString( ) + ".");  // 显示日期
+document.write("当前时间是: " + d.toLocaleTimeString( )+ "<p>");      // 显示时间
+var dayOfWeek = d.getDay();                                    
+var weekend = (dayOfWeek == 0) || (dayOfWeek == 6);           
+if  (weekend==1)  {
+        document.write("今天是周末！");
+	 }
+	 else {
+	    document.write("今天是工作日！");}
+</script>
+</head>
+<body>
+</body>
+</html>

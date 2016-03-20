@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>随机改变文本的颜色</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script type="text/javascript">
+<!--
+var color= new Array("red", "green", "blue", "yellow", "coral", "orange", "greenyellow", "violet", "turquoise", "blueviolet");
+var len=color.length
+var RandomNum = Math.random();
+var fgcolorindex= Math.round(RandomNum * (len-1))+1;
+document.fgColor=color[fgcolorindex]
+
+-->
+</script>
+</head>
+<body >
+    <h2>文本的颜色</h2>
+</body>
+</html>

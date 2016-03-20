@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>使用responseText</title>
+<script type="text/javascript">
+var XMLHttp;
+function createXMLHttpRequest() {	//创建XMLHttpRequest对象
+    if (window.ActiveXObject) {
+        XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } 
+    else if (window.XMLHttpRequest) {
+        XMLHttp = new XMLHttpRequest();
+    }
+}
+function startRequest() {			//单击按钮被调用的函数
+    createXMLHttpRequest();
+    XMLHttp.onreadystatechange = handleStateChange;
+    XMLHttp.open("GET", "16-12.XML", true);
+    XMLHttp.send(null);
+}
+function handleStateChange() {		//处理服务器返回信息的函数
+    if(XMLHttp.readyState == 4) {
+        if(XMLHttp.status == 200) {
+            document.getElementById("results").innerHTML = XMLHttp.responseText;
+    							//使用responseText属性结合innerHTML显示XML文档
+        }
+    }
+}
+</script>
+</head>
+<body>
+    <form action="#">
+        <input type="button" value="显示" onclick="startRequest();"/>
+    </form>
+    <div id="results"></div>
+</body>
+</html>

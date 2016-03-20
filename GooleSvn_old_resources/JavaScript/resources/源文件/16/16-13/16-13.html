@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>使用responseXML属性返回XML格式的结果 </title>
+<script type="text/javascript">
+var XMLHttp;
+var requestType = "";
+function createXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } 
+    else if (window.XMLHttpRequest) {
+        XMLHttp = new XMLHttpRequest();
+    }
+}    
+function startRequest(requestedList) {
+    requestType = requestedList;
+    createXMLHttpRequest();
+    XMLHttp.onreadystatechange = handleStateChange;
+    XMLHttp.open("GET", "16-13.XML", true);
+    XMLHttp.send(null);
+}    
+function handleStateChange() {
+    if(XMLHttp.readyState == 4) {
+        if(XMLHttp.status == 200) {
+            if(requestType == "wangli") {
+                listwangliscores();
+            }
+            else if(requestType == "all") {
+                listAllscores();
+            }
+        }
+    }
+} 
+function listwangliscores() {
+    var XMLDoc = XMLHttp.responseXML;
+    var wangliNode = XMLDoc.getElementsByTagName("wangli")[0];
+    
+    var out = "王力的成绩";
+    var wangliscores = wangliNode.getElementsByTagName("state");
+    
+    outputList("王力的成绩",wangliscores);
+}
+function listAllscores() {
+    var XMLDoc = XMLHttp.responseXML;
+    var allscores = XMLDoc.getElementsByTagName("state");
+    
+    outputList("所有的成绩列表", allscores);
+}
+function outputList(title, scores) {
+    var out = title;
+    var currentState = null;
+    for(var i = 0; i < scores.length; i++) {
+        currentState = scores[i];
+        out = out + "\n- " + currentState.childNodes[0].nodeValue;
+    }    
+    alert(out);
+}
+</script>
+</head>
+<body>
+       <form action="#">
+        <input type="button" value="显示全部学生成绩" onClick="startRequest('all');"/>
+        <br/><br/>
+        <input type="button" value="显示王力成绩" onClick="startRequest('wangli');"/>
+    </form>
+</body>
+</html>

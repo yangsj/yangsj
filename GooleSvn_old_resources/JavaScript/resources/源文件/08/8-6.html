@@ -1,0 +1,19 @@
+<html>
+<head>
+<title></title>
+<script language="JavaScript">
+function changeProp() 
+{ 
+btnProp.value = "这是新值"; 
+} function changeCSSProp() 
+{ 
+btnStyleProp.style.backgroundColor = "00eeff"; 
+} 
+
+</script>
+</head>
+<BODY> 
+<INPUT TYPE=button ID=btnProp onclick="changeProp()" value="点击改变按钮的属性值" onpropertychange='alert(event.propertyName+"属性已改变")'> 
+<INPUT TYPE=button ID=btnStyleProp onclick="changeCSSProp()" value="点击改变按钮的背景颜色" onpropertychange='alert(event.propertyName+"属性已改变")'> 
+</body>
+</html>

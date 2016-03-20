@@ -1,0 +1,56 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>anchors</title>
+
+<style type="text/css">
+<!--
+.STYLE1 {
+	font-size: 16px
+}
+.STYLE2 {font-size: 24px}
+-->
+</style>
+</head>
+<body>
+<table width="445" border="０">
+  <tr>
+    <td width="435" height="41"><a name="top"></a>&nbsp;&nbsp;<a href="#" onMouseOver="anchorslink('1')">document对象</a>&nbsp;<a href="#" onMouseOver="anchorslink('2')">link对象</a>&nbsp; <a href="#" onMouseOver="anchorslink('3')">Anchors对象</a>&nbsp;<a href="#" onMouseOver="anchorslink('4')">Image对象</a></td>
+  </tr>
+  <tr>
+    <td height="151"><p><span class="STYLE2"><a name="document"></a>document对象</span></p>
+    <p><span class="STYLE1">&nbsp; document对象是window对象的下一层对象，不需要预先实例化就可直接使用。document对象描述当前窗口或指定窗口对象的文档，它包含了页面的实际内容，指的是html文档中从&lt;head&gt;到&lt;/body&gt;的内容。它的属性和方法一般会影响窗口的文档的外观和内容。</span></p>
+    <p><a href="#" onMouseOver="anchorslink('0')">top</a></td>
+  </tr>
+  <tr>
+    <td height="156"><p><span class="STYLE2"><a name="link"></a>link对象</span></p>
+    <p><span class="STYLE1"> &nbsp;&nbsp;&nbsp;在浏览器对象模型中，link对象是从&lt;a&gt;标签创建而来的，与HTML&lt;a  href&gt;标记相对应。JavaScript使用link对象来访问链接。</span></p>
+    <p><a href="#" onMouseOver="anchorslink('0')">top</a></p></td>
+  </tr>
+  <tr>
+    <td height="130"><p class="STYLE2"><a name="Anchors"></a>Anchors对象</p>
+    <p class="STYLE1">&nbsp;&nbsp;Anchors对象又称锚对象，代表一个HTML文档中的锚点链接。Anchors对象在HTML文档中是使用&lt;a&gt;标签来创建的.</p>
+    <p><a href="#" onMouseOver="anchorslink('0')">top</a></p></td>
+  </tr>
+  <tr>
+    <td height="178"><p class="STYLE2"><a name="Image"></a>Image对象</p>
+    <p class="STYLE1">&nbsp;&nbsp;Image对象指潜入在HTML文档中的图片，它是由标准的HTML标签&lt;img&gt;创建的。Image对象是有HTML&lt;img&gt;标记创建的</p>
+    <p><a href="#" onMouseOver="anchorslink('0')">top</a></p></td>
+  </tr>
+</table>
+<script language="javascript">
+function anchorslink(num)
+{
+var i=parseInt(num);
+var anrchorsname=document.anchors[i].name
+document.location="#"+anrchorsname;
+}
+document.write("文档中存在的锚点为："+document.anchors.length+"<br>")
+document.write("文档中存在的超链接数为："+document.links.length+"<br>")
+for(var i=0;i<document.anchors.length;i++)
+{
+document.write("锚点："+i+":"+document.anchors[i].name+"<br>")
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html>
+<head>
+<title></title>
+<script language="JavaScript">
+function checkCancel() { 
+if (window.event.shiftKey) 
+window.event.cancelBubble = true; 
+} 
+function showSrc() { 
+if (window.event.srcElement.tagName == "IMG") 
+alert(window.event.srcElement.src); 
+} 
+</script>
+</head>
+<BODY onclick="showSrc()"> 
+<IMG onclick="checkCancel()" SRC="8-5.gif"> 
+</body>
+</html>

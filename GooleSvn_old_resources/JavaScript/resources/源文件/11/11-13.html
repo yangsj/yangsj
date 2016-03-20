@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>复选框中选择的内容显示出来</title>
+<script language="javascript">
+<!--
+function show()
+{
+var s="";
+var i=0
+for(i=0;i<document.form1.color.length;i++)
+{
+if (document.form1.color[i].checked) {          //判断是否被选中 
+s=s+document.form1.color[i].value+" ";
+}
+}
+if (s!="")
+{
+s="你的选择是："+s;                       //如果text不为空，则弹出选择信息
+alert(s);
+}else{
+alert("您没有做任何选择！");                    //如果没有选择复选框，则弹出提示信息
+}
+}
+//-->
+</script>
+</head>
+<body>
+<form name="form1">
+请选择你喜爱的颜色 (可选多项): <br>
+<input type="checkbox" name="color" value="red" checked>红色<br>
+<input type="checkbox" name="color" value="yellow">黄色<br>
+<input type="checkbox" name="color" value="lightblue">蓝色<br>
+<input type="checkbox" name="color" value="white">白色<br>
+
+<input type="button" value="显示" onclick="show()">
+<input type="reset" value="清除">
+</form>
+</body>
+</html>
+
+
+
+

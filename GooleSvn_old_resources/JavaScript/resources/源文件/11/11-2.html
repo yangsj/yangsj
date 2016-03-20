@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>表单个数</title>
+<script language="javascript">
+function formslength(){
+document.form1.button1.value="页面上有"+document.form1.length+"个表单"
+}
+</script>
+</head>
+<body >
+<form  name="form1" > 
+  <p>文本框1<input name="text1" type="text" /></p>
+  <p>文本框2 <input name="text2" type="text" /></p>
+  <p>
+    <input name="sex" type="radio" value="man">男
+    <input name="sex" type="radio" value="woman">女
+</p>
+  <p>    
+    <input name="button1"  type="button" value="点击查看表单元素的数目" onClick="formslength()"/>
+    </p>
+</form>
+</body>
+</html>
+

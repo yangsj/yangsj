@@ -1,0 +1,26 @@
+<HTML>
+ <HEAD>
+   <TITLE>字符串对象match()方法的使用</TITLE>
+    <SCRIPT Language="JavaScript">
+      {          
+	     var mymatch=new Array(); //定义存放匹配结果的数组
+//定义要在其中查找的字符串s中
+		var s="never give up the pursuit of learning, never ! never !";  
+         var regex=/never/ig;        //定义正则表达式
+         mymatch=s.match(regex);          //使用match()方法进行匹配
+		 document.write("最近一次匹配的字符为:"+"<br>"+RegExp.input+"<br>"+"<br>");
+		 document.write("匹配子串的个数为:"+mymatch.length+"<br>");
+		 for (i=0;i<mymatch.length;i++)   //输出每一个匹配的子串
+		  {
+		    document.write("第"+i+"个匹配子串为:"+mymatch[i]+"<br>");
+		   }
+		 document.write("<br>"+"最近一次搜索的开始位置为:"+RegExp.index+"<br>");
+		 document.write("下次搜索的开始位置为:"+RegExp.lastIndex+"<br>"+"<br>");
+		 document.write("最近一次匹配的字符前面的子串为:"+"<br>"+RegExp.leftContext+"<br>");
+		 document.write("最近一次匹配的字符后面的子串为:"+"<br>"+RegExp.rightContext+"<br>");
+      }
+    </SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>多行文本域textarea</title>
+<script language="javascript">
+<!--
+function change()                                         //改变文本域的高度和宽度
+{
+var colvalue=parseInt(document.form1.colsvalue.value);      //获得文本框colsvalue的值
+var rowvalue=parseInt(document.form1.rowsvalue.value);     //获得文本框rowsvalue的值
+if (colvalue<=0||isNaN(colvalue)||(rowvalue<=0)||isNaN(rowvalue))
+{
+alert("请输入大于0的整数")
+}
+else
+{
+document.form1.textarea1.cols=colvalue                    //设置文本域的cols属性
+document.form1.textarea1.rows=rowvalue                   //设置文本域的rows属性
+}
+}
+function check()                                          //将文本框中的内容在新窗口中输出
+{
+var text=document.form1.textarea1.value;                   //获得文本域的值
+var string=document.form1.text1.value;
+document.form1.textarea1.value=string+"   "+text			//在多行文本框中显示内容
+}
+function clr()                                          //将文本框中的内容在新窗口中输出
+{
+document.form1.textarea1.value=""						//设置多行文本框中的内容为空
+}
+//-->
+</script>
+<body>
+<form name="form1">
+  <p>设置文本域的宽度：
+    <input name="colsvalue" type="text" onChange="change()" size="5">
+  </p>
+  <p>设置文本域的高度：
+    <input name="rowsvalue" type="text" onChange="change()" size="5">
+  </p>
+  <p>文本框输入内容：
+    <input type="text" name="text1" size="30" >
+    <input type="button" name="button" id="button" value="提交" onClick="check()">
+  </p>
+  <p>
+    <textarea name="textarea1" cols="50" rows="10"></textarea>
+    <input type="button" name="button2"  value="清除" onClick="clr()">
+  </p>
+</form>
+</body>
+</html>
+
+

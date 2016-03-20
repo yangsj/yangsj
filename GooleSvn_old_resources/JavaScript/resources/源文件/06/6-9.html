@@ -1,0 +1,21 @@
+<HTML>
+ <HEAD>
+   <TITLE>递归函数</TITLE>
+    <SCRIPT Language="JavaScript">
+      {         
+	 function  age(n)          //定义函数age(n)
+         { 
+//此句是为理解程序而输出的，去掉不影响程序所完成的功能。
+            document.write("调用age(",n,")<br>"); 
+            if (n==1)
+               return 10;
+            else
+               return  age(n-1)+2;           //递归调用age(n-1)
+         }
+         document.write("age(5)的值为：",age(5));  //调用函数age(n)
+       }
+	</SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

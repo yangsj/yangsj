@@ -1,0 +1,63 @@
+<head>
+<title>读取响应首部</title>
+
+<script type="text/javascript">
+var xmlHttp;
+var requestType = "";
+
+function createXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } 
+    else if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+}
+    
+function doHeadRequest(request, url) {
+    requestType = request;
+    createXMLHttpRequest();
+    xmlHttp.onreadystatechange = handleStateChange;
+    xmlHttp.open("HEAD", url, true);
+    xmlHttp.send(null);
+}
+    
+function handleStateChange() {
+    if(xmlHttp.readyState == 4) {
+        if(requestType == "allResponseHeaders") {
+            getAllResponseHeaders();
+        }
+        else if(requestType == "lastModified") {
+            getLastModified();
+        }
+       else if(requestType == "ContentType") {
+            getContentType();
+        }
+    }
+}
+
+function getAllResponseHeaders() {
+    alert(xmlHttp.getAllResponseHeaders());
+}
+
+function getContentType() {
+    alert("Content-Type: " + xmlHttp.getResponseHeader("Content-Type"));
+}
+function getLastModified() {
+    alert("Last Modified: " + xmlHttp.getResponseHeader("Last-Modified"));
+}
+
+</script>
+</head>
+
+<body>
+  <h3>读取响应首部</h3>
+  
+  <a href="javascript:doHeadRequest('allResponseHeaders', '16-14.xml');">读取所有的响应首部</a>
+   <br/>
+  <a href="javascript:doHeadRequest('ContentType', '16-14.xml');">首部类型</a>
+  <br/>
+  <a href="javascript:doHeadRequest('lastModified', '16-14.xml');">最后修改日期</a>
+
+</body>
+</html>

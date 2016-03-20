@@ -1,0 +1,27 @@
+<HTML>
+ <HEAD>
+   <TITLE>在构造函数外定义对象方法</TITLE>
+    <SCRIPT Language="JavaScript">
+     function product(name,num,price)	//定义函数 
+	     {
+		    this.name=name;				//定义属性
+			this.num=num;
+			this.price=price;
+	     }
+		function Totle()						//定义方法
+		 {
+		return(this.num*this.price);
+		 }
+	     var newproduct=new product("原材料",1000,1500);	//创建对象实例
+      newproduct.Totle=Totle;	//定义st1对象的新成员,并将avg()函数赋值给它,从而使st1对象的新成员成为它的方法
+var Totlecapital= newproduct.Totle();				//调用st1对象的方法求出平均成绩
+     document.write("产品: ",newproduct.name,"<br>");
+	     document.write("数量: ",newproduct.num,"<br>");
+	     document.write("价格: ",newproduct.price,"<br>");
+	     document.writeln("总资产:",Totlecapital);
+	</SCRIPT>
+   </HEAD>
+ <BODY>   
+ </BODY>
+</HTML>
+

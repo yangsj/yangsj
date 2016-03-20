@@ -1,0 +1,21 @@
+<HTML>
+ <HEAD>
+   <TITLE>字符串对象split()方法的使用</TITLE>
+    <SCRIPT Language="JavaScript">
+      {          
+	     var myArray=new Array();
+             var s="never ,give  up, the, pursuit, of learning!";  
+             var regex=/,/;        //使用正则表达式指定分隔符逗号
+         myArray=s.split(regex);          //使用split()方法分隔字符串
+		 document.write("原字符串为:\'"+s+"\'<br>");
+		 document.write("分隔后的子串分别为:<br>");
+		 for (i=0;i<myArray.length;i++)   //输出每一个匹配的子串
+		  {
+		    document.write(myArray[i]+"<br>");
+		   }
+	   }
+    </SCRIPT>
+  </HEAD>
+ <BODY>
+ </BODY>
+</HTML>

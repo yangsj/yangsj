@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>XML</title>
+<script language="javascript">
+var xml= new ActiveXObject("Microsoft.XMLDOM")
+xml.async=false
+xml.load("14-3.xml")
+var x=xml.getElementsByTagName("province");           //获取文档中province标记元素
+var i=0;
+var j=0;
+document.write("省会城市<br />")
+for (var i=0;i<x.length;i++)                                  //输出name元素的值
+  {
+  document.write(x[i].childNodes[0].childNodes[0].nodeValue+":"+x[i].childNodes[1].childNodes[0].nodeValue)
+  document.write("<br />")
+}
+</script>
+</head>
+<body>
+</body>
+</html>

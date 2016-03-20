@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>标题栏上的文字逐渐出现</title>
+<script language=JavaScript>
+
+var ShowString = "标题栏上的文字逐渐出现"//这里可以更改跑马灯的信息
+var ShowHead=0
+var ShowTail=ShowString.length
+function titleshow() 
+ {
+   var S
+   if (ShowHead<ShowString.length) 
+   { 
+   S= ShowString.substring(0, ShowHead)
+   ShowHead++
+   }
+   else
+   {
+    S=ShowString
+	ShowHead=0
+	}
+   window.document.title =S
+   setTimeout("titleshow()", 200)// 在此可以设置跑马灯的速度 
+}
+
+</script>
+</head>
+
+<body onload="titleshow()">
+</body>
+</html>
+

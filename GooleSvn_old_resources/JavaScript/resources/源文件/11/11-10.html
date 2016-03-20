@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>显示点击次数</title>
+</head>
+<script language=Javascript>
+var s = 0
+function clk() 
+{   
+s=s+1                                  //设置按钮上的显示文字
+document.form1.button1.value="您已经点击了"+s+"次"
+
+}
+</script>
+<body>
+<form  name="form1">
+<input type="button" name="button1"  onClick="clk()" value="显示点击次数"/>
+</form>
+</body>
+</html>
+
+
+

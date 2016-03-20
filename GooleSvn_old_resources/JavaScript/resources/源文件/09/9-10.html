@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>窗口变大</title>
+<SCRIPT LANGUAGE="JavaScript">
+
+function fangdaWin() {
+var heightspeed = 7;            // vertical scrolling speed (higher = slower)
+var widthspeed = 7;             // horizontal scrolling speed (higher = slower)
+var winwidth = window.screen.availWidth;
+var winheight = window.screen.availHeight;
+var sizer = window.open("9-1.html","","left=0,top=0,width=1,height=1,scrollbars=yes");
+for (sizeheight = 1; sizeheight < winheight; sizeheight += heightspeed) {
+sizer.resizeTo("1", sizeheight);
+}
+for (sizewidth = 1; sizewidth < winwidth; sizewidth += widthspeed) {
+sizer.resizeTo(sizewidth, sizeheight);
+}
+}
+</script>
+</head>
+
+<body><a href="9-1.html" onClick="fangdaWin();">点击测试效果</a>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<html> 
+<head>
+<title>Focus事件的应用</title>
+</head>
+<body>
+<form name=fm>提示信息：<input type=text name=tx size=30> <br>
+请输入姓名：<input type=text size=20 onFocus="document.fm.tx.value='若为英文请区分大小写'"> <br>
+请输入出生日期: <input type=text size=20 onFocus="document.fm.tx.value='请用此格式输入: 2006年02月18日' ">
+</form> 
+</body> 
+</html>
