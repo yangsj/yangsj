@@ -1,0 +1,16 @@
+function fenge(value:int):String
+{
+	var str1:String = value.toString();
+	var cha:int = str1.length % 3;
+	var str2:String = str1.substr(0, cha);
+	var str3:String = str1.substr(cha);
+	var leng:int = str3.length / 3;
+	trace(str2, str3);
+	for (var i:int = 0; i < leng;i++)
+	{
+		trace(str3.substr(0, 3));
+		str2 += "," + str3.substr(0, 3);
+		str3 = str3.substr(3);
+	}
+	return str2;
+}
